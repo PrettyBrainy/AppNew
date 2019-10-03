@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+      <ion-title>CARBON CALCULATOR</ion-title>
+      </ion-buttons>
+    </ion-toolbar>
+    </ion-header> 
+
+
+<ion-content>
+
+  
+
+</ion-content>
+
+<!---
+<ion-content>
+    <form #form="ngForm"(ngSubmit)="register(form)">
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="13">
+            <div text-center>
+              <h3>Carbon Emissions Calculator</h3>
+            </div>
+            <div padding>
+                <h5>What is your car's fuel economy in miles per galon?</h5>
+              <ion-item>
+                <ion-input  [(ngModel)]="fuelEcon" name="fuelEcon" type="number" placeholder="mpg" required></ion-input>
+              </ion-item>
+            </div>
+            <div padding>
+              <h5>How many miles do you expect to drive today?</h5>
+              <ion-item>
+                <ion-input  [(ngModel)]="milesDriven" name='milesDriven' type="number" placeholder="miles" required></ion-input>
+              </ion-item>
+            </div>
+            <div padding>
+               <h5>How many light bulbs are in your living space?</h5>
+              <ion-item>
+                  <ion-input   [(ngModel)]="bulbs" name='bulbs' type="number" placeholder="bulbs" required></ion-input>
+              </ion-item>
+            </div>
+            <div padding>
+              <h5>How many hours are your light bulbs on each day?</h5>
+              <ion-item>
+                  <ion-input  [(ngModel)]="hours" name='hours' type="number" placeholder="hours" required></ion-input>
+              </ion-item>
+            </div>
+             <div padding>
+               <h5>How many lightbulbs are you willing to switch to LED bulbs?</h5>
+              <ion-item>
+                  <ion-input  [(ngModel)]="change" name='change' type="number" placeholder="bulbs" required></ion-input>
+              </ion-item>
+              <ion-button color="secondary" size="large" fill="solid" expand="block"
+              (click) = "btnClick()" >Calculate My Emissions</ion-button>
+            </div>
+            
+            <ion-card [hidden]="showResults" class="card">
+                <div text-center>
+                  <h4>If you do not drive today you will save {{formatRounding(1/fuelEcon*milesDriven*19.6)}} pounds of carbon.</h4>
+                </div>
+        
+                <div text-center>
+                  <h4>Your lights will emit {{formatRounding(0.124*bulbs*hours)}} pounds of carbon today.</h4>
+                </div>
+        
+                <div text-center>
+                  <h4>If you switch {{change}} bulbs to LED bulbs you will save {{formatRounding(change*58)}} pounds of carbon per year.</h4>
+                </div>
+              </ion-card>   
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form> 
+  </ion-content>
+  -->

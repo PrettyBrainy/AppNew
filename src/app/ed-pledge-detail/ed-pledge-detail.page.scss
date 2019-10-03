@@ -1,0 +1,35 @@
+.add-guest-form {
+    ion-card-header {
+      text-align: center;
+    }
+    button {
+      margin-top: 16px;
+    }
+
+    background-color: #ffffff;
+  }
+  
+  .makeAnImpact {
+    color: #92c83e;
+  }
+  
+  .no-profit {
+    color: #ff0000;
+  }
+
+.info-card{
+  background-color: #ffffff;
+  ion-card-header{
+    text-align: left;
+    font-size: 29px;
+  }
+
+  --ion-text-color: #222428;
+  font-size: 22px;
+}
+
+.subhead{
+  font-size: 25px;
+  text-transform: uppercase;
+  --ion-text-color: #f99f38;
+}

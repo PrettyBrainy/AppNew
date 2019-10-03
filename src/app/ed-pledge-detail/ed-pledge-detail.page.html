@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/edpledgelist"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{currentEvent?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card class="info-card">
+      <ion-card-header>
+        City Impact:
+        <span [class.makeAnImpact]="currentEvent?.cityImpact > 0" [class.no-profit]="currentEvent?.cityImpact < 0 ">
+          {{currentEvent?.cityImpact}} lbs of CO2 
+        </span>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Your Impact: <strong>{{currentEvent?.impact}} lbs of CO2</strong></p>
+        <p>Your MISSion: <strong>{{currentEvent?.pledge}}</strong></p>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card class="info-card">
+      <ion-card-header>
+        Why does this matter?
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>{{currentEvent?.learning}}</strong><br>Your actions today make an impact on tomorrow.</p>
+        <br>
+        <p class = "subhead">Details:</p>
+        <p><strong>{{currentEvent?.pledgeDetails}}</strong></p>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card class="add-guest-form">
+      <ion-card-header> Verify your impact. </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="8">
+            <ion-item>
+              <ion-label position="stacked">Completion Details:</ion-label>
+              <ion-input [(ngModel)]="verification" type="text" placeholder="How did you complete this pledge?"></ion-input>
+            </ion-item>
+          </ion-col>
+  
+          <ion-col size="4">
+            <ion-button (click)="takePicture()">
+              <ion-icon slot="icon-only" name="camera"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <span *ngIf="guestPicture">Picture taken!</span>
+  
+        <ion-button color="primary" expand="block" (click)="verifyPledgeText(verification)" [disabled]="!verification">
+          Upload Story
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
