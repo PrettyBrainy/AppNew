@@ -1,0 +1,35 @@
+.welcomeContent{
+    --ion-background-color: #ffffff;
+    --ion-font-family: 'ChollaSans-Thin' !important;
+   
+    font-size: 19px;
+    padding-left: 10%;
+ }
+ 
+.welcomeHeader{
+   --ion-font-family: 'ChollaSans-Bold' !important;
+   --ion-text-color: #1ba561;
+    font-size: 45px;
+    --ion-padding-top: 30px;
+    --ion-margin-top: 45px;
+    
+ }
+
+.welcomeSubheader{
+  font-family: 'ChollaSans-Thin' !important;
+  --ion-text-color: #92c83e;
+  font-size: 28px;
+  text-align: start;
+  
+ }  
+
+ .welcome-card-title{
+  font-family: 'ChollaSans-Thin' !important;
+  font-size: 30px;
+
+ }
+
+ .welcome-card-content{
+   font-size: 20px;
+ }
+
