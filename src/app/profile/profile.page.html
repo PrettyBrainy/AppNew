@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>USER PROFILE</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logOut()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header> Personal Information </ion-list-header>
+    
+    <!-- UPDATE USERNAME-->
+    <ion-item (click)="updateName()">
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-left" size="5"> Name </ion-col>
+            <ion-col
+              class="text-center"
+              size="7"
+              *ngIf="userProfile?.firstName || userProfile?.lastName"
+            >
+              {{userProfile?.firstName}} {{userProfile?.lastName}}
+            </ion-col>
+            <ion-col
+              size="7"
+              class="placeholder-profile text-center"
+              *ngIf="!userProfile?.firstName"
+            >
+              <span> Tap here to edit. </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+
+
+
+
+    <!--    UPDATE EMAIL   -->
+    <ion-item (click)="updateEmail()">
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-left" size="5"> Email </ion-col>
+            <ion-col class="text-center" size="7" *ngIf="userProfile?.email">
+              {{userProfile?.email}}
+            </ion-col>
+            <ion-col
+              size="7"
+              class="placeholder-profile text-center"
+              *ngIf="!userProfile?.email"
+            >
+              <span> Tap here to edit your email. </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+
+
+
+    <!-- UPDATE PASSWORD-->
+    <ion-item (click)="updatePassword()">
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-left" size="5"> Password </ion-col>
+            <ion-col class="placeholder-profile text-center" size="7">
+              <span> Tap here to edit. </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!--   UPDATE DOB  -->
+ 
+      <div class="dropdown" style="display: flex;
+      align-items: center;
+      justify-content: center;" >
+        <button class="dropbtn">Age Range ▼</button>
+        <div class="dropdown-content">
+     
+        <p (click) = "updateDOB('11-15')">11-15</p>
+        <p (click) = "updateDOB('16-18')">16-18</p>
+        <p (click) = "updateDOB('18+')">18+</p>
+    
+        </div>
+      </div>
+
+  
+</ion-content>
