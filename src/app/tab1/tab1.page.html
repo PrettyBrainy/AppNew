@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>DASHBOARD</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink = '/profile' routerDirection = "root">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-img src='./assets/pictures/MI_banner.jpg'></ion-img>
+    <ion-card-header>
+        <ion-card-title class="welcome-card-title"><font color = #1ba561><b>Welcome to MISSion: Innovation.</b></font></ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="welcome-card-content">
+      <p class="welcome-card-content">You're going to love your new lifestyle.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <br>
+
+<ion-grid padding>
+  <ion-row>
+    <ion-col>
+    <div class = ion-text-center>
+    
+  
+  <ion-text>This 7-week challenge will change the way you 
+  think about your behavior and understanding of 
+  7 different topics. Each week, we will challenge 
+  you to pledge to change a number of your behavior 
+  as it relates to that week's target. Each challenge 
+  that you accept and complete will reduce your carbon 
+  footprint, and reduce your negative impact on the world.
+    </ion-text>
+    
+  </div>
+
+    </ion-col>
+  </ion-row>
+
+
+
+<!-- Button to view target overview-->
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    <ion-button 
+    size="large" 
+    routerLink = "/target-overview" 
+    routerDirection = "root">
+      View the targets  
+     </ion-button>
+  </ion-col>
+</ion-row> 
+
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    
+  <h1>Ready to get started?</h1>
+  <ion-text>
+    Your first step is to take a look around 
+    you. Are you aware of your current impact 
+    on the environment? Find out. 
+  </ion-text>
+</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    <ion-button 
+    size="large" 
+    routerLink = "/carboncalculator" 
+    routerDirection = "root">
+    Take the Carbon Calculator
+  </ion-button>
+  </ion-col>
+</ion-row> 
+
+</ion-grid>
+</ion-content>
