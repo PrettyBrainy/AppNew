@@ -1,4 +1,35 @@
-.welcome-card img {
+
+    .welcome-card img {
     max-height: 45vh;
     overflow: hidden;
   }
+
+  .welcome-card ion-label {
+      font-size: 25px;
+  }
+
+    .welcome-card ion-card-title{
+    font-size: 30px;
+   }
+
+   .welcome-card ion-card-subtitle{
+       font-size: 15px;
+   }
+
+  .recycle-card img{
+      max-height: 250px;
+      max-width: 250px;
+      overflow: hidden;
+  }
+
+  .recycle-card ion-label {
+    font-size: 25px;
+}
+
+  .recycle-card ion-card-title{
+  font-size: 30px;
+ }
+
+ .recycle-card ion-card-subtitle{
+     font-size: 15px;
+ }
