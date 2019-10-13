@@ -1,3 +1,4 @@
+import { ProfileService } from './../user/profile.service';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -13,7 +14,7 @@ import { MethodCall } from '@angular/compiler';
 export class EventService {
   public eventListRef: firebase.firestore.CollectionReference;
   public genEventList: firebase.firestore.CollectionReference;
-  public pullEvents: Array<any>;
+  public pulledEvents: Array<any>;
   constructor(private authService: AuthService) {}
 
   async getEventList(): Promise<firebase.firestore.QuerySnapshot> {
@@ -46,7 +47,18 @@ export class EventService {
   }
 
   /*
-  copyEventList(pullEvents: Array<any>): Promise<firebase.firestore.DocumentReference>{
+  pullEventList(): Promise<firebase.firestore.QuerySnapshot> {
+    const age: ;
+    if ( age == '18-20' || age == '21+' ){
+    this.genEventList = firebase
+      .firestore()
+      .collection("edPledgeListAdults");
+    return this.genEventList.get();
+  }
+  }*/
+
+  /*
+  copyEventList(pulledEvents: Array<any>): Promise<firebase.firestore.DocumentReference>{
     const user: firebase.User = await this.authService.getUser();
     this.genEventList = firebase
       .firestore()
@@ -59,7 +71,6 @@ export class EventService {
     return this.eventListRef.set({id: "alpha"});
     
   }*/
- 
 
   createEvent(
     name: string,
