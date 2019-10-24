@@ -7,8 +7,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
+<!---- 
+Insert:
+Desciption of Ed module
+Button: Start this module.
+  on click : hide button and description, show ed pledge list, execute copy pledges function.
+--->
+<ion-content class = "ion-padding">
+
+<div align="center">
+  <h4 [hidden]="hideText">Education Module Details</h4>
+
+  <br>
+
+<ion-button style="font-size: 20px;" [hidden]="hideButton" (click)="doesExist()" >Start This Module</ion-button>
+
+ 
+</div>
+
+
+  <ion-list [hidden]="hidePledges">
     <ion-list-header>
       <ion-label>Your next events</ion-label>
     </ion-list-header>

@@ -12,6 +12,7 @@ import { ProfileService } from './../services/user/profile.service';
 })
 export class EdpledgelistPage implements OnInit {
   public eventList: Array<any>;
+  public eventListCopy: Array<any>;
   public pledgeList: Array<any>;
   public eventListRef: firebase.firestore.CollectionReference;
   public userProfile: any = {};
@@ -25,41 +26,6 @@ export class EdpledgelistPage implements OnInit {
               public profileService: ProfileService) {}
 
   ngOnInit() {
-
-    
-  
-}
-
-startEdModule(){
-
-  this.hideButton=true;
-  this.hideText=true;
-  this.hidePledges=false;
-
-    this.eventService.pullEventListKids().then( eventListSnapshot => {
-      this.oneList = [];
-      eventListSnapshot.forEach(snap => {
-        this.oneList.push({
-          id: snap.id,
-          name: snap.data().name,
-          impact: snap.data().impact,
-          pledge: snap.data().pledge,
-          pledgeDetails: snap.data().pledgeDetails,
-          learning: snap.data().learning 
-        }) 
-      });
-      console.log(this.oneList);
-      this.pledgeList = Object["values"](this.oneList[0]);
-      console.log(this.pledgeList);
-    
-    });
-}  
-
-
-doesExist(){
-  this.doesExistArray.push(this.eventService.getEventList())
-  console.log(this.doesExistArray.length);
-  if (this.doesExistArray.length > 0){
     this.eventService.getEventList().then(eventListSnapshot => {
       this.eventList = [];
       eventListSnapshot.forEach(snap => {
@@ -73,19 +39,86 @@ doesExist(){
         });
         });
       });
-
-  } else{
-  
-  this.startEdModule();
-
   }
     
-
-
+  getUserAge(){
+    this.profileService.getUserProfile().then((userProfileSnapshot) => {
+      if (userProfileSnapshot.data()) {
+        var userAge = String(userProfileSnapshot.data().birthDate);
+        return userAge;
+      }
+    });
   }
 
 
+startEdModule(){
+  this.hideButton=true;
+  this.hideText=true;
+  this.hidePledges=false;
+
+  this.profileService.getUserProfile().then((userProfileSnapshot) => {
+    if (userProfileSnapshot.data()) {
+      var userAge = String(userProfileSnapshot.data().birthDate);}
+        console.log(userAge);
+        this.eventListCopy = [];
+          
+        if (userAge == "16-18"){
+          this.eventService.pullEventListKids().then( eventListSnapshot => {
+            this.oneList = [];
+            eventListSnapshot.forEach(snap => {
+              this.oneList.push({
+                id: snap.id,
+                name: snap.data().name,
+                impact: snap.data().impact,
+                pledge: snap.data().pledge,
+                pledgeDetails: snap.data().pledgeDetails,
+                learning: snap.data().learning 
+              })
+        
+              console.log(this.oneList);
+              this.pledgeList = Object["values"](this.oneList[0]);
+              for( let n = 0; n<5; n+=6){
+                this.eventService.createEvent(
+                  this.pledgeList[n+1], 
+                  this.pledgeList[n+2], 
+                  this.pledgeList[n+3], 
+                  this.pledgeList[n+4], 
+                  this.pledgeList[n+5],);
+              }
+              console.log(this.pledgeList);
+              })
+            })
+          }
+    })
 }
+
+
+doesExist(){
+this.doesExistArray = [];
+this.doesExistArray.push(this.eventService.getEventList())
+console.log(this.doesExistArray.length);
+if (this.doesExistArray.length > 0){
+this.eventService.getEventList().then(eventListSnapshot => {
+  this.eventList = [];
+  eventListSnapshot.forEach(snap => {
+    this.eventList.push({
+      id: snap.id,
+      name: snap.data().name,
+      impact: snap.data().impact,
+      pledge: snap.data().pledge,
+      pledgeDetails: snap.data().pledgeDetails,
+      learning: snap.data().learning
+    });
+    });
+  });
+
+} else {
+this.startEdModule();
+}
+}
+}
+
+
 
 
 
