@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+    <ion-title>TARGET TOPICS</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+  </ion-header> 
+
+<ion-content padding><br><br><br>
+  <ion-row>
+    <ion-col size='4' size-sm>
+      <br><br><br><br>
+         
+      <ion-img
+       (click)="goToEdPage()"
+        class = "badge"
+        src='./assets/badges/Education@2x.png'
+        alt="Education" border-radius = "50px">
+        </ion-img>
+        
+        <br><br>
+        
+        <ion-img
+        (click)="goToComputerPage()"
+        class = "badge"
+        src='./assets/badges/Computers@2x.png'        
+        alt="Computers"></ion-img>
+    </ion-col>
+    
+    <ion-col size='4' size-sm>
+      
+      <ion-img 
+      (click)="goToPlugLoadsPage()"
+      class = "badge"
+      src='./assets/badges/Plug Loads@2x.png'
+      alt="Plug-Loads"></ion-img>
+
+      <br><br>
+
+      <ion-img
+      (click)="goToEandPPage()"
+      class = "badge"
+      src='./assets/badges/Equipment and Purchasing@2x.png'
+      alt="Equipment-Purchasing"></ion-img>
+
+      <br><br>
+
+      <ion-img
+      (click)="goToHeatingCoolingPage()"
+      class = "badge"
+      src='./assets/badges/Heating and Cooling@2x.png'
+      alt="HeatingCooling"></ion-img>
+    </ion-col>
+    
+    <ion-col size='4' size-sm>
+      <br><br><br><br>
+        
+      <ion-img
+      (click)="goToLightingPage()"
+      class = "badge"
+      src='./assets/badges/Lighting@2x.png'
+      alt="Lighting"></ion-img>
+
+        <br><br>
+        
+      <ion-img 
+      (click)="goToTransportationPage()"
+      class = "badge"
+      src='./assets/badges/Transportation@2x.png'
+      alt="Transportation"></ion-img>
+    </ion-col>
+  </ion-row>
+
+
+
+</ion-content>
