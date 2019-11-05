@@ -7,33 +7,50 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
-      <ion-item routerLink="/ed1" routerDirection="root" >
+  <ion-content class = "ion-padding">
+
+  <div ion-text-left>
+  <h4 [hidden]="hideText">Why are we starting with an Education module? It is 
+      important to understand the issue before you start to make changes. You can’t 
+      begin to change the world before you understand what is wrong. We want you to 
+      learn about how climate change is affecting our planet so you can understand how 
+      to best help. </h4>
+    </div>
+    
+    <div align = 'center'>
+    <ion-button style="font-size: 20px;" [hidden]="hideButton" (click)="startEdModule()" >Start This Module</ion-button>
+    </div>
+
+      <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
         <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
         <ion-label>Understand Your Carbon Emissions</ion-label>
       </ion-item>
   
-      <ion-item routerLink="/ed2" routerDirection="root" >
+      <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
         <ion-icon slot="start" color="secondary" name="home"></ion-icon>
         <ion-label>Conduct a Home Efficiency Audit</ion-label>
       </ion-item>
   
-      <ion-item routerLink="/ed3" routerDirection="root" >
+      <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
         <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
         <ion-label>Review the Carbon Neutrality Initiative</ion-label>
       </ion-item>
   
-      <ion-item routerLink="/ed4" routerDirection="root" >
+      <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "hidePledge4">
         <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
         <ion-label>Become a Cool Ambassador</ion-label>
       </ion-item>
   
-      <ion-item routerLink="/ed5" routerDirection="root" >
+      <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
         <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
         <ion-label>Take the Cool Climate Calculator</ion-label>
       </ion-item>
-    
+
+<!---- ___________________PROGRESS BAR_________-->
+
+    <div align = "center">   
     <circle-progress
+    [hidden] = "hidePledges"
     [percent]= "x"
     [radius]="100"
     [outerStrokeWidth]="12"
@@ -42,7 +59,8 @@
     [innerStrokeColor]="'#8fcc90'"
     [animation]="true"
     [animationDuration]="500"
-    [imageSrc]= "'assets/badges/Education@2x.png'"
-  ></circle-progress>
+    [imageSrc]= "'assets/badges/Education@2x.png'">
+    </circle-progress>
+    </div>
     
   </ion-content>
