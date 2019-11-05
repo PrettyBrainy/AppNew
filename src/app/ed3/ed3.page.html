@@ -2,27 +2,91 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/education"></ion-back-button>
-    <ion-title>SCAN THE PLAN</ion-title>
+    <ion-title>The City of Fort Collins Climate Action Plan</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class = "ion-padding">
 
-    <div text-center>
-        <h4> What is your MISSion? To help the City of Fort Collins reach its goal of carbon neutrality by 2050! This document
-      contains details on what Fort Collin's plan is and why it is necessary.</h4>
-        <ion-item href="https://www.fcgov.com/environmentalservices/pdf/cap-framework-2015.pdf"> <!--This isnt loading in the app right now-->
-          <ion-icon slot="start" color="danger" name="link"></ion-icon>
-          <ion-label>City of Fort Collins Carbon Initiative</ion-label>
-        </ion-item>
-      </div>
+    <div class = "ion-text-center">
 
-      <Br><Br>
-  
-      <div text-center>
-          <h4>I pledge to team up with the City of Fort Collins to reach the city carbon neutrality goal by 2050.</h4>
-      <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
-      </div>
 
+      <p [hidden] = "kidPledge">The City of Fort Collins, CO has a plan to reach <b>carbon neutrality</b> by the year 2050.
+        <b>Carbon neutrality</b> is when a net zero carbon footprint is reached by balancing carbon emissions and the removal of carbon.<br><br>
+
+          <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan</ion-label>
+              </ion-item><br><br>
+        
+          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtQ0hFaFVmcTFrNEk2WW1fYTM0bWluVG1uVElZ/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
+              </ion-item><br><br>
+    
+        Open the City of Fort Collins Climate Action Plan we have attached below and read it! 
+        We know it’s long, but Pretty Brainy has written an outline of the document to help you locate key points. 
+        This outline includes a basic summary of the document and page numbers where important sections of the 
+        Climate Action Plan are located! After reading the plan, discuss it with friends or family. 
+        What parts of the document stand out to you? 
+        What are your own thoughts about Fort Collins’s goal of becoming carbon neutral by 2050? 
+
+       </p>
+
+    <p [hidden] = "teenPledge">The City of Fort Collins, CO has a plan to reach <b>carbon neutrality</b> by the year 2050.
+        <b>Carbon neutrality</b> is when a net zero carbon footprint is reached by balancing carbon emissions and the removal of carbon.<br><br>
+
+          <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan</ion-label>
+              </ion-item><br><br>
+        
+          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtQ0hFaFVmcTFrNEk2WW1fYTM0bWluVG1uVElZ/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
+              </ion-item><br><br>
+    
+        Open the City of Fort Collins Climate Action Plan we have attached below and read it! 
+        We know it’s long, but Pretty Brainy has written an outline of the document to help you locate key points. 
+        This outline includes a basic summary of the document and page numbers where important sections of the 
+        Climate Action Plan are located! After reading the plan, discuss it with friends or family. 
+        What parts of the document stand out to you? 
+        What are your own thoughts about Fort Collins’s goal of becoming carbon neutral by 2050? 
+
+       </p>
+
+    <p [hidden] = "adultPledge">The City of Fort Collins, CO has a plan to reach <b>carbon neutrality</b> by the year 2050.
+        <b>Carbon neutrality</b> is when a net zero carbon footprint is reached by balancing carbon emissions and the removal of carbon.<br><br>
+
+          <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan</ion-label>
+              </ion-item><br><br>
+        
+          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtQ0hFaFVmcTFrNEk2WW1fYTM0bWluVG1uVElZ/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
+              </ion-item><br><br>
+    
+        Open the City of Fort Collins Climate Action Plan we have attached below and read it! 
+        We know it’s long, but Pretty Brainy has written an outline of the document to help you locate key points. 
+        This outline includes a basic summary of the document and page numbers where important sections of the 
+        Climate Action Plan are located! After reading the plan, discuss it with friends or family. 
+        What parts of the document stand out to you? 
+        What are your own thoughts about Fort Collins’s goal of becoming carbon neutral by 2050? 
+
+       </p>
+       
+    </div>
+
+  <Br><Br>
+
+  <div class = "ion-text-center">
+      <h4 [hidden]="kidPledge">I pledge to read and discuss the City of Fort Collins Climate Action Plan. KID PLEDGE</h4>
+      <h4 [hidden]="teenPledge">I pledge to read and discuss the City of Fort Collins Climate Action Plan. TEEN PLEDGE</h4>
+      <h4 [hidden]="adultPledge">I pledge to read and discuss the City of Fort Collins Climate Action Plan. ADULT PLEDGE</h4>
+  <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
+    
+  </div>
 </ion-content>

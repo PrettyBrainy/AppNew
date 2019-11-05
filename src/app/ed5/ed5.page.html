@@ -2,29 +2,54 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/education"></ion-back-button>
-    <ion-title>COOL CLIMATE CALCULATOR</ion-title>
+    <ion-title>Calcu-later Carbon Emissions</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class = "ion-padding">
 
-    <div text-center>
-        <h4> Sustainable actions and behaviour change are necessary, <br>
-          but these both can become much more effective when we <br>
-          reflect on our own carbon contributions. Take the <br>
-          Cool Climate Calculator here!</h4>
-        <ion-item href="https://www.conservation.org/carbon-footprint-calculator#/">
-          <ion-icon slot="start" color="danger" name="link"></ion-icon>
-          <ion-label>Take The Cool Climate Calculator</ion-label>
-        </ion-item>
-      </div>
+    <div class = "ion-text-center">
 
-      <Br><Br>
-  
-        <div text-center>
-            <h4>I pledge to take the carbon calculator.</h4>
-        <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
-        </div>
 
+      <p [hidden] = "kidPledge">Learn about your real carbon footprint.<br><br>
+    
+        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+        carbon footprint for waste, transportation, and home energy. 
+        You may need an adult to help you.
+        
+       </p>
+      
+     <p [hidden] = "teenPledge">Learn about your real carbon footprint.<br><br>
+    
+        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+        carbon footprint for waste, transportation, and home energy. 
+        You may need an adult to help you.
+
+        
+       </p>
+      
+      
+      
+      <p [hidden] = "adultPledge">Learn about your real carbon footprint.<br><br>
+    
+        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+        carbon footprint for waste, transportation, and home energy. 
+        You may need an adult to help you.
+
+        
+       </p>
+
+       
+    </div>
+
+  <Br><Br>
+
+  <div class = "ion-text-center">
+      <h4 [hidden]="kidPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. KID PLEDGE</h4>
+      <h4 [hidden]="teenPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. TEEN PLEDGE</h4>
+      <h4 [hidden]="adultPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. ADULT PLEDGE</h4>
+  <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
+    
+  </div>
 </ion-content>
