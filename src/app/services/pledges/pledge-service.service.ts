@@ -14,6 +14,7 @@ import { MethodCall } from '@angular/compiler';
 export class EventService {
   public eventListRef: firebase.firestore.CollectionReference;
   public genEventList: firebase.firestore.CollectionReference;
+  public genPledgeList: firebase.firestore.CollectionReference;
   public pulledEvents: Array<any>;
   constructor(private authService: AuthService) {}
 
@@ -25,11 +26,30 @@ async getEventList(): Promise<firebase.firestore.QuerySnapshot> {
   return this.eventListRef.get();
 }
 
+/* ------------ These functions are to get pledges for the varying age groups to be copied to each user*/
+checkModuleStart(): Promise<firebase.firestore.QuerySnapshot> {
+  var user = firebase.auth().currentUser;
+  var uid;
+  if (user != null) {
+    uid = user.uid; 
+  }
+  this.genPledgeList = firebase
+  .firestore()
+  .collection(`userProfile/${uid}/pledges`)
+  return this.genPledgeList.get();
+}
+
+
 pullEventListKids(): Promise<firebase.firestore.QuerySnapshot> {
-  this.genEventList = firebase
-    .firestore()
-    .collection("edPledgeListKids");
-  return this.genEventList.get();
+  var user = firebase.auth().currentUser;
+  var uid;
+  if (user != null) {
+    uid = user.uid; 
+  }
+  this.genPledgeList = firebase
+  .firestore()
+  .collection(`userProfile/${uid}/pledges`)
+  return this.genPledgeList.get();
 }
 
 pullEventListTeens(): Promise<firebase.firestore.QuerySnapshot> {
@@ -45,6 +65,7 @@ pullEventListAdults(): Promise<firebase.firestore.QuerySnapshot> {
     .collection("edPledgeListAdults");
   return this.genEventList.get();
 }
+
 
 createEvent(
   name: string,

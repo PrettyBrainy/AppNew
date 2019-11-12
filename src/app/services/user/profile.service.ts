@@ -19,6 +19,7 @@ export class ProfileService {
     return this.userProfile.get();
   }
 
+
   updateName(firstName: string, lastName: string): Promise<void> {
     return this.userProfile.set({ firstName, lastName }, { merge: true });
   }
