@@ -1,25 +1,20 @@
 ion-title{
-    font-size: 24px;
-    text-align: justify;
-  }
+  font-size: 24px;
+  text-align: justify;
+}
 
 .pledgeCard{
-  --ion-background-color: #ffffff;
-  --ion-content-color: "white";
-}
+  background:#f4f5f7;
+  font-family: 'ChollaSans-Thin' !important; 
+  color: #000000;
+ }  
 
 .content-heading{
   font-size: 20px;
-  --ion-text-color: #66b067;
-}
-
-ion-card{
-  --ion-background-color: #f4f5f7;
-  --ion-font-family: 'ChollaSans-Bold' !important;
-  --ion-text-color: #f99f38;
+  color: #66b067;
 }
 
 .vocabulary{
   font-style: bold;
-  --ion-font-color: #f99f38;
+  color: #f99f38;
 }
