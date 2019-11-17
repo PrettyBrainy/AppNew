@@ -12,6 +12,12 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
   public userProfile: any;
   public birthDate: Date;
+  public age: boolean = false;
+  public drop: boolean = false;
+  public lAge: boolean=true;
+  public mAge: boolean=true;
+  public hAge: boolean=true;
+  public oAge: boolean=true;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -122,4 +128,43 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
+lowAge(){
+  this.age = true;
+  this.drop = true;
+  this.lAge = false;
+  this.mAge = true;
+  this.hAge = true;
+  this.oAge = true;
+  this.updateDOB('11-15');
+}
+
+midAge(){
+  this.age = true;
+  this.drop = true;
+  this.mAge = false;
+  this.lAge = true;
+  this.hAge = true;
+  this.oAge = true;
+  this.updateDOB('16-18');
+}
+
+highAge(){
+  this.age = true;
+  this.drop = true;
+  this.hAge = false;
+  this.lAge =  true;
+  this.mAge = true;
+  this.oAge = true;
+  this.updateDOB('18-20');
+}
+
+oldAge(){
+  this.age = true;
+  this.drop = true;
+  this.hAge = true;
+  this.lAge =  true;
+  this.mAge = true;
+  this.oAge = false;
+  this.updateDOB('21+');
+}
 }

@@ -14,7 +14,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-list-header> Personal Information </ion-list-header>
+    <ion-list-header>Personal Information</ion-list-header>
     
     <!-- UPDATE USERNAME-->
     <ion-item (click)="updateName()">
@@ -84,18 +84,44 @@
 
   <!--   UPDATE DOB  -->
  
-      <div class="dropdown" style="display: flex;
-      align-items: center;
-      justify-content: center;" >
-        <button class="dropbtn">Age Range ▼</button>
-        <div class="dropdown-content">
-     
-        <p (click) = "updateDOB('11-15')">11-15</p>
-        <p (click) = "updateDOB('16-18')">16-18</p>
-        <p (click) = "updateDOB('18+')">18+</p>
-    
-        </div>
-      </div>
+  <div class="dropdown" align="center">
+    <button [hidden]="age" data-toggle="collapse" class="dropbtn">Age Range ▼</button>
 
+<div [hidden] = "drop" class="dropdown-content">
+<ion-row style="display: flex;
+align-items: center;
+justify-content: center;">
+    <ion-button (click)="lowAge()" style="font-size: 20px;">11-15</ion-button>
+</ion-row>
+
+<ion-row 
+style="display: flex;
+align-items: center;
+justify-content: center;">
+    <ion-button (click)="midAge()" style="font-size: 20px;">16-18, in highschool</ion-button>
+</ion-row>
+
+<ion-row 
+style="display: flex;
+align-items: center;
+justify-content: center;">
+    <ion-button (click)="highAge()" style="font-size: 20px;">18-20</ion-button>
+</ion-row>
+
+<ion-row 
+style="display: flex;
+align-items: center;
+justify-content: center;">
+    <ion-button (click)="oldAge()" style="font-size: 20px;">21+</ion-button>
+</ion-row>
+
+    </div>
+  </div>
+
+  <h4 [hidden]="lAge" text-center>Age Range: 11-15</h4>
+  <h4 [hidden]="mAge" text-center>Age Range: 16-18, in highschool</h4>
+  <h4 [hidden]="hAge" text-center>Age Range: 18-20</h4>
+  <h4 [hidden]="oAge" text-center>Age Range: 21+</h4>
+    
   
 </ion-content>
