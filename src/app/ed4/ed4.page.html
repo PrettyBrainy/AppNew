@@ -1,66 +1,95 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/education"></ion-back-button>
-    <ion-title>Become a Cool Climate Ambassador</ion-title>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/education"></ion-back-button>
+      <ion-title>Become a Cool Climate Ambassador</ion-title>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class = "ion-padding">
+  
 
-<ion-content class = "ion-padding">
+    <!--________________________KID VIEW______________________________-->
 
+
+  <p [hidden] = "kidPledge">
+  
+     <ion-card class = "pledgeCard">
+        <ion-card-header>
+          <ion-card-title>Take the Pledge</ion-card-title>
+          <ion-card-subtitle>Become a climate ambassador for your community.</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+            Read the guidelines for becoming a Cool Climate Ambassador attached below. 
+            Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
+          </ion-card-content>
+
+          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Cool Climate Ambassador Guidelines</ion-label>
+              </ion-item>  
+              
+       </ion-card>
+         </p>
+  
+
+
+  <!--________________________TEEN VIEW______________________________-->
+     
+  <p [hidden] = "teenPledge">
+  
+      <ion-card class = "pledgeCard">
+        <ion-card-header>
+          <ion-card-title>Take the Pledge</ion-card-title>
+          <ion-card-subtitle>Become a climate ambassador for your community.</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+            Read the guidelines for becoming a Cool Climate Ambassador attached below. 
+            Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
+        </ion-card-content>
+
+        <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
+          <ion-icon slot="start" color="danger" name="link"></ion-icon>
+          <ion-label>Cool Climate Ambassador Guidelines</ion-label>
+        </ion-item> 
+              
+        </ion-card>
+    </p>
+  
+  <!--________________________ADULT  VIEW______________________________-->
+    
+  <p [hidden] = "adultPledge">
+  
+      <ion-card class = "pledgeCard">
+        <ion-card-header>
+          <ion-card-title>Take the Pledge</ion-card-title>
+          <ion-card-subtitle>Become a climate ambassador for your community.</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+            Read the guidelines for becoming a Cool Climate Ambassador attached below. 
+            Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
+        </ion-card-content>
+
+
+            <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Cool Climate Ambassador Guidelines</ion-label>
+            </ion-item>  
+              
+          </ion-card>
+    </p>
+  
+    <Br>
+  
     <div class = "ion-text-center">
-
-
-      <p [hidden] = "kidPledge">Become a climate activist in your community.<br><br>
-
-          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
-              <ion-icon slot="start" color="danger" name="link"></ion-icon>
-              <ion-label>Cool Climate Ambassador Guidelines</ion-label>
-              </ion-item><br><br>
-    
-        Read the guidelines for becoming a Cool Climate Ambassador attached below. 
-        Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
-
-        
-       </p>
-
-    <p [hidden] = "teenPledge">Become a climate activist in your community.<br><br>
-
-          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
-              <ion-icon slot="start" color="danger" name="link"></ion-icon>
-              <ion-label>Cool Climate Ambassador Guidelines</ion-label>
-              </ion-item><br><br>
-    
-        Read the guidelines for becoming a Cool Climate Ambassador attached below. 
-        Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
-
-        
-       </p>
-
-      <p [hidden] = "adultPledge">Become a climate activist in your community.<br><br>
-
-          <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
-              <ion-icon slot="start" color="danger" name="link"></ion-icon>
-              <ion-label>Cool Climate Ambassador Guidelines</ion-label>
-              </ion-item><br><br>
-    
-        Read the guidelines for becoming a Cool Climate Ambassador attached below. 
-        Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
-
-        
-       </p>
-
-       
+        <h4 [hidden]="kidPledge">I pledge to become a Cool Climate Ambassador.</h4>
+        <h4 [hidden]="teenPledge">I pledge to become a Cool Climate Ambassador.</h4>
+        <h4 [hidden]="adultPledge">I pledge to become a Cool Climate Ambassador.</h4>
+    <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
+      
     </div>
-
-  <Br><Br>
-
-  <div class = "ion-text-center">
-      <h4 [hidden]="kidPledge">I pledge to become a Cool Climate Ambassador. KID PLEDGE</h4>
-      <h4 [hidden]="teenPledge">I pledge to become a Cool Climate Ambassador. TEEN PLEDGE</h4>
-      <h4 [hidden]="adultPledge">I pledge to become a Cool Climate Ambassador. ADULT PLEDGE</h4>
-  <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
-    
-  </div>
-</ion-content>
+  </ion-content>
