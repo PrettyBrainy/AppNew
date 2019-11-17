@@ -20,7 +20,7 @@ export class TargetOverviewPage implements OnInit {
 
   goToEdPage()
   {
-    this.navCtrl.navigateForward('/edpledgelist');
+    this.navCtrl.navigateForward('/education');
   }
 
   goToComputerPage()
