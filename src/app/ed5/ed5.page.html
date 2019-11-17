@@ -1,55 +1,78 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/education"></ion-back-button>
-    <ion-title>Calcu-later Carbon Emissions</ion-title>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/education"></ion-back-button>
+      <ion-title>Calcu-later Carbon Emissions</ion-title>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class = "ion-padding">
 
-<ion-content class = "ion-padding">
+  <!--_________________________KID PLEDGE___________________________-->  
 
-    <div class = "ion-text-center">
-
-
-      <p [hidden] = "kidPledge">Learn about your real carbon footprint.<br><br>
-    
-        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
-        carbon footprint for waste, transportation, and home energy. 
-        You may need an adult to help you.
-        
-       </p>
+    <p [hidden] = "kidPledge">
       
-     <p [hidden] = "teenPledge">Learn about your real carbon footprint.<br><br>
-    
-        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
-        carbon footprint for waste, transportation, and home energy. 
-        You may need an adult to help you.
-
-        
-       </p>
+          <ion-card class = "pledgeCard">
+              <ion-card-header>
+                <ion-card-title>Take the Pledge</ion-card-title>
+                <ion-card-subtitle>Learn about your real carbon footprint.</ion-card-subtitle>
+              </ion-card-header>
+            
+              <ion-card-content>
+                  Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+                  carbon footprint for waste, transportation, and home energy. 
+                  You may need an adult to help you.            
+              </ion-card-content>
+            </ion-card>
       
-      
-      
-      <p [hidden] = "adultPledge">Learn about your real carbon footprint.<br><br>
+      </p>
     
-        Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
-        carbon footprint for waste, transportation, and home energy. 
-        You may need an adult to help you.
+<!--_________________________TEEN PLEDGE___________________________-->  
 
-        
-       </p>
+    <p [hidden] = "teenPledge">
 
-       
-    </div>
-
-  <Br><Br>
-
-  <div class = "ion-text-center">
-      <h4 [hidden]="kidPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. KID PLEDGE</h4>
-      <h4 [hidden]="teenPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. TEEN PLEDGE</h4>
-      <h4 [hidden]="adultPledge">I pledge to take the Environmental Protection Agency’s carbon calculator. ADULT PLEDGE</h4>
-  <ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
+        <ion-card class = "pledgeCard">
+              <ion-card-header>
+                <ion-card-title>Take the Pledge</ion-card-title>
+                <ion-card-subtitle>Learn about your real carbon footprint.</ion-card-subtitle>
+              </ion-card-header>
+            
+              <ion-card-content>
+                  Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+                  carbon footprint for waste, transportation, and home energy. 
+                  You may need an adult to help you.            
+              </ion-card-content>
+            </ion-card>
+      </p>
     
-  </div>
+    
+  <!--_________________________ADULT PLEDGE___________________________-->      
+    
+    <p [hidden] = "adultPledge">
+
+  <ion-card class = "pledgeCard">
+        <ion-card-header>
+          <ion-card-title>Take the Pledge</ion-card-title>
+          <ion-card-subtitle>Learn about your real carbon footprint.</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+            Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+            carbon footprint for waste, transportation, and home energy. 
+            You may need an adult to help you.            
+              </ion-card-content>
+          </ion-card>
+      </p>
+
+
+<Br><Br>
+
+<div class = "ion-text-center">
+    <h4 [hidden]="kidPledge">I pledge to take the Environmental Protection Agency’s carbon calculator.</h4>
+    <h4 [hidden]="teenPledge">I pledge to take the Environmental Protection Agency’s carbon calculator.</h4>
+    <h4 [hidden]="adultPledge">I pledge to take the Environmental Protection Agency’s carbon calculator.</h4>
+<ion-button fill="solid" color="secondary" size="large" expand="block" routerLink="/verify-text" routerDirection="root" >Take the Pledge!</ion-button>
+  
+</div>
 </ion-content>
