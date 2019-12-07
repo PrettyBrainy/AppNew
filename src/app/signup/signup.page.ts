@@ -17,7 +17,8 @@ export class SignupPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public alertController: AlertController
   ) {
     this.signupForm = this.formBuilder.group({
       email: [
@@ -61,6 +62,17 @@ export class SignupPage implements OnInit {
       this.loading = await this.loadingCtrl.create();
       await this.loading.present();
     }
+  }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Please fill out your profile',
+      message: 'Click on the icon in the upper righthand corner to complete your profile information so you can begin your journey.',
+      buttons: ['OK'],
+    });
+  
+    await alert.present();
+    let result = await alert.onDidDismiss();
+    console.log(result);
   }
 
 }
