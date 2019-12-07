@@ -46,6 +46,7 @@
       expand="block"
       (click)="signupUser(signupForm)"
       [disabled]="!signupForm.valid"
+      (click)="presentAlert()"
     >
       Create an Account
     </ion-button>
