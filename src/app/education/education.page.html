@@ -20,6 +20,72 @@
     <div align = 'center'>
     <ion-button style="font-size: 20px;" [hidden]="hideButton" (click)="startEdModule()" >Start This Module</ion-button>
     </div>
+      
+          <!---- ___________________PROGRESS BAR_________________________-->
+  <ion-row>
+    <div align = "center">  
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
+        [showImage]="true"
+        [imageWidth]="120"
+        [imageHeight]="120">
+        </circle-progress>
+     
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
+        [showImage]="true"
+        [imageWidth]="120"
+        [imageHeight]="120">
+        </circle-progress>
+
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
+        [showImage]="true"
+        [imageWidth]="120"
+        [imageHeight]="120">
+        </circle-progress>
+
+        </div>
+      </ion-row>
+      
+      <div text-center>
+      <ion-row>
+          <ion-col width-166.66><h5>Your Progress</h5></ion-col>
+          <ion-col width-166.66><h5>Team Progress</h5></ion-col>
+          <ion-col width-166.66><h5>Total User Progress</h5></ion-col>
+      </ion-row>
+      </div>
+
+        <br><br><br>
+
+      <h2>HEADER FOR THIS SECTION</h2>
 
       <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
         <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
@@ -47,25 +113,6 @@
       </ion-item>
 
       <br><br><br>
-
-<!---- ___________________PROGRESS BAR_________________________-->
-
-    <div align = "center">   
-    <circle-progress
-    [hidden] = "hidePledges"
-    [percent]= "x"
-    [radius]="100"
-    [outerStrokeWidth]="12"
-    [innerStrokeWidth]="8"
-    [outerStrokeColor]="'#1ba561'"
-    [innerStrokeColor]="'#8fcc90'"
-    [animation]="true"
-    [animationDuration]="500"
-    [imageSrc]= "'assets/badges/Education@2x.png'">
-    </circle-progress>
-    </div>
-    <br><br><br>
-
 
     <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "showPledge1">
       <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
