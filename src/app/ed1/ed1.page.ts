@@ -4,6 +4,10 @@ import { ProfileService } from './../services/user/profile.service';
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType } from '@capacitor/core';
 const { Camera } = Plugins;
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 @Component({
   selector: 'app-ed1',
@@ -16,6 +20,9 @@ export class Ed1Page implements OnInit {
   public adultPledge: boolean = true;
   public pledgePicture: string = null;
   public verification = '';
+  public id = '';
+  public pledgeVerificationUpdate: firebase.firestore.DocumentReference;
+  
   constructor(
     public profileService: ProfileService,
     public verifyService: VerifyServiceService,
@@ -46,7 +53,8 @@ export class Ed1Page implements OnInit {
   }
 
 getCurrent(){
-  let id = this.verifyService.getCurrent();
+  let view = this.router.url;
+  let id = view.substr(1);
   return id;
 } 
 
@@ -67,8 +75,21 @@ async takePicture(): Promise<void> {
 
 verifyPledge(){
 console.log(this.verification);
-const id = this.getCurrent();
+var id = this.getCurrent();
 console.log(id);
+//_____________________________________________Call User ID
+var user = firebase.auth().currentUser;
+var uid;
+if (user != null) {
+  uid = user.uid; 
+}
+//__________________________________________Assign user input to variable
+let verificationUpdate = {
+  ed1: this.verification
+}
+//__________________________________________Update Database
+this.pledgeVerificationUpdate = firebase.firestore().collection('userProfile').doc(`${uid}`);
+this.pledgeVerificationUpdate.collection("pledges").doc("education").update(verificationUpdate);
 }
 
 
