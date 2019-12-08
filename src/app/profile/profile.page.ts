@@ -34,6 +34,24 @@ export class ProfilePage implements OnInit {
         this.userProfile = userProfileSnapshot.data();
       }
     });
+   
+       this.profileService.getUserProfile().then((userProfileSnapshot) => {
+      if (userProfileSnapshot.data()) {
+        var userAge = String(userProfileSnapshot.data().birthDate);
+        if (userAge == "11-15" || "16-18" || "18-20" || "21+"){
+        this.age = true;
+        this.ageRange = true;
+        this.drop = true;
+        }
+        else if (userAge != "11-15" || "16-18" || "18-20" || "21+"){
+          this.age = false;
+          this.ageRange = false;
+          this.drop = false;
+        }
+      }
+  
+    }
+    )
 
   }
 
