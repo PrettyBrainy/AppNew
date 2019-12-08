@@ -1,142 +1,126 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
-    </ion-buttons>
-    <ion-title>USER PROFILE</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logOut()">
-        <ion-icon slot="icon-only" name="log-out"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-list>
-    <ion-list-header>Personal Information</ion-list-header>
-    
-    <!-- UPDATE USERNAME-->
-    <ion-item (click)="updateName()">
-      <ion-label>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="text-left" size="5"> Name </ion-col>
-            <ion-col
-              class="text-center"
-              size="7"
-              *ngIf="userProfile?.firstName || userProfile?.lastName"
-            >
-              {{userProfile?.firstName}} {{userProfile?.lastName}}
-            </ion-col>
-            <ion-col
-              size="7"
-              class="placeholder-profile text-center"
-              *ngIf="!userProfile?.firstName"
-            >
-              <span> Tap here to edit. </span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-label>
-    </ion-item>
-
-
-
-
-    <!--    UPDATE EMAIL   -->
-    <ion-item (click)="updateEmail()">
-      <ion-label>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="text-left" size="5"> Email </ion-col>
-            <ion-col class="text-center" size="7" *ngIf="userProfile?.email">
-              {{userProfile?.email}}
-            </ion-col>
-            <ion-col
-              size="7"
-              class="placeholder-profile text-center"
-              *ngIf="!userProfile?.email"
-            >
-              <span> Tap here to edit your email. </span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-label>
-    </ion-item>
-
-
-
-    <!-- UPDATE PASSWORD-->
-    <ion-item (click)="updatePassword()">
-      <ion-label>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="text-left" size="5"> Password </ion-col>
-            <ion-col class="placeholder-profile text-center" size="7">
-              <span> Tap here to edit. </span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      </ion-buttons>
+      <ion-title>USER PROFILE</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logOut()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   
-      <!-- UPDATE TEAM-->
-    <ion-item (click)="updateTeam()">
-      <ion-label>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="text-left" size="5"> Team Name </ion-col>
-            <ion-col class="placeholder-profile text-center" size="7">
-              <span> Tap here to edit. </span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-  <!--   UPDATE DOB  -->
- 
-  <div class="dropdown" align="center">
-    <button [hidden]="age" data-toggle="collapse" class="dropbtn">Age Range ▼</button>
-
-<div [hidden] = "drop" class="dropdown-content">
-<ion-row style="display: flex;
-align-items: center;
-justify-content: center;">
-    <ion-button (click)="lowAge()" style="font-size: 20px;">11-15</ion-button>
-</ion-row>
-
-<ion-row 
-style="display: flex;
-align-items: center;
-justify-content: center;">
-    <ion-button (click)="midAge()" style="font-size: 20px;">16-18, in highschool</ion-button>
-</ion-row>
-
-<ion-row 
-style="display: flex;
-align-items: center;
-justify-content: center;">
-    <ion-button (click)="highAge()" style="font-size: 20px;">18-20</ion-button>
-</ion-row>
-
-<ion-row 
-style="display: flex;
-align-items: center;
-justify-content: center;">
-    <ion-button (click)="oldAge()" style="font-size: 20px;">21+</ion-button>
-</ion-row>
-
+  <ion-content>
+    <ion-list>
+      <ion-list-header>Personal Information</ion-list-header>
+      
+      <!-- UPDATE USERNAME-->
+      <ion-item (click)="updateName()">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Name </ion-col>
+              <ion-col
+                class="text-center"
+                size="7"
+                *ngIf="userProfile?.firstName || userProfile?.lastName"
+              >
+                {{userProfile?.firstName}} {{userProfile?.lastName}}
+              </ion-col>
+              <ion-col
+                size="7"
+                class="placeholder-profile text-center"
+                *ngIf="!userProfile?.firstName"
+              >
+                <span> Tap here to edit. </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+  
+  
+  
+  
+      <!--    UPDATE EMAIL   -->
+      <ion-item (click)="updateEmail()">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Email </ion-col>
+              <ion-col class="text-center" size="7" *ngIf="userProfile?.email">
+                {{userProfile?.email}}
+              </ion-col>
+              <ion-col
+                size="7"
+                class="placeholder-profile text-center"
+                *ngIf="!userProfile?.email"
+              >
+                <span> Tap here to edit your email. </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+  
+  
+  
+      <!-- UPDATE PASSWORD-->
+      <ion-item (click)="updatePassword()">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Password </ion-col>
+              <ion-col class="placeholder-profile text-center" size="7">
+                <span> Tap here to edit. </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+      <ion-item [hidden]="ageRange">
+          <h6 [hidden]="lAge" text-center>Age Range: 11-15</h6>
+          <h6 [hidden]="mAge" text-center>Age Range: 16-18, in highschool</h6>
+          <h6 [hidden]="hAge" text-center>Age Range: 18-20</h6>
+          <h6 [hidden]="oAge" text-center>Age Range: 21+</h6>
+        </ion-item>
+    </ion-list>
+  
+    <!--   UPDATE DOB  -->
+    <div class="dropdown" align-items="center">
+      <button expland="block" [hidden]="age" data-toggle="collapse" class="dropbtn">Age Range ▼</button>
+  
+  <div [hidden] = "drop" class="dropdown-content">
+  <ion-row style="display: flex;
+  align-items: center;
+  justify-content: center;">
+      <ion-button (click)="lowAge()" style="font-size: 20px;">11-15</ion-button>
+  </ion-row>
+  
+  <ion-row 
+  style="display: flex;
+  align-items: center;
+  justify-content: center;">
+      <ion-button (click)="midAge()" style="font-size: 20px;">16-18, in highschool</ion-button>
+  </ion-row>
+  
+  <ion-row 
+  style="display: flex;
+  align-items: center;
+  justify-content: center;">
+      <ion-button (click)="highAge()" style="font-size: 20px;">18-20</ion-button>
+  </ion-row>
+  
+  <ion-row 
+  style="display: flex;
+ align-items: center;
+  justify-content: center;">
+      <ion-button (click)="oldAge()" style="font-size: 20px;">21+</ion-button>
+  </ion-row>
+  
+      </div>
     </div>
-  </div>
-
-  <h4 [hidden]="lAge" text-center>Age Range: 11-15</h4>
-  <h4 [hidden]="mAge" text-center>Age Range: 16-18, in highschool</h4>
-  <h4 [hidden]="hAge" text-center>Age Range: 18-20</h4>
-  <h4 [hidden]="oAge" text-center>Age Range: 21+</h4>
     
-  
-</ion-content>
+  </ion-content>
