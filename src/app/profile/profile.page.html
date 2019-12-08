@@ -65,6 +65,25 @@
         </ion-label>
       </ion-item>
   
+              <!--    USER AGE   -->
+      <ion-item>
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Age Range </ion-col>
+              <ion-col class="text-center" size="7" *ngIf="userProfile?.birthDate">
+                {{userProfile?.birthDate}}
+              </ion-col>
+              <ion-col
+                size="7"
+                class="placeholder-profile text-center"
+                *ngIf="!userProfile?.birthDate"
+              >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
   
   
       <!-- UPDATE PASSWORD-->
