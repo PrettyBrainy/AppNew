@@ -14,6 +14,7 @@ export class ProfilePage implements OnInit {
   public birthDate: Date;
   public age: boolean = false;
   public drop: boolean = false;
+ public ageRange: boolean = true;
   public lAge: boolean=true;
   public mAge: boolean=true;
   public hAge: boolean=true;
@@ -131,6 +132,7 @@ export class ProfilePage implements OnInit {
 lowAge(){
   this.age = true;
   this.drop = true;
+  this.ageRange = false;
   this.lAge = false;
   this.mAge = true;
   this.hAge = true;
@@ -141,6 +143,7 @@ lowAge(){
 midAge(){
   this.age = true;
   this.drop = true;
+  this.ageRange = false;
   this.mAge = false;
   this.lAge = true;
   this.hAge = true;
@@ -151,6 +154,7 @@ midAge(){
 highAge(){
   this.age = true;
   this.drop = true;
+  this.ageRange = false;
   this.hAge = false;
   this.lAge =  true;
   this.mAge = true;
@@ -161,6 +165,7 @@ highAge(){
 oldAge(){
   this.age = true;
   this.drop = true;
+  this.ageRange = false;
   this.hAge = true;
   this.lAge =  true;
   this.mAge = true;
