@@ -10,15 +10,23 @@
 
 Purchase rewards here with your points!
   
+  <ion-grid>
+    <ion-col style="text-align:center">
+<h3>Aside from saving the planet, you can earn rewards by taking pledges in  our app! In the coming weeks you will be able to purchase rewards here with your points.</h3>
+  
+<br><br>
+
   <div align="center">
-            <h3 [hidden]="hideBusinesses">If you know of any local businesses who might want to donate products to our cause please submit their name below. </h3>
+            <h4 [hidden]="hideBusinesses">If you know of any local businesses who might want to donate products to our cause please submit their name below. </h4>
             <ion-item [hidden]="hideBusinesses">
                 <ion-input name='businessName' type="string" placeholder="Business Name" required></ion-input>
             </ion-item>
             <ion-button [hidden]="hideBusinesses" (click)="getBusinesses()" style="font-size: 20px;">Submit</ion-button>
 
-            <h3 [hidden]="moreBusinesses">Thank you for your suggestion!</h3>
+            <h4 [hidden]="moreBusinesses">Thank you for your suggestion!</h4>
             <ion-button [hidden]="moreBusinesses" (click)="anotherBusiness()" style="font-size: 20px;">Suggest Another Business</ion-button>
          </div>
-
+        </ion-col>
+        </ion-grid>
 </ion-content>
+
