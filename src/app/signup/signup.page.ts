@@ -67,7 +67,13 @@ export class SignupPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Please fill out your profile',
       message: 'Click on the icon in the upper righthand corner to complete your profile information so you can begin your journey.',
-      buttons: ['OK'],
+      buttons: [
+        {
+         text: 'OK',
+         handler: () => {
+           this.navCtrl.navigateForward('/profile');
+         }
+        }],
     });
   
     await alert.present();
