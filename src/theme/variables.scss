@@ -127,6 +127,34 @@
 .whiteBackground{
  background-color: #ffffff;
 }
+  
+  @media (max-width: 5000px) {
+  ion-card{
+    max-width: 500px;
+  }
+  ion-item{
+    max-width: 500px;
+  }
+  ion-col{
+    max-width: 500px;
+  }
+  ion-row{
+    max-width: 500px;
+  }
+  ion-text{
+    max-width: 500px;
+  }
+  ion-grid{
+    max-width: 500px;
+    align-items: center;
+  }
+  ion-content{
+    align-items: center;
+  }
+  ion-button{
+    max-width: 500px;
+  }
+}
 
  ion-header{
    --ion-background-color: #bee1eb;
