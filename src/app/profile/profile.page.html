@@ -84,6 +84,27 @@
           </ion-grid>
         </ion-label>
       </ion-item>
+        
+        
+          <!--    TEAM INFO   -->
+      <ion-item>
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Team </ion-col>
+              <ion-col class="text-center" size="7" *ngIf="userProfile?.team">
+                {{userProfile?.team}}
+              </ion-col>
+              <ion-col
+                size="7"
+                class="placeholder-profile text-center"
+                *ngIf="!userProfile?.team"
+              >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
   
   
       <!-- UPDATE PASSWORD-->
