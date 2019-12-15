@@ -8,14 +8,14 @@
 </ion-header>
 
 <ion-content class = "ion-padding">
-
+<ion-grid>
   
 
       <p [hidden] = "kidPledge">
         
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Let's Learn!</ion-card-title>
+    <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
     <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
   </ion-card-header>
 
@@ -28,7 +28,7 @@
 
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Take the Pledge</ion-card-title>
+    <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
     <ion-card-subtitle>Airtight and Alright</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
@@ -80,12 +80,12 @@
         
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Let's Learn!</ion-card-title>
+    <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
     <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-card-content>An <strong>audit</strong> is defined as an official inspection, and in this activity, 
-    you will conduct an audit of your own home! This audit will test the <strong>efficiency</strong>--the state or 
+  <ion-card-content>An <strong class = "vocabulary">audit</strong> is defined as an official inspection, and in this activity, 
+    you will conduct an audit of your own home! This audit will test the <strong class = "vocabulary">efficiency</strong>--the state or 
     condition of achieving maximum productivity--of the appliances, doors, and windows in your home.
   </ion-card-content>
 </ion-card>
@@ -93,7 +93,7 @@
 
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Take the Pledge</ion-card-title>
+    <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
     <ion-card-subtitle>Airtight and Alright</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
@@ -135,11 +135,14 @@
 
       <p>
         Next, talk to your parents about scheduling a home energy efficiency audit with one of our partners, Fort Collins Utilities or Clearwater Exteriors, or schedule it yourself. 
-
-For a home energy efficiency audit, go to https://www.fcgov.com/utilities/epicHomes 
           </p>
   </ion-card-content>
 </ion-card>
+
+<ion-item href="https://www.fcgov.com/utilities/epicHomes ">
+  <ion-icon slot="start" color="danger" name="link"></ion-icon>
+  <ion-label>Schedule your home efficiency audit!</ion-label>
+</ion-item>
         
        </p>
 
@@ -150,12 +153,12 @@ For a home energy efficiency audit, go to https://www.fcgov.com/utilities/epicHo
                
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Let's Learn!</ion-card-title>
+    <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
     <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-card-content>An <strong>audit</strong> is defined as an official inspection, and in this activity, 
-    you will conduct an audit of your own home! This audit will test the <strong>efficiency</strong>--the state or 
+  <ion-card-content>An <strong class = "vocabulary">audit</strong> is defined as an official inspection, and in this activity, 
+    you will conduct an audit of your own home! This audit will test the <strong class = "vocabulary">efficiency</strong>--the state or 
     condition of achieving maximum productivity--of the appliances, doors, and windows in your home.
   </ion-card-content>
 </ion-card>
@@ -163,7 +166,7 @@ For a home energy efficiency audit, go to https://www.fcgov.com/utilities/epicHo
 
 <ion-card class = "pledgeCard">
   <ion-card-header>
-    <ion-card-title>Take the Pledge</ion-card-title>
+    <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
     <ion-card-subtitle>Airtight and Alright</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
@@ -215,9 +218,9 @@ For a home energy efficiency audit, go to https://www.fcgov.com/utilities/epicHo
   <Br><Br>
 
   <div class = "ion-text-center">
-      <h4 [hidden]="kidPledge">I pledge to lead my family in a preliminary home energy efficiency audit. KID PLEDGE</h4>
-      <h4 [hidden]="teenPledge">I pledge to take the lead on conducting a preliminary home efficiency audit for my family. TEEN PLEDGE</h4>
-      <h4 [hidden]="adultPledge"> I pledge to conduct a preliminary home efficiency audit in my own living space. ADULT PLEDGE</h4>    
+      <h4 [hidden]="kidPledge">I pledge to lead my family in a preliminary home energy efficiency audit.</h4>
+      <h4 [hidden]="teenPledge">I pledge to take the lead on conducting a preliminary home efficiency audit for my family.</h4>
+      <h4 [hidden]="adultPledge"> I pledge to conduct a preliminary home efficiency audit in my own living space.</h4>    
   </div>
     
     <ion-card class="verifyPledgeForm">
@@ -240,8 +243,9 @@ For a home energy efficiency audit, go to https://www.fcgov.com/utilities/epicHo
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Upload Story
+       Earn 100 Points
       </ion-button>
     </ion-card-content>
   </ion-card>
+</ion-grid>
 </ion-content>
