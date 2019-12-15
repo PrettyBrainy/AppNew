@@ -87,55 +87,105 @@
 
       <h2>HEADER FOR THIS SECTION</h2>
 
-      <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
-        <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
-        <ion-label>Understand Your Carbon Emissions</ion-label>
-      </ion-item>
+<IonGrid>
+    <IonRow>
+      <IonCol>
+        <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
+          <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
+          <ion-label>Understand Your Carbon Emissions</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+      <IonCol>
+        <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
+          <ion-icon slot="start" color="secondary" name="home"></ion-icon>
+          <ion-label>Conduct a Home Efficiency Audit</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
   
-      <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
-        <ion-icon slot="start" color="secondary" name="home"></ion-icon>
-        <ion-label>Conduct a Home Efficiency Audit</ion-label>
-      </ion-item>
-  
-      <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
-        <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
-        <ion-label>Review the Carbon Neutrality Initiative</ion-label>
-      </ion-item>
-  
+      <IonCol>  
+        <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
+          <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
+          <ion-label>Review the Carbon Neutrality Initiative</ion-label>
+          <ion-label>Points: 200</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+      <IonCol>
       <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "hidePledge4">
-        <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
-        <ion-label>Become a Cool Ambassador</ion-label>
-      </ion-item>
+          <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
+          <ion-label>Become a Cool Ambassador</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+        <IonCol>
+        <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
+          <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
+          <ion-label>Take the Cool Climate Calculator</ion-label>
+          <ion-label>Points: 250</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
   
-      <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
-        <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
-        <ion-label>Take the Cool Climate Calculator</ion-label>
-      </ion-item>
+    </IonRow>
+  </IonGrid>
 
       <br><br><br>
 
-    <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "showPledge1">
-      <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
-      <ion-label>Understand Your Carbon Emissions</ion-label>
-    </ion-item>
-
-    <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "showPledge2">
-      <ion-icon slot="start" color="secondary" name="home"></ion-icon>
-      <ion-label>Conduct a Home Efficiency Audit</ion-label>
-    </ion-item>
-
-    <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "showPledge3">
-      <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
-      <ion-label>Review the Carbon Neutrality Initiative</ion-label>
-    </ion-item>
-
-    <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "showPledge4">
-      <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
-      <ion-label>Become a Cool Ambassador</ion-label>
-    </ion-item>
-
-    <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "showPledge5">
-      <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
-      <ion-label>Take the Cool Climate Calculator</ion-label>
-    </ion-item>
+<IonGrid>
+    <IonRow>
+      <IonCol>
+        <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
+          <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
+          <ion-label>Understand Your Carbon Emissions</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+      <IonCol>
+        <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
+          <ion-icon slot="start" color="secondary" name="home"></ion-icon>
+          <ion-label>Conduct a Home Efficiency Audit</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+  
+      <IonCol>  
+        <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
+          <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
+          <ion-label>Review the Carbon Neutrality Initiative</ion-label>
+          <ion-label>Points: 200</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+      <IonCol>
+      <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "hidePledge4">
+          <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
+          <ion-label>Become a Cool Ambassador</ion-label>
+          <ion-label>Points: 100</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+    
+        <IonCol>
+        <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
+          <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
+          <ion-label>Take the Cool Climate Calculator</ion-label>
+          <ion-label>Points: 250</ion-label>
+          <ion-label>Pounds: 0</ion-label>
+        </ion-item>
+      </IonCol>
+  
+    </IonRow>
+  </IonGrid>
   </ion-content>
