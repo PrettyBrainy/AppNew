@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content class = "ion-padding">
+  <ion-grid>
 
 
   <!----_________________________KID VIEW________________________________-->
@@ -16,7 +17,7 @@
 
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Let's Learn!</ion-card-title>
+      <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
       <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
     </ion-card-header>
   
@@ -24,6 +25,8 @@
                       by the year 2050. Carbon neutrality is when a net zero carbon footprint is reached by 
                       balancing carbon emissions and the removal of carbon.
       </ion-card-content>
+    </ion-card>
+
       <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
         <ion-icon slot="start" color="danger" name="link"></ion-icon>
         <ion-label>Fort Collins Climate Action Plan</ion-label>
@@ -33,11 +36,10 @@
         <ion-icon slot="start" color="danger" name="link"></ion-icon>
         <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
         </ion-item>
-  </ion-card>
       
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Take the Pledge</ion-card-title>
+      <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
       <ion-card-subtitle>Scan the Plan</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -74,13 +76,15 @@
       
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Let's Learn!</ion-card-title>
+      <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
       <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>The City of Fort Collins, CO has a plan to reach carbon neutrality by the year 2050. Carbon neutrality is when a net zero carbon footprint is reached by balancing carbon emissions and the removal of carbon.
 
       </ion-card-content>
+    </ion-card> 
+    <br>
           <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Fort Collins Climate Action Plan</ion-label>
@@ -90,12 +94,10 @@
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
               </ion-item><br><br>
-
-  </ion-card>
       
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Take the Pledge</ion-card-title>
+      <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
       <ion-card-subtitle>Scan the Plan</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -130,13 +132,15 @@
       
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Let's Learn!</ion-card-title>
+      <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
       <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>The City of Fort Collins, CO has a plan to reach carbon neutrality by the year 2050. Carbon neutrality is when a net zero carbon footprint is reached by balancing carbon emissions and the removal of carbon.
 
       </ion-card-content>
+    </ion-card>
+
           <ion-item href="https://drive.google.com/file/d/1PAA3nxrxWhSplQA9MtJF97Mtsx0wfZpl/view?usp=sharing">
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Fort Collins Climate Action Plan</ion-label>
@@ -146,12 +150,10 @@
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Fort Collins Climate Action Plan Summary</ion-label>
               </ion-item><br><br>
-  
-  </ion-card>
       
   <ion-card class="pledgeCard">
     <ion-card-header>
-      <ion-card-title>Take the Pledge</ion-card-title>
+      <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
       <ion-card-subtitle>Scan the Plan</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -207,8 +209,9 @@
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Upload Story
+        Earn 200 Points
       </ion-button>
     </ion-card-content>
   </ion-card>
+</ion-grid>
 </ion-content>
