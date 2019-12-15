@@ -8,6 +8,7 @@
   </ion-header>
   
   <ion-content class = "ion-padding">
+    <ion-grid>
   
 
     <!--________________________KID VIEW______________________________-->
@@ -26,12 +27,13 @@
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
           </ion-card-content>
 
+        </ion-card>
+
           <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Cool Climate Ambassador Guidelines</ion-label>
               </ion-item>  
               
-       </ion-card>
          </p>
   
 
@@ -51,12 +53,13 @@
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
         </ion-card-content>
 
+      </ion-card>
+
         <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
           <ion-icon slot="start" color="danger" name="link"></ion-icon>
           <ion-label>Cool Climate Ambassador Guidelines</ion-label>
         </ion-item> 
               
-        </ion-card>
     </p>
   
   <!--________________________ADULT  VIEW______________________________-->
@@ -74,13 +77,13 @@
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
         </ion-card-content>
 
+      </ion-card>
 
             <ion-item href="https://drive.google.com/file/d/0By4b0Z0qoYNtMVl0RVI2Sk9KNkNnU1JXZmhlbFlNTGJ1RzA0/view?usp=sharing">
               <ion-icon slot="start" color="danger" name="link"></ion-icon>
               <ion-label>Cool Climate Ambassador Guidelines</ion-label>
             </ion-item>  
               
-          </ion-card>
     </p>
   
     <Br>
@@ -112,8 +115,9 @@
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Upload Story
+        Earn 100 Points
       </ion-button>
     </ion-card-content>
   </ion-card>
+</ion-grid>
   </ion-content>
