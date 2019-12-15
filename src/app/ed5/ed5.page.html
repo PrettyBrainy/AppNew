@@ -8,6 +8,7 @@
   </ion-header>
   
   <ion-content class = "ion-padding">
+    <ion-grid>
 
   <!--_________________________KID PLEDGE___________________________-->  
 
@@ -15,17 +16,22 @@
       
           <ion-card class = "pledgeCard">
               <ion-card-header>
-                <ion-card-title>Take the Pledge</ion-card-title>
+                <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
                 <ion-card-subtitle>Calcu-Later Carbon Emissions</ion-card-subtitle>
               </ion-card-header>
             
               <ion-card-content>
-                  Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+                  Use the calculator linked below to get information on your 
                   carbon footprint for waste, transportation, and home energy. 
                   You may need an adult to help you.            
               </ion-card-content>
             </ion-card>
-      
+          
+            <br>
+            <ion-item href="https://www3.epa.gov/carbon-footprint-calculator/">
+              <ion-icon slot="start" color="danger" name="link"></ion-icon>
+              <ion-label>Take the carbon footprint calculattor!</ion-label>
+            </ion-item>
       </p>
     
 <!--_________________________TEEN PLEDGE___________________________-->  
@@ -34,17 +40,24 @@
 
         <ion-card class = "pledgeCard">
               <ion-card-header>
-                <ion-card-title>Take the Pledge</ion-card-title>
+                <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
                 <ion-card-subtitle>Calcu-Later Carbon Emissions</ion-card-subtitle>
               </ion-card-header>
             
               <ion-card-content>
-                  Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+                  Use the calculator linked below to get information on your 
                   carbon footprint for waste, transportation, and home energy. 
                   You may need an adult to help you.            
               </ion-card-content>
             </ion-card>
-      </p>
+          
+
+            <br>
+              <ion-item href="https://www3.epa.gov/carbon-footprint-calculator/">
+                <ion-icon slot="start" color="danger" name="link"></ion-icon>
+                <ion-label>Take the carbon footprint calculator!</ion-label>
+              </ion-item>
+            </p>
     
     
   <!--_________________________ADULT PLEDGE___________________________-->      
@@ -53,17 +66,23 @@
 
   <ion-card class = "pledgeCard">
         <ion-card-header>
-          <ion-card-title>Take the Pledge</ion-card-title>
+          <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
           <ion-card-subtitle>Calcu-Later Carbon Emissions</ion-card-subtitle>
         </ion-card-header>
       
         <ion-card-content>
-            Go to this website https://www3.epa.gov/carbon-footprint-calculator/ and use the calculator to get information on your 
+            Use the calculator linked below the calculator to get information on your 
             carbon footprint for waste, transportation, and home energy. 
             You may need an adult to help you.            
               </ion-card-content>
-          </ion-card>
-      </p>
+            </ion-card>
+
+              <br>
+              <ion-item href="https://www3.epa.gov/carbon-footprint-calculator/">
+                <ion-icon slot="start" color="danger" name="link"></ion-icon>
+                <ion-label>Take the carbon footprint calculattor!</ion-label>
+              </ion-item>
+            </p>
 
 
 <Br><Br>
@@ -94,8 +113,9 @@
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Upload Story
+       Earn 250 Points
       </ion-button>
     </ion-card-content>
   </ion-card>
+</ion-grid>
 </ion-content>
