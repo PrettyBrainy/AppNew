@@ -123,13 +123,7 @@
       </ion-label>
     </ion-item>
 
-<!--____________ SHOW AGE________________-->
-    <ion-item [hidden]="ageRange">
-      <h6 [hidden]="lAge" text-center>Age Range: 11-15</h6>
-      <h6 [hidden]="mAge" text-center>Age Range: 16-18, in highschool</h6>
-      <h6 [hidden]="hAge" text-center>Age Range: 18-20</h6>
-      <h6 [hidden]="oAge" text-center>Age Range: 21+</h6>
-    </ion-item>
+
   </ion-list>
 
   <!--   UPDATE DOB  -->
@@ -167,9 +161,9 @@ justify-content: center;">
 </div>
 </div>
 
-<ion-row [hidden] = "showTeamButtons">
+<ion-row >
   <ion-col class = "ion-text-center">
-    <ion-button (click) = checkForTeam()>Create a Team</ion-button><ion-button>Join a Team</ion-button>
+    <ion-button (click) = presentPrompt()>Create a Team</ion-button><ion-button>Join a Team</ion-button>
   </ion-col>
 </ion-row>
   
