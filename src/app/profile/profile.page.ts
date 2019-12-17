@@ -28,6 +28,8 @@ export class ProfilePage implements OnInit {
   public team: string;
   public showTeam: boolean = false;
   public showTeamButtons: boolean = true;
+  private code: string;
+  private uid: string;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -47,7 +49,6 @@ export class ProfilePage implements OnInit {
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
       if (userProfileSnapshot.data()) {
         var userAge = String(userProfileSnapshot.data().birthDate);
-        console.log(userAge);
         if (userAge != 'undefined'){
           this.age = true;
           this.ageRange = true;
@@ -58,7 +59,6 @@ export class ProfilePage implements OnInit {
           this.ageRange = false;
           this.drop = false;
         }  
-        console.log(this.drop);
       }
   
     }
@@ -73,9 +73,6 @@ export class ProfilePage implements OnInit {
     this.showTeam = false;
     this.showTeamButtons = true;
   }
- console.log(this.showTeam);
- console.log(this.showTeamButtons);
- console.log(teamCheck)
 }
 
   logOut(): void {
@@ -212,22 +209,73 @@ oldAge(){
 }
 
 createTeam(teamId: string, accessCode: string) {
-
+  this.code = accessCode;
   const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
   const teamsList = firebase.firestore().collection('teams')
   teamRef.get()
     .then((docSnapshot) => {
       if (docSnapshot.exists) {
-        alert('user ' + teamId + ' exists!');
+        alert(teamId + ' is already in use by another team! Pick another name.');
       } else {
-      var teamName = teamId;
-      var accessCode = accessCode;
-      teamsList.doc(teamName).set(accessCode)
+      
+      var user = firebase.auth().currentUser;
+      if (user != null) {
+        this.uid = user.uid; 
+      } 
+     
+      var teamName = {
+        team: `${teamId}`
+      }
+      var access = {
+        accessCode: this.code,
+        user1: this.uid,
+        teamUsers: 1
+      }
+      let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).set(teamName);
+      let createTeam = teamsList.doc(`${teamId}`).set(access);
+      alert('Success! Team ' + teamId + ' has been created! Send your Team Name and access code to your friends now.')
+      this.showTeam = false;
+      this.showTeamButtons = true;
       }
       });
-  
   }
 
+joinTeam(teamId: string, accessCode:string){
+  this.code = accessCode;
+  const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
+  const teamsList = firebase.firestore().collection('teams')
+  teamRef.get()
+  .then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      let access = String(docSnapshot.data().accessCode);
+      let numUsersOnTeam = Number(docSnapshot.data().teamUsers);
+      numUsersOnTeam += 1;
+      if (access == this.code){
+
+        var user = firebase.auth().currentUser;
+        if (user != null) {
+          this.uid = user.uid; 
+        } 
+       
+        var teamName = {
+          team: `${teamId}`
+        }
+        
+        var trackUsers = {
+          teamUsers: `${numUsersOnTeam}`
+        }
+
+        let addUserToTeam = teamRef.update(trackUsers);
+        let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).set(teamName);
+      }else {
+        alert('Access code is incorrect! Double check your spelling and try again (:')
+      }
+
+    } else {
+      alert(teamId + ' does not exist! Create a new team now')
+    }
+})
+}
 
 checkForTeam(){
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
@@ -238,7 +286,7 @@ checkForTeam(){
 return this.team;}
 
 
-async presentPrompt() {
+async createTeamAlert() {
   const alert = await this.alertCtrl.create({
     inputs: [
       {
@@ -247,7 +295,7 @@ async presentPrompt() {
       },
       {
         name: 'accessCode',
-        placeholder: 'Password'
+        placeholder: 'Set a Team Access Code'
       }
     ],
     buttons: [
@@ -262,6 +310,38 @@ async presentPrompt() {
         text: 'Create Team',
         handler: data => {
           this.createTeam(data.teamName, data.accessCode);
+      }
+      }],
+  });
+  await alert.present();
+
+}
+
+
+async joinTeamAlert() {
+  const alert = await this.alertCtrl.create({
+    inputs: [
+      {
+        name: 'teamName',
+        placeholder: 'Enter Your Team Name'
+      },
+      {
+        name: 'accessCode',
+        placeholder: 'Enter Your Team\'s Access Code'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Create Team',
+        handler: data => {
+          this.joinTeam(data.teamName, data.accessCode);
       }
       }],
   });
