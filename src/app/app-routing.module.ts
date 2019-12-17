@@ -48,6 +48,7 @@ const routes: Routes = [
   { path: 'comingsoon', loadChildren: './comingsoon/comingsoon.module#ComingsoonPageModule' },
   { path: 'carboncalculator', loadChildren: './carboncalculator/carboncalculator.module#CarboncalculatorPageModule' },
   { path: 'create-event', loadChildren: './create-event/create-event.module#CreateEventPageModule' }
+  { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' }
 ];
 @NgModule({
   imports: [
