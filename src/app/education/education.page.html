@@ -8,6 +8,7 @@
   </ion-header>
   
   <ion-content class = "ion-padding">
+    <ion-grid>
 
   <div ion-text-left>
   <h4 [hidden]="hideText">Why are we starting with an Education module? It is 
@@ -20,232 +21,240 @@
     <div align = 'center'>
     <ion-button style="font-size: 20px;" [hidden]="hideButton" (click)="startEdModule()" >Start This Module</ion-button>
     </div>
-      
-          <!---- ___________________PROGRESS BAR_________________________-->
-  <ion-row>
-    <div align = "center">  
-        <circle-progress 
-        [hidden] = "hidePledges"
-        [percent]= "x"
-        [radius]="70"
-        [outerStrokeWidth]="9"
-        [innerStrokeWidth]="5"
-        [outerStrokeColor]="'#1ba561'"
-        [innerStrokeColor]="'#8fcc90'"
-        [animation]="true"
-        [animationDuration]="500"
-        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
-        [showImage]="true"
-        [imageWidth]="120"
-        [imageHeight]="120">
-        </circle-progress>
-     
-        <circle-progress 
-        [hidden] = "hidePledges"
-        [percent]= "x"
-        [radius]="70"
-        [outerStrokeWidth]="9"
-        [innerStrokeWidth]="5"
-        [outerStrokeColor]="'#1ba561'"
-        [innerStrokeColor]="'#8fcc90'"
-        [animation]="true"
-        [animationDuration]="500"
-        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
-        [showImage]="true"
-        [imageWidth]="120"
-        [imageHeight]="120">
-        </circle-progress>
 
-        <circle-progress 
-        [hidden] = "hidePledges"
-        [percent]= "x"
-        [radius]="70"
-        [outerStrokeWidth]="9"
-        [innerStrokeWidth]="5"
-        [outerStrokeColor]="'#1ba561'"
-        [innerStrokeColor]="'#8fcc90'"
-        [animation]="true"
-        [animationDuration]="500"
-        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
-        [showImage]="true"
-        [imageWidth]="120"
-        [imageHeight]="120">
-        </circle-progress>
-
-        </div>
-      </ion-row>
-      
-      <div text-center>
-      <ion-row>
-          <ion-col width-166.66><h5>Your Progress</h5></ion-col>
-          <ion-col width-166.66><h5>Team Progress</h5></ion-col>
-          <ion-col width-166.66><h5>Total User Progress</h5></ion-col>
-      </ion-row>
+    <!---- ___________________PROGRESS BAR_________________________-->
+    <div style="text-align: center" [hidden] = "hidePledges">
+        <h1>Progress</h1>
       </div>
+
+    <ion-grid>
+    <div text-left>
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/circle_badges/circle-cropped_Ed.png'" 
+        [showImage]="true"
+        [imageWidth]="112"
+        [imageHeight]="112">
+        </circle-progress>
+        <h5 [hidden] = "hidePledges">Your Progress</h5>
+      </div>
+
+      <div text-center>
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/pictures/Circle-Team-Photo.png'" 
+        [showImage]="true"
+        [imageWidth]="112"
+        [imageHeight]="112">
+        </circle-progress>
+        <h5 [hidden] = "hidePledges">Team Progress</h5>
+      </div>
+
+      <div text-right>
+        <circle-progress 
+        [hidden] = "hidePledges"
+        [percent]= "x"
+        [radius]="70"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#1ba561'"
+        [innerStrokeColor]="'#8fcc90'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/pictures/circle-cropped-FC-Logo.png'" 
+        [showImage]="true"
+        [imageWidth]="112"
+        [imageHeight]="112">
+        </circle-progress>
+        <h5 [hidden] = "hidePledges">City Progress</h5>
+    </div>
+</ion-grid>
 
         <br><br><br>
 
-      <h2>HEADER FOR THIS SECTION</h2>
+        <div style="text-align: center" [hidden] = "hidePledges">
+        <h2>Incomplete Pledges</h2>
+      </div>
 
-<ion-grid>
-    <ion-row class="ion-text-align">
-      <ion-col>
-        <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
-          <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Know More Carbon Emissions</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-      <ion-col>
-        <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
-          <ion-icon slot="start" color="secondary" name="home"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Airtight and Alright</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-  
-      <ion-col>  
-        <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
-          <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Scan the Plan</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 200</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-      <ion-col>
-      <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "hidePledge4">
-          <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Haven't You Heard, Spread the Word</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-        <ion-col>
-        <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
-          <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Calcu-Later Carbon Emissions</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 250</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-  
-    </ion-row>
-  </ion-grid>
+      <ion-grid>
+          <ion-row class="ion-text-align">
+            <ion-col>
+              <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "incompletePledge1">
+                <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
+              <div class="ion-padding-end">
+                <h6>Know More Carbon Emissions</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="points">Points: 100</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="pounds">Pounds: 0</h6>
+              </div>
+              </ion-item>
+            </ion-col>
+          
+            <ion-col>
+              <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "incompletePledge2">
+                <ion-icon slot="start" color="secondary" name="home"></ion-icon>
+              <div class="ion-padding-end">
+                <h6>Airtight and Alright</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="points">Points: 100</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="pounds">Pounds: 0</h6>
+              </div>
+              </ion-item>
+            </ion-col>
+        
+            <ion-col>  
+              <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "incompletePledge3">
+                <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
+              <div class="ion-padding-end">
+                <h6>Scan the Plan</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="points">Points: 200</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="pounds">Pounds: 0</h6>
+              </div>
+              </ion-item>
+            </ion-col>
+          
+            <ion-col>
+            <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "incompletePledge4">
+                <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
+              <div class="ion-padding-end">
+                <h6>Haven't You Heard, Spread the Word</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="points">Points: 100</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="pounds">Pounds: 0</h6>
+              </div>
+              </ion-item>
+            </ion-col>
+          
+              <ion-col>
+              <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "incompletePledge5">
+                <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
+              <div class="ion-padding-end">
+                <h6>Calcu-Later Carbon Emissions</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="points">Points: 250</h6>
+              </div>
+              <div class="ion-padding">
+                <h6 class="pounds">Pounds: 0</h6>
+              </div>
+              </ion-item>
+            </ion-col>
+        
+          </ion-row>
+        </ion-grid>
+      
+            <br><br><br>
 
-      <br><br><br>
+      <div style="text-align: center" [hidden] = "hidePledges">
+          <h2>Completed Pledges</h2>
+        </div>
 
-  <ion-grid>
-    <ion-row class="ion-text-align">
-      <ion-col>
-        <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "hidePledge1">
-          <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Know More Carbon Emissions</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-      <ion-col>
-        <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "hidePledge2">
-          <ion-icon slot="start" color="secondary" name="home"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Airtight and Alright</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-  
-      <ion-col>  
-        <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "hidePledge3">
-          <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Scan the Plan</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 200</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-      <ion-col>
-      <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "hidePledge4">
-          <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Haven't You Heard, Spread the Word</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 100</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-    
-        <ion-col>
-        <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "hidePledge5">
-          <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
-        <div class="ion-padding-end">
-          <h6>Calcu-Later Carbon Emissions</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="points">Points: 250</h6>
-        </div>
-        <div class="ion-padding">
-          <h6 class="pounds">Pounds: 0</h6>
-        </div>
-        </ion-item>
-      </ion-col>
-  
-    </ion-row>
-  </ion-grid>
-  </ion-content>
+        <ion-grid>
+            <ion-row class="ion-text-align">
+              <ion-col>
+                <ion-item routerLink="/ed1" routerDirection="root" [hidden] = "completePledge1">
+                  <ion-icon slot="start" color="secondary" name="leaf"></ion-icon>
+                <div class="ion-padding-end">
+                  <h6>Know More Carbon Emissions</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="points">Points: 100</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="pounds">Pounds: 0</h6>
+                </div>
+                </ion-item>
+              </ion-col>
+            
+              <ion-col>
+                <ion-item routerLink="/ed2" routerDirection="root" [hidden] = "completePledge2">
+                  <ion-icon slot="start" color="secondary" name="home"></ion-icon>
+                <div class="ion-padding-end">
+                  <h6>Airtight and Alright</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="points">Points: 100</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="pounds">Pounds: 0</h6>
+                </div>
+                </ion-item>
+              </ion-col>
+          
+              <ion-col>  
+                <ion-item routerLink="/ed3" routerDirection="root" [hidden] = "completePledge3">
+                  <ion-icon slot="start" color="secondary" name="globe"></ion-icon>
+                <div class="ion-padding-end">
+                  <h6>Scan the Plan</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="points">Points: 200</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="pounds">Pounds: 0</h6>
+                </div>
+                </ion-item>
+              </ion-col>
+            
+              <ion-col>
+              <ion-item routerLink="/ed4" routerDirection="root" [hidden] = "completePledge4">
+                  <ion-icon slot="start" color="secondary" name="snow"></ion-icon>
+                <div class="ion-padding-end">
+                  <h6>Haven't You Heard, Spread the Word</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="points">Points: 100</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="pounds">Pounds: 0</h6>
+                </div>
+                </ion-item>
+              </ion-col>
+            
+                <ion-col>
+                <ion-item routerLink="/ed5" routerDirection="root" [hidden] = "completePledge5">
+                  <ion-icon slot="start" color="secondary" name="calculator"></ion-icon>
+                <div class="ion-padding-end">
+                  <h6>Calcu-Later Carbon Emissions</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="points">Points: 250</h6>
+                </div>
+                <div class="ion-padding">
+                  <h6 class="pounds">Pounds: 0</h6>
+                </div>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-grid>
+      </ion-content>   
