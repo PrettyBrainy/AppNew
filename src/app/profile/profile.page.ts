@@ -69,7 +69,6 @@ export class ProfilePage implements OnInit {
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
       this.team = String(userProfileSnapshot.data().team);
-      console.log(this.team);
       if (this.team != 'undefined'){
         this.showTeam = false;
         this.showTeamButtons = true;
@@ -111,6 +110,7 @@ export class ProfilePage implements OnInit {
           text: 'Save',
           handler: data => {
             this.profileService.updateName(data.firstName, data.lastName);
+            this.refreshProfilePage();
           },
         },
       ],
@@ -119,8 +119,7 @@ export class ProfilePage implements OnInit {
   }
 
   refreshProfilePage(){
-    this.router.navigateByUrl('profile');
-  
+    window.location.reload()
   }
 
 
@@ -129,6 +128,7 @@ export class ProfilePage implements OnInit {
       return;
     }
     this.profileService.updateDOB(birthDate);
+    this.refreshProfilePage();
   }
 
 
@@ -147,6 +147,7 @@ export class ProfilePage implements OnInit {
               .updateEmail(data.newEmail, data.password)
               .then(() => {
                 console.log('Email Changed Successfully');
+                this.refreshProfilePage();
               })
               .catch(error => {
                 console.log('ERROR: ' + error.message);
@@ -253,6 +254,7 @@ createTeam(teamId: string, accessCode: string) {
       this.showTeamButtons = true;
       }
       });
+      this.refreshProfilePage();
   }
 
 joinTeam(teamId: string, accessCode:string){
@@ -292,6 +294,7 @@ joinTeam(teamId: string, accessCode:string){
       alert(teamId + ' does not exist! Create a new team now.')
     }
 })
+this.refreshProfilePage();
 }
 
 
