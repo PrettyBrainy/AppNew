@@ -1,4 +1,4 @@
-<ion-header>
+  <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
@@ -163,9 +163,11 @@ justify-content: center;">
 </div>
 
 <ion-row >
-  <ion-col class = "ion-text-center">
-    <ion-button (click) = presentPrompt()>Create a Team</ion-button><ion-button>Join a Team</ion-button>
+  <ion-col class = "ion-text-center" >
+    <ion-button (click) = createTeamAlert() [hidden] = "showTeamButtons">Create a Team</ion-button>
+    <ion-button (click) = joinTeamAlert() [hidden] = "showTeamButtons">Join a Team</ion-button>
   </ion-col>
 </ion-row>
   
+<ion-button (click) = "refreshProfilePage()">Click</ion-button>
 </ion-content>
