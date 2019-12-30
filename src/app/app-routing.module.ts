@@ -23,7 +23,6 @@ const routes: Routes = [
   { path: 'computers', loadChildren: './computers/computers.module#ComputersPageModule' },
   { path: 'plug-loads', loadChildren: './plug-loads/plug-loads.module#PlugLoadsPageModule' },
   { path: 'equipment-and-purchasing', loadChildren: './equipment-and-purchasing/equipment-and-purchasing.module#EquipmentAndPurchasingPageModule' },
-  { path: 'transportation', loadChildren: './transportation/transportation.module#TransportationPageModule' },
   { path: 'ed1', loadChildren: './ed1/ed1.module#Ed1PageModule' },
   { path: 'ed2', loadChildren: './ed2/ed2.module#Ed2PageModule' },
   { path: 'ed3', loadChildren: './ed3/ed3.module#Ed3PageModule' },
@@ -47,7 +46,7 @@ const routes: Routes = [
   { path: 'welcome4', loadChildren: './welcome/welcome4/welcome4.module#Welcome4PageModule' },
   { path: 'comingsoon', loadChildren: './comingsoon/comingsoon.module#ComingsoonPageModule' },
   { path: 'carboncalculator', loadChildren: './carboncalculator/carboncalculator.module#CarboncalculatorPageModule' },
-  { path: 'create-event', loadChildren: './create-event/create-event.module#CreateEventPageModule' }
+  { path: 'create-event', loadChildren: './create-event/create-event.module#CreateEventPageModule' },
   { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' }
 ];
 @NgModule({
