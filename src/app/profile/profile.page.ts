@@ -1,6 +1,6 @@
 import { Tab1PageModule } from './../tab1/tab1.module';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { AuthService } from './../services/user/auth.service';
 import { ProfileService } from './../services/user/profile.service';
 import { Router } from '@angular/router';
@@ -30,11 +30,13 @@ export class ProfilePage implements OnInit {
   public showTeamButtons: boolean = true;
   private code: string;
   private uid: string;
+  public teamCheck: string;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
     private profileService: ProfileService,
     private router: Router,
+    private navCtrl: NavController
   
   ) {}
 
@@ -60,24 +62,28 @@ export class ProfilePage implements OnInit {
           this.drop = false;
         }  
       }
-  
     }
-    )
+  )
 
   //_______________________Check For Teams
-  var teamCheck = this.checkForTeam();
-  if (teamCheck != 'undefined'){
-    this.showTeam = true;
-    this.showTeamButtons = false;
-  } else {
-    this.showTeam = false;
-    this.showTeamButtons = true;
-  }
+  this.profileService.getUserProfile().then((userProfileSnapshot) => {
+    if (userProfileSnapshot.data()) {
+      this.team = String(userProfileSnapshot.data().team);
+      console.log(this.team);
+      if (this.team != 'undefined'){
+        this.showTeam = false;
+        this.showTeamButtons = true;
+      } else {
+        this.showTeam = true;
+        this.showTeamButtons = false;
+      }
+    }
+  })
 }
 
   logOut(): void {
     this.authService.logoutUser().then( () => {
-      this.router.navigateByUrl('login');
+      this.router.navigate(['/education']);
     });
   }
 
@@ -111,6 +117,12 @@ export class ProfilePage implements OnInit {
     });
     await alert.present();
   }
+
+  refreshProfilePage(){
+    this.router.navigateByUrl('profile');
+  
+  }
+
 
   updateDOB(birthDate: string): void {
     if (birthDate === undefined) {
@@ -228,11 +240,14 @@ createTeam(teamId: string, accessCode: string) {
       }
       var access = {
         accessCode: this.code,
-        user1: this.uid,
-        teamUsers: 1
+        teamUsers: 1,
+        teamPoints: 0
       }
-      let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).set(teamName);
+
+      let userArray = [this.uid];
+      let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName);
       let createTeam = teamsList.doc(`${teamId}`).set(access);
+      let addUser = teamRef.update(userArray);
       alert('Success! Team ' + teamId + ' has been created! Send your Team Name and access code to your friends now.')
       this.showTeam = false;
       this.showTeamButtons = true;
@@ -243,7 +258,6 @@ createTeam(teamId: string, accessCode: string) {
 joinTeam(teamId: string, accessCode:string){
   this.code = accessCode;
   const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
-  const teamsList = firebase.firestore().collection('teams')
   teamRef.get()
   .then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -260,30 +274,25 @@ joinTeam(teamId: string, accessCode:string){
         var teamName = {
           team: `${teamId}`
         }
-        
+
         var trackUsers = {
           teamUsers: `${numUsersOnTeam}`
         }
+        
+        
 
-        let addUserToTeam = teamRef.update(trackUsers);
-        let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).set(teamName);
+
+        let increaseNumUsers = teamRef.update(trackUsers);
+        let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName);
       }else {
         alert('Access code is incorrect! Double check your spelling and try again (:')
       }
 
     } else {
-      alert(teamId + ' does not exist! Create a new team now')
+      alert(teamId + ' does not exist! Create a new team now.')
     }
 })
 }
-
-checkForTeam(){
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      this.team = String(userProfileSnapshot.data().team)
-    }
-  })
-return this.team;}
 
 
 async createTeamAlert() {
@@ -348,7 +357,6 @@ async joinTeamAlert() {
   await alert.present();
 
 }
-
 
 
 }
