@@ -30,7 +30,6 @@ export class ProfilePage implements OnInit {
   public showTeamButtons: boolean = true;
   private code: string;
   private uid: string;
-  public teamCheck: string;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -48,6 +47,7 @@ export class ProfilePage implements OnInit {
       }
     });
 
+//_______________________Check to display age dropdown
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
       if (userProfileSnapshot.data()) {
         var userAge = String(userProfileSnapshot.data().birthDate);
@@ -225,17 +225,18 @@ createTeam(teamId: string, accessCode: string) {
   this.code = accessCode;
   const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
   const teamsList = firebase.firestore().collection('teams')
+  
+  //___________________Check to see if team name is in use.
   teamRef.get()
     .then((docSnapshot) => {
       if (docSnapshot.exists) {
         alert(teamId + ' is already in use by another team! Pick another name.');
       } else {
-      
+  //_____________________Create the team with user information and one user on team.
       var user = firebase.auth().currentUser;
       if (user != null) {
         this.uid = user.uid; 
-      } 
-     
+      }
       var teamName = {
         team: `${teamId}`
       }
@@ -245,7 +246,7 @@ createTeam(teamId: string, accessCode: string) {
         teamPoints: 0
       }
 
-      let userArray = [this.uid];
+      let userArray = {users: [this.uid]};
       let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName);
       let createTeam = teamsList.doc(`${teamId}`).set(access);
       let addUser = teamRef.update(userArray);
@@ -254,7 +255,6 @@ createTeam(teamId: string, accessCode: string) {
       this.showTeamButtons = true;
       }
       });
-      this.refreshProfilePage();
   }
 
 joinTeam(teamId: string, accessCode:string){
@@ -265,6 +265,7 @@ joinTeam(teamId: string, accessCode:string){
     if (docSnapshot.exists) {
       let access = String(docSnapshot.data().accessCode);
       let numUsersOnTeam = Number(docSnapshot.data().teamUsers);
+      
       numUsersOnTeam += 1;
       if (access == this.code){
 
@@ -272,7 +273,14 @@ joinTeam(teamId: string, accessCode:string){
         if (user != null) {
           this.uid = user.uid; 
         } 
-       
+      
+        let userData = docSnapshot.data().users;
+        let userArray = String(userData);
+        console.log(userData);
+        this.array = userArray.split(',');
+        this.array.push(this.uid);
+        console.log(this.array);
+
         var teamName = {
           team: `${teamId}`
         }
@@ -280,11 +288,13 @@ joinTeam(teamId: string, accessCode:string){
         var trackUsers = {
           teamUsers: `${numUsersOnTeam}`
         }
-        
-        
 
+        var addUsers = {
+          users: this.array
+        }
 
         let increaseNumUsers = teamRef.update(trackUsers);
+        let updateAllUsers = teamRef.update(addUsers);
         let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName);
       }else {
         alert('Access code is incorrect! Double check your spelling and try again (:')
@@ -294,7 +304,7 @@ joinTeam(teamId: string, accessCode:string){
       alert(teamId + ' does not exist! Create a new team now.')
     }
 })
-this.refreshProfilePage();
+
 }
 
 
