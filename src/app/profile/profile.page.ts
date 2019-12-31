@@ -255,6 +255,7 @@ createTeam(teamId: string, accessCode: string) {
       this.showTeamButtons = true;
       }
       });
+    this.increaseCityTeamCount();
   }
 
 joinTeam(teamId: string, accessCode:string){
@@ -307,6 +308,17 @@ joinTeam(teamId: string, accessCode:string){
 
 }
 
+increaseCityTeamCount(){
+  let cityOverall = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot) => {
+    var numTeams = docSnapshot.data().totalTeams;
+    numTeams +=1;
+    var update = {
+      totalTeams: `${numTeams}`,
+    }
+    let updateTeams = firebase.firestore().collection('cityOverall').doc('cityOverall').update(update);
+  })
+
+}
 
 async createTeamAlert() {
   const alert = await this.alertCtrl.create({
