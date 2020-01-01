@@ -62,86 +62,119 @@ public array: Array<any>;
 
     })
   }) 
- 
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      var ed1Verf = String(userProfileSnapshot.data().ed1); 
-      if (ed1Verf != ' '){
-        this.incompletePledge1=false;
-        this.completePledge1=true;
-        console.log("has data - 1");
-      }
-      else{
-        this.incompletePledge1=true;
-        this.completePledge1=false;
-        console.log("no data - 1");
-      }
-    }
-  }) 
+//__________________________________________ Show/Hide for ed1
+let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+  var ed1Verf = String(docSnapshot.data().ed1); 
+  console.log(ed1Verf)
+  if (ed1Verf == ' '){
+    this.incompletePledge1=false;
+    this.completePledge1=true;
+    console.log("no data - 1");
+  }
+  else{
+    this.incompletePledge1=true;
+    this.completePledge1=false;
+    console.log("has data - 1");
+  }
 
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      var ed2Verf = String(userProfileSnapshot.data().ed2); 
-      if (ed2Verf == ' '){
-        this.incompletePledge2=false;
-        this.completePledge2=true;
-        console.log("has data - 2");
-      }
-      else{
-        this.incompletePledge2=true;
-        this.completePledge2=false;
-        console.log("no data - 2");
-      }
-    }
-  }) 
+}) 
+//__________________________________________ Show/Hide for ed2
+let data2 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+  var ed2Verf = String(docSnapshot.data().ed2); 
+  console.log(ed2Verf)
+  if (ed2Verf == ' '){
+    this.incompletePledge2=false;
+    this.completePledge2=true;
+    console.log("no data - 2");
+  }
+  else{
+    this.incompletePledge2=true;
+    this.completePledge2=false;
+    console.log("has data - 2");
+  }
 
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      var ed3Verf = String(userProfileSnapshot.data().ed3); 
-      if (ed3Verf == ' '){
-        this.incompletePledge3=false;
-        this.completePledge3=true;
-        console.log("has data - 3");
-      }
-      else{
-        this.incompletePledge3=true;
-        this.completePledge3=false;
-        console.log("no data - 3");
-      }
-    }
-  }) 
+}) 
+//__________________________________________ Show/Hide for ed3
+let data3 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+  var ed3Verf = String(docSnapshot.data().ed3); 
+  console.log(ed3Verf)
+  if (ed3Verf == ' '){
+    this.incompletePledge3=false;
+    this.completePledge3=true;
+    console.log("no data - 3");
+  }
+  else{
+    this.incompletePledge3=true;
+    this.completePledge3=false;
+    console.log("has data - 3");
+  }
 
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      var ed4Verf = String(userProfileSnapshot.data().ed4); 
-      if (ed4Verf == ' '){
-        this.incompletePledge4=false;
-        this.completePledge4=true;
-        console.log("has data - 4");
-      }
-      else{
-        this.incompletePledge4=true;
-        this.completePledge4=false;
-        console.log("no data - 4");
-      }
-    }
-  }) 
+}) 
+//__________________________________________ Show/Hide for ed4
+let data4 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+  var ed4Verf = String(docSnapshot.data().ed4); 
+  console.log(ed4Verf)
+  if (ed4Verf == ' '){
+    this.incompletePledge4=false;
+    this.completePledge4=true;
+    console.log("no data - 4");
+  }
+  else{
+    this.incompletePledge4=true;
+    this.completePledge4=false;
+    console.log("has data - 4");
+  }
 
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
-    if (userProfileSnapshot.data()) {
-      var ed5Verf = String(userProfileSnapshot.data().ed5); 
-      if (ed5Verf == ' '){
-        this.incompletePledge5=false;
-        this.completePledge5=true;
-        console.log("has data - 5");
-      }
-      else{
-        this.incompletePledge5=true;
-        this.completePledge5=false;
-        console.log("no data - 5");
-      }
-    }
-  }) 
+}) 
+
+//__________________________________________ Show/Hide for ed5
+let data = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+  var ed5Verf = String(docSnapshot.data().ed5); 
+  console.log(ed5Verf)
+  if (ed5Verf == ' '){
+    this.incompletePledge5=false;
+    this.completePledge5=true;
+    console.log("no data - 5");
+  }
+  else{
+    this.incompletePledge5=true;
+    this.completePledge5=false;
+    console.log("has data - 5");
+  }
+
+}) 
+
+
+//__________________________________________ Try a Show/Hide with for loop
+/*var edArray = ['ed1', 'ed2', 'ed3', 'ed4', 'ed5'];
+let tryLoop = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
+.then((docSnapshot) =>{
+
+ for (let n; n = 0; n<=4) {
+
+var tryString = edArray[n];
+var Verf = String(docSnapshot.data().tryString); 
+  console.log(Verf);
+  if (Verf == ' '){
+    this.incompletePledge5=false;
+    this.completePledge5=true;
+    console.log("no data - 5");
+  }
+  else{
+    this.incompletePledge5=true;
+    this.completePledge5=false;
+    console.log("has data - 5");
+  }
+n++
+ }
+  
+
+}) */
 
 }
   
