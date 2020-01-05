@@ -9,3 +9,10 @@ ion-content{
  ion-header{
      font-family: 'Archer-Bold';
  }
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;   
+}
