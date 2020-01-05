@@ -243,7 +243,15 @@ createTeam(teamId: string, accessCode: string) {
       var access = {
         accessCode: this.code,
         teamUsers: 1,
-        teamPoints: 0
+        teamPoints: 0,
+        edPledgeComplete: 0,
+        plPledgeComplete: 0,
+        cPledgeComplete: 0,
+        lPledgeComplete: 0,
+        tpPledgeComplete: 0,
+        tyPledgeComplete: 0,
+        epPledgeComplete: 0,
+        totalPoundsCarbon: 0,
       }
 
       let userArray = {users: [this.uid]};
