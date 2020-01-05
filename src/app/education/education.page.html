@@ -28,7 +28,8 @@
       </div>
 
     <ion-grid>
-    <div text-left>
+    <div class="container">
+        <ion-item-group text-center>
         <circle-progress 
         [hidden] = "hidePledges"
         [percent]= "x"
@@ -45,9 +46,9 @@
         [imageHeight]="112">
         </circle-progress>
         <h5 [hidden] = "hidePledges">Your Progress</h5>
-      </div>
+        </ion-item-group>
 
-      <div text-center>
+        <ion-item-group text-center>
         <circle-progress 
         [hidden] = "hidePledges"
         [percent]= "x"
@@ -64,9 +65,9 @@
         [imageHeight]="112">
         </circle-progress>
         <h5 [hidden] = "hidePledges">Team Progress</h5>
-      </div>
+      </ion-item-group>
 
-      <div text-right>
+        <ion-item-group text-center>
         <circle-progress 
         [hidden] = "hidePledges"
         [percent]= "x"
@@ -83,6 +84,7 @@
         [imageHeight]="112">
         </circle-progress>
         <h5 [hidden] = "hidePledges">City Progress</h5>
+      </ion-item-group>
     </div>
 </ion-grid>
 
