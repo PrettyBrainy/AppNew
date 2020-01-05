@@ -19,6 +19,7 @@ export class Ed2Page implements OnInit {
   public teenPledge: boolean = true;
   public adultPledge: boolean = true;
   public pledgePicture: string = null;
+  public hideVerfCard: boolean = false;
   public verification = '';
   public id = '';
   public pledgeVerificationUpdate: firebase.firestore.DocumentReference;
@@ -74,22 +75,68 @@ async takePicture(): Promise<void> {
 
 
 verifyPledge(){
-console.log(this.verification);
-var id = this.getCurrent();
-console.log(id);
-//_____________________________________________Call User ID
-var user = firebase.auth().currentUser;
-var uid;
-if (user != null) {
-  uid = user.uid; 
-}
-//__________________________________________Assign user input to variable
-let verificationUpdate = {
-  ed2: this.verification
-}
-//__________________________________________Update Database
-this.pledgeVerificationUpdate = firebase.firestore().collection('userProfile').doc(`${uid}`);
-this.pledgeVerificationUpdate.collection("pledges").doc("education").update(verificationUpdate);
+  this.profileService.getUserProfile().then((userProfileSnapshot) => {
+      var team = String(userProfileSnapshot.data().team);
+      var indiPoints = Number(userProfileSnapshot.data().points)
+    
+  //_____________________________________________Call User ID
+  var user = firebase.auth().currentUser;
+  var uid;
+  if (user != null) {
+    uid = user.uid; 
+  }
+  //__________________________________________Assign user input to variable
+  let verificationUpdate = {
+    ed2: this.verification
+  }
+
+  //_________________________Get Team Info and Update Team Points and Update Team Pledge Progress Count_________________
+  const teamRef = firebase.firestore().collection("teams").doc(`${team}`);
+  let getTeam = teamRef.get().then(doc =>{
+      var teamPoints = doc.data().points;
+      let newTeamPoints = Number(teamPoints) + 100;   //Update with correct points
+
+      var teamPledgeCount = doc.data().edPledgeComplete;
+      let newTeamPledgeCount = Number(teamPledgeCount) + 1;
+
+      let newInfoTeam = {
+        points: `${newTeamPoints}`,
+        edPledgeComplete: `${newTeamPledgeCount}`
+        }
+      let updateTeamInfo = teamRef.update(newInfoTeam);
+  })
+
+  //_________________________Get City Info and Update City Points_________________
+  const cityRef = firebase.firestore().collection("cityOverall").doc("cityOverall");
+  let getCity = cityRef.get().then(doc => {
+      var cityPoints = doc.data().points;
+      let newCityPoints = Number(cityPoints) + 100;    //Update with correct points
+      
+      var cityPledgeCount = doc.data().edPledgeComplete;
+      let newCityPledgeCount = Number(cityPledgeCount) + 1;
+      
+      
+      let newInfoCity = {
+        points: `${newCityPoints}`,
+        edPledgeComplete: `${newCityPledgeCount}`
+      }
+      let updateCityInfo = cityRef.update(newInfoCity);
+  })
+
+  //_________________________Get User Info and Update User Points_________________
+  const userRef = firebase.firestore().collection('userProfile').doc(`${uid}`);
+  let getUser = userRef.get().then(doc=>{
+      var userPoints = doc.data().points;
+      let newIndiPoints = Number(indiPoints) + 100;   //Update with correct points
+      let newPointsIndi = {
+        points: `${newIndiPoints}`
+      }
+      let updateIndiPoints = userRef.update(newPointsIndi);
+  })
+  //__________________________________________Update Database with verification
+  userRef.collection("pledges").doc("education").update(verificationUpdate);
+  })
+this.hideVerfCard = true;
 }
 
 }
