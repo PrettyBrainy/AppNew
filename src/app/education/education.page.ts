@@ -62,7 +62,8 @@ public array: Array<any>;
 
     })
   }) 
-//__________________________________________ Show/Hide for ed1
+
+//__________________________________________ Show/Hide for all ed pledges
 let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
 .then((docSnapshot) =>{
   var ed1Verf = String(docSnapshot.data().ed1); 
@@ -78,10 +79,6 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     console.log("has data - 1");
   }
 
-}) 
-//__________________________________________ Show/Hide for ed2
-let data2 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
   var ed2Verf = String(docSnapshot.data().ed2); 
   console.log(ed2Verf)
   if (ed2Verf == ' '){
@@ -95,10 +92,6 @@ let data2 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     console.log("has data - 2");
   }
 
-}) 
-//__________________________________________ Show/Hide for ed3
-let data3 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
   var ed3Verf = String(docSnapshot.data().ed3); 
   console.log(ed3Verf)
   if (ed3Verf == ' '){
@@ -112,10 +105,6 @@ let data3 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     console.log("has data - 3");
   }
 
-}) 
-//__________________________________________ Show/Hide for ed4
-let data4 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
   var ed4Verf = String(docSnapshot.data().ed4); 
   console.log(ed4Verf)
   if (ed4Verf == ' '){
@@ -129,11 +118,6 @@ let data4 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     console.log("has data - 4");
   }
 
-}) 
-
-//__________________________________________ Show/Hide for ed5
-let data = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
   var ed5Verf = String(docSnapshot.data().ed5); 
   console.log(ed5Verf)
   if (ed5Verf == ' '){
@@ -149,32 +133,6 @@ let data = firebase.firestore().collection('userProfile').doc(`${uid}`).collecti
 
 }) 
 
-
-//__________________________________________ Try a Show/Hide with for loop
-/*var edArray = ['ed1', 'ed2', 'ed3', 'ed4', 'ed5'];
-let tryLoop = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
-
- for (let n; n = 0; n<=4) {
-
-var tryString = edArray[n];
-var Verf = String(docSnapshot.data().tryString); 
-  console.log(Verf);
-  if (Verf == ' '){
-    this.incompletePledge5=false;
-    this.completePledge5=true;
-    console.log("no data - 5");
-  }
-  else{
-    this.incompletePledge5=true;
-    this.completePledge5=false;
-    console.log("has data - 5");
-  }
-n++
- }
-  
-
-}) */
 
 }
   
