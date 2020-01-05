@@ -33,36 +33,45 @@ public completePledge5: boolean=false;
 public createPledgeList: firebase.firestore.DocumentReference;
 public pledgeListRef: firebase.firestore.CollectionReference;
 public array: Array<any>;
+private uid: String;
+public complete: boolean;
+public checkComplete: String;
+public edPledges: firebase.firestore.DocumentReference;
+public pledgeContent: String;
+public pledgeCount: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private eventService: EventService) { this.x=45 }
 
   ngOnInit() {
-    
+    //____________________Import userId
     var user = firebase.auth().currentUser;
     var uid;
     if (user != null) {
       uid = user.uid; 
+      this.uid = user.uid;
     }
-    
-   this.array = []
-    this.eventService.checkModuleStart().then( pledgeListSnapshot => {
-      pledgeListSnapshot.forEach(snap => {
-        this.array.push({})
-      if(this.array.length>0){
+
+
+//______________________________Check if mod started using exist funcion
+let modStarted = firebase.firestore()
+    .collection('userProfile')
+    .doc(`${uid}`)
+    .collection('pledges')
+    .doc('education')
+    .get().then((docSnapshot)=>{
+      if(docSnapshot.exists){
         this.hideButton=true;
         this.hideText=true;
         this.hidePledges=false;
-        this.incompletePledge1=false;
-        this.incompletePledge2=false;
-        this.incompletePledge3=false;
-        this.incompletePledge4=false;
-        this.incompletePledge5=false;
+      } else{
+        this.hideButton=false;
+        this.hideText=false;
+        this.hidePledges=true;
       }
+})
 
-    })
-  }) 
-
+var count = 0;
 //__________________________________________ Show/Hide for all ed pledges
 let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
 .then((docSnapshot) =>{
@@ -72,11 +81,13 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     this.incompletePledge1=false;
     this.completePledge1=true;
     console.log("no data - 1");
+   
   }
   else{
     this.incompletePledge1=true;
     this.completePledge1=false;
     console.log("has data - 1");
+    count += 1;
   }
 
   var ed2Verf = String(docSnapshot.data().ed2); 
@@ -90,6 +101,7 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     this.incompletePledge2=true;
     this.completePledge2=false;
     console.log("has data - 2");
+    count += 1;
   }
 
   var ed3Verf = String(docSnapshot.data().ed3); 
@@ -103,6 +115,7 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     this.incompletePledge3=true;
     this.completePledge3=false;
     console.log("has data - 3");
+    count += 1;
   }
 
   var ed4Verf = String(docSnapshot.data().ed4); 
@@ -116,6 +129,7 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     this.incompletePledge4=true;
     this.completePledge4=false;
     console.log("has data - 4");
+    count += 1;
   }
 
   var ed5Verf = String(docSnapshot.data().ed5); 
@@ -129,15 +143,15 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
     this.incompletePledge5=true;
     this.completePledge5=false;
     console.log("has data - 5");
+    count += 1;
   }
-
+var countPercent = (count/5)*100;
+this.pledgeCount = String(countPercent);
+console.log(this.pledgeCount);
 }) 
-
 
 }
   
-
-
 
 startEdModule(){
   this.hideButton=true;
@@ -148,14 +162,8 @@ startEdModule(){
   this.incompletePledge3=false;
   this.incompletePledge4=false;
   this.incompletePledge5=false;
-
-  var user = firebase.auth().currentUser;
-  var uid;
-  if (user != null) {
-    uid = user.uid; 
-  }
   
-  this.createPledgeList = firebase.firestore().collection('userProfile').doc(`${uid}`);
+  this.createPledgeList = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
   let pledges = {
     ed1: " ",
     ed2: " ",
@@ -167,8 +175,46 @@ startEdModule(){
   
 }
 
-countPledges(){
 
-  }
+checkForCompletion(pledge: String){
+this.checkComplete = String(this.retreiveContent(pledge));
+    console.log(this.checkComplete)
+    if (this.checkComplete == ' '){
+      this.complete=true;
+      console.log("no data - 5");
+      return this.complete;
+    }
+    else{
+      this.complete = false;
+      console.log("has data - 5");
+      return this.complete;
+    }
+}
+
+
+retreiveContent(pledge:String){
+let bumblebee = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
+  switch (pledge) {
+  case 'ed1':
+    this.pledgeContent = String(docSnapshot.data().ed1);
+    return this.pledgeContent;
+  case 'ed2':
+    this.pledgeContent = String(docSnapshot.data().ed2);
+    return this.pledgeContent;
+  case 'ed3':
+    this.pledgeContent = String(docSnapshot.data().ed3);
+    return this.pledgeContent;
+  case 'ed4':
+    this.pledgeContent = String(docSnapshot.data().ed4);
+    return this.pledgeContent;
+  case 'ed5':
+    this.pledgeContent = String(docSnapshot.data().ed5);
+    return this.pledgeContent;
+  default:
+    break;
+}
+})
+}
+
 
 }
