@@ -216,5 +216,35 @@ let bumblebee = firebase.firestore().collection('userProfile').doc(`${this.uid}`
 })
 }
 
+teamAndCityProgressBarTotals(){
+  let teamPledgeCount = firebase.firestore().collection('userProfile').doc(`${this.uid}`).get().then((docSnapshot) =>{
+    this.team = String(docSnapshot.data().team);
+   
+    let teamCount = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
+      this.teamEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+      this.teamUsers = Number(docSnapshot.data().teamUsers);
+      
+      let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
+        this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+        this.cityUserNumber = Number(docSnapshot.data().totalUsers);
+  
+        var totalTeamPledges = 5 * Number(this.teamUsers);
+        this.teamProgressBar = Number((Number(this.teamEdPledgeCount)/totalTeamPledges)*100);
+        console.log(this.teamProgressBar);
+      
+        var totalCityPledges = 5*Number(this.cityUserNumber);
+        this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+        console.log(this.cityProgressBar);
+  
+        console.log(this.teamEdPledgeCount);
+        console.log(this.team);
+        console.log(this.teamUsers);
+        console.log(this.cityEdPledgeCount);
+        console.log(this.cityUserNumber);
+      })
+    }) 
+  })
+}  
+
 
 }
