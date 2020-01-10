@@ -41,6 +41,13 @@ public checkComplete: String;
 public edPledges: firebase.firestore.DocumentReference;
 public pledgeContent: String;
 public pledgeCount: String;
+public team: String;
+public teamEdPledgeCount: Number;
+public cityEdPledgeCount: Number;
+public teamUsers: Number;
+public teamProgressBar: Number;
+public cityUserNumber: Number;
+public cityProgressBar: Number;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private eventService: EventService) { this.x=45 }
