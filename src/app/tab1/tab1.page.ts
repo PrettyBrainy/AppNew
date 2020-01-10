@@ -22,7 +22,8 @@ ngOnInit() {
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
       var userPoints = Number(userProfileSnapshot.data().points);
-    console.log(userPoints); 
+      this.userPoints = Number(userPoints)
+    console.log(this.userPoints); 
     }
   })
   }
