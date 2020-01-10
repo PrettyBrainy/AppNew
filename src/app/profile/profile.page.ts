@@ -1,4 +1,3 @@
-import { Tab1PageModule } from './../tab1/tab1.module';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { AuthService } from './../services/user/auth.service';
@@ -41,6 +40,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
 
+    //____________________Pull User Data from Firebase
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
       if (userProfileSnapshot.data()) {
         this.userProfile = userProfileSnapshot.data();
@@ -65,7 +65,7 @@ export class ProfilePage implements OnInit {
     }
   )
 
-  //_______________________Check For Teams
+  //_______________________Checks to see if user has a team and hides correct information
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
       this.team = String(userProfileSnapshot.data().team);
@@ -80,107 +80,112 @@ export class ProfilePage implements OnInit {
   })
 }
 
-  logOut(): void {
-    this.authService.logoutUser().then( () => {
-      this.router.navigate(['/login']);
-    });
-  }
+//_______________Logout function. Redirects to Login Page.
+logOut(): void {
+  this.authService.logoutUser().then( () => {
+    this.router.navigate(['/login']);
+  });
+}
 
-
-  async updateName(): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      subHeader: 'Your first name & last name',
-      inputs: [
-        {
-          type: 'text',
-          name: 'firstName',
-          placeholder: 'Your first name',
-          value: this.userProfile.firstName,
+//_____________Change User First/Last Name
+async updateName(): Promise<void> {
+  const alert = await this.alertCtrl.create({
+    subHeader: 'Your first name & last name',
+    inputs: [
+      {
+        type: 'text',
+        name: 'firstName',
+        placeholder: 'Your first name',
+        value: this.userProfile.firstName,
+      },
+      {
+        type: 'text',
+        name: 'lastName',
+        placeholder: 'Your last name',
+        value: this.userProfile.lastName,
+      },
+    ],
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: 'Save',
+        handler: data => {
+          this.profileService.updateName(data.firstName, data.lastName);
+          this.refreshProfilePage();
         },
-        {
-          type: 'text',
-          name: 'lastName',
-          placeholder: 'Your last name',
-          value: this.userProfile.lastName,
+      },
+    ],
+  });
+  await alert.present();
+}
+
+//____________________________Refresh the profile page
+refreshProfilePage(){
+  window.location.reload()
+}
+
+//__________________________Update Age Range
+updateDOB(birthDate: string): void {
+  if (birthDate === undefined) {
+    return;
+  }
+  this.profileService.updateDOB(birthDate);
+  this.refreshProfilePage();
+}
+
+//___________________Update User Email
+async updateEmail(): Promise<void> {
+  const alert = await this.alertCtrl.create({
+    inputs: [
+      { type: 'text', name: 'newEmail', placeholder: 'Your new email' },
+      { name: 'password', placeholder: 'Your password', type: 'password' },
+    ],
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: 'Save',
+        handler: data => {
+          this.profileService
+            .updateEmail(data.newEmail, data.password)
+            .then(() => {
+              console.log('Email Changed Successfully');
+              this.refreshProfilePage();
+            })
+            .catch(error => {
+              console.log('ERROR: ' + error.message);
+            });
         },
-      ],
-      buttons: [
-        { text: 'Cancel' },
-        {
-          text: 'Save',
-          handler: data => {
-            this.profileService.updateName(data.firstName, data.lastName);
-            this.refreshProfilePage();
-          },
+      },
+    ],
+  });
+  await alert.present();
+}
+
+
+//____________________________Update User Password
+async updatePassword(): Promise<void> {
+  const alert = await this.alertCtrl.create({
+    inputs: [
+      { name: 'newPassword', placeholder: 'New password', type: 'password' },
+      { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
+    ],
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: 'Save',
+        handler: data => {
+          this.profileService.updatePassword(
+            data.newPassword,
+            data.oldPassword
+          );
         },
-      ],
-    });
-    await alert.present();
-  }
+      },
+    ],
+  });
+  await alert.present();
+}
 
-  refreshProfilePage(){
-    window.location.reload()
-  }
-
-
-  updateDOB(birthDate: string): void {
-    if (birthDate === undefined) {
-      return;
-    }
-    this.profileService.updateDOB(birthDate);
-    this.refreshProfilePage();
-  }
-
-
-  async updateEmail(): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      inputs: [
-        { type: 'text', name: 'newEmail', placeholder: 'Your new email' },
-        { name: 'password', placeholder: 'Your password', type: 'password' },
-      ],
-      buttons: [
-        { text: 'Cancel' },
-        {
-          text: 'Save',
-          handler: data => {
-            this.profileService
-              .updateEmail(data.newEmail, data.password)
-              .then(() => {
-                console.log('Email Changed Successfully');
-                this.refreshProfilePage();
-              })
-              .catch(error => {
-                console.log('ERROR: ' + error.message);
-              });
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-  
-  async updatePassword(): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      inputs: [
-        { name: 'newPassword', placeholder: 'New password', type: 'password' },
-        { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
-      ],
-      buttons: [
-        { text: 'Cancel' },
-        {
-          text: 'Save',
-          handler: data => {
-            this.profileService.updatePassword(
-              data.newPassword,
-              data.oldPassword
-            );
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-
+//_______Shows/Hides info correct for 11-15 years old
 lowAge(){
   this.age = true;
   this.drop = true;
@@ -191,6 +196,7 @@ lowAge(){
   this.updateDOB('11-15');
 }
 
+//_______Shows/Hides info correct for 16-18 years old
 midAge(){
   this.age = true;
   this.drop = true;
@@ -201,6 +207,7 @@ midAge(){
   this.updateDOB('16-18');
 }
 
+//_______Shows/Hides info correct for 18-21 years old
 highAge(){
   this.age = true;
   this.drop = true;
@@ -211,6 +218,7 @@ highAge(){
   this.updateDOB('18-20');
 }
 
+//_______Shows/Hides info correct for 21+ years old
 oldAge(){
   this.age = true;
   this.drop = true;
@@ -221,6 +229,7 @@ oldAge(){
   this.updateDOB('21+');
 }
 
+//_________________________Create Team Function
 createTeam(teamId: string, accessCode: string) {
   this.code = accessCode;
   const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
@@ -263,9 +272,13 @@ createTeam(teamId: string, accessCode: string) {
       this.showTeamButtons = true;
       }
       });
+    //_______________Increase number of teams in city, refresh page so correct team information shows
     this.increaseCityTeamCount();
+    this.refreshProfilePage();
   }
 
+
+//________________________Join Team Function
 joinTeam(teamId: string, accessCode:string){
   this.code = accessCode;
   const teamRef = firebase.firestore().collection('teams').doc(`${teamId}`)
@@ -275,20 +288,19 @@ joinTeam(teamId: string, accessCode:string){
       let access = String(docSnapshot.data().accessCode);
       let numUsersOnTeam = Number(docSnapshot.data().teamUsers);
       
+      //_____Increase number of team members
       numUsersOnTeam += 1;
-      if (access == this.code){
-
+      
+      if (access == this.code){                           //check to see if access codes match
         var user = firebase.auth().currentUser;
         if (user != null) {
           this.uid = user.uid; 
         } 
       
         let userData = docSnapshot.data().users;
-        let userArray = String(userData);
-        console.log(userData);
-        this.array = userArray.split(',');
-        this.array.push(this.uid);
-        console.log(this.array);
+        let userArray = String(userData);               //store all existing users in string
+        this.array = userArray.split(',');              //split string to array by comemnts
+        this.array.push(this.uid);                      //Add current user
 
         var teamName = {
           team: `${teamId}`
@@ -302,20 +314,22 @@ joinTeam(teamId: string, accessCode:string){
           users: this.array
         }
 
-        let increaseNumUsers = teamRef.update(trackUsers);
-        let updateAllUsers = teamRef.update(addUsers);
-        let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName);
+        let increaseNumUsers = teamRef.update(trackUsers);    //Update number of users with new number
+        let updateAllUsers = teamRef.update(addUsers);        //Update user array to include current user
+        let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName); //Update user profile to include team
+        this.refreshProfilePage();      //Refresh page to reflect changes.
       }else {
-        alert('Access code is incorrect! Double check your spelling and try again (:')
+        alert('Access code is incorrect! Double check your spelling and try again (:') //Wrong Access Code alert
       }
 
     } else {
-      alert(teamId + ' does not exist! Create a new team now.')
+      alert(teamId + ' does not exist! Create a new team now.')           //Team does not exist alert
     }
 })
-
+ 
 }
 
+//____________________Increase number of teams in cityOverall collection in Firebase
 increaseCityTeamCount(){
   let cityOverall = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot) => {
     var numTeams = docSnapshot.data().totalTeams;
@@ -328,6 +342,7 @@ increaseCityTeamCount(){
 
 }
 
+//______________________________Alert where users will enter new team info
 async createTeamAlert() {
   const alert = await this.alertCtrl.create({
     inputs: [
@@ -359,7 +374,7 @@ async createTeamAlert() {
 
 }
 
-
+//______________________________Alert where users enter existing team information
 async joinTeamAlert() {
   const alert = await this.alertCtrl.create({
     inputs: [
@@ -381,7 +396,7 @@ async joinTeamAlert() {
         }
       },
       {
-        text: 'Create Team',
+        text: 'Join This Team',
         handler: data => {
           this.joinTeam(data.teamName, data.accessCode);
       }
