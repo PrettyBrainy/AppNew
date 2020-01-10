@@ -21,8 +21,8 @@ export class Ed1Page implements OnInit {
   public hideVerfCard: boolean = false;
   public pledgePicture: string = null;
   public verification = '';
-  public id = '';
-  public pledgeVerificationUpdate: firebase.firestore.DocumentReference;
+  private uid = '';
+  public pledgeContent = '';
   
   constructor(
     public profileService: ProfileService,
@@ -48,17 +48,12 @@ export class Ed1Page implements OnInit {
           this.adultPledge = false;
         }
       }
-  
     }
   )
+
+  this.checkForPledgeContent()
   }
 
-
-getCurrent(){
-  let view = this.router.url;
-  let id = view.substr(1);
-  return id;
-} 
 
 
 async takePicture(): Promise<void> {
@@ -139,8 +134,17 @@ verifyPledge(){
   })
 this.hideVerfCard = true;
 }
-  
+
+checkForPledgeContent(){
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    this.uid = user.uid;
   }
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
+  this.pledgeContent = docSnapshot.data().ed1;
+  console.log(this.pledgeContent);
+})
 
+}
 
-
+}
