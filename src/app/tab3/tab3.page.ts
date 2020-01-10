@@ -15,7 +15,7 @@ export class Tab3Page {
   public hideBusinesses: boolean=false;
   public moreBusinesses: boolean=true;
 
-  constructor(private business: BusinessesService) {}
+  constructor() {}
   
   getBusinesses(){
     this.hideBusinesses = true;
