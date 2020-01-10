@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
     <ion-title>USER PROFILE</ion-title>
-    <h4 slot="end">Logout</h4>
+    <h3 slot="end">Logout</h3>
     <ion-buttons slot="end">
       <ion-button (click)="logOut()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
@@ -14,8 +14,9 @@
 </ion-header>
 
 <ion-content class = "ion-padding">
+  <ion-grid>
   <ion-list >
-    <ion-list-header>Personal Information</ion-list-header>
+    <ion-list-header>User Information</ion-list-header>
     
     <!-- UPDATE USERNAME-->
     <ion-item (click)="updateName()">
@@ -123,14 +124,13 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-
-
   </ion-list>
 
   <!--   UPDATE DOB  -->
 <div class="dropdown" align-items="center">
 <button expland="block" [hidden]="age" data-toggle="collapse" class="dropbtn">Age Range ▼</button>
 
+<!--________________Dropdown Menu for Age Range Selection-->
 <div [hidden] = "drop" class="dropdown-content">
 <ion-row style="display: flex;
 align-items: center;
@@ -162,11 +162,13 @@ justify-content: center;">
 </div>
 </div>
 
+<!--___________________Join/Create Team Buttons__________-->
 <ion-row >
   <ion-col class = "ion-text-center" >
     <ion-button (click) = createTeamAlert() [hidden] = "showTeamButtons">Create a Team</ion-button>
     <ion-button (click) = joinTeamAlert() [hidden] = "showTeamButtons">Join a Team</ion-button>
   </ion-col>
+  
 </ion-row>
- 
+</ion-grid>
 </ion-content>
