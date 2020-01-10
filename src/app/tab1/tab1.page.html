@@ -10,112 +10,120 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-  <ion-card class="welcome-card" justify-content-center align-items-center>
-    <ion-img src='./assets/pictures/MI_banner.jpg'></ion-img>
-    <ion-card-header>
-        <ion-card-title class="welcome-card-title"><font color = #1ba561><b>Welcome to MISSion: Innovation.</b></font></ion-card-title>
-    </ion-card-header>
-    <ion-card-content class="welcome-card-content">
-      <p class="welcome-card-content">You're going to love your new lifestyle.</p>
-    </ion-card-content>
-  </ion-card>
-</ion-grid>
+  
+  <ion-grid> <!--__________________Welcome Card____________________-->
+    <ion-card class="welcome-card" justify-content-center align-items-center>
+      <ion-img src='./assets/pictures/MI_banner.jpg'></ion-img>
+        <ion-card-header>
+          <ion-card-title class="welcome-card-title"><font color = #1ba561><b>Welcome to MISSion: Innovation.</b></font></ion-card-title>
+        </ion-card-header>
+      <ion-card-content class="welcome-card-content">
+        <p class="welcome-card-content">You're going to love your new lifestyle.</p>
+      </ion-card-content>
+      </ion-card>
+  </ion-grid>
 
-  <br>
 
-<ion-grid padding>
+
+  <ion-grid padding>
     <ion-col style="text-align:center">
-  <h5>This 7-week challenge will change the way you 
-  think about your behavior and understanding of 
-  7 different topics. Each week, we will challenge 
-  you to pledge to change a number of your behavior   
-  as it relates to that week's peak. Every week, by taking the 
-  pledges, we will climb a peak and accept its challenges. Each challenge 
-  that you accept and complete will reduce your carbon 
-  footprint. While the views and terrain of each peak are different, 
-  the climb to the top of all seven peaks will 
-  reduce your negative impact on the world.
-  </h5>
+      <h5>This 7-week challenge will change the way you 
+      think about your behavior and understanding of 
+      7 different topics. Each week, we will challenge 
+      you to pledge to change a number of your behavior   
+      as it relates to that week's peak. Every week, by taking the 
+      pledges, we will climb a peak and accept its challenges. Each challenge 
+      that you accept and complete will reduce your carbon 
+      footprint. While the views and terrain of each peak are different, 
+      the climb to the top of all seven peaks will 
+      reduce your negative impact on the world.
+      </h5>
     </ion-col>
 
-  <ion-col width-50 style="text-align: center" >
-  <h1>Ready to get started?</h1> </ion-col>
+    <ion-col width-50 style="text-align: center" >
+      <h1>Ready to get started?</h1> 
+    </ion-col>
 
-<!-- Button to view target overview-->
-<ion-row>
-  <ion-col width-50 style="text-align: center">
-    <ion-button 
-    size="large" 
-    routerLink = "/target-overview" 
-    routerDirection = "root">
-      View the Targets  
-     </ion-button>
-  </ion-col>
-</ion-row> 
-  
+    <!-- __________________Button to view target overview__________-->
+    <ion-row>
+      <ion-col width-50 style="text-align: center">
+        <ion-button 
+        size="large" 
+        routerLink = "/target-overview" 
+        routerDirection = "root">
+          View the Targets  
+        </ion-button>
+      </ion-col>
+    </ion-row> 
+      
+      <br>
+
+    <!--___________Button to view Leaderboard________________-->
+    <ion-row>
+      <ion-col width-50 style="text-align: center">
+        <ion-button
+        size="large"
+        routerLink = "/leaderboard"
+        routerDirection = "root">
+          View the Leaderboard
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+  </ion-grid>
+    
   <br>
-  
-<ion-row>
-  <ion-col width-50 style="text-align: center">
-    <ion-button
-    size="large"
-    routerLink = "/leaderboard"
-    routerDirection = "root">
-       View the Leaderboard
-      </ion-button>
-    </ion-col>
-   </ion-row>
-  
-</ion-grid>
-<br>
 
-<div class="greenBackground">
-<br>
+    
+  <div class="greenBackground"> <!--__________Green Block: User Progress___________-->
+    
+    <br>
 
-<ion-grid>
-<ion-card class="welcome-card">
-    <ion-card-content class="welcome-card-title">
-      
-        Your Points: {{this.userPoints}}
-      
-    </ion-card-content>
-</ion-card>
+    <ion-grid>
+      <ion-card class="welcome-card">
+        <ion-card-content class="welcome-card-title">
+          
+            Your Points: {{this.userPoints}}
+          
+        </ion-card-content>
+      </ion-card>
 
-<div text-center>
-    <circle-progress 
-    [percent]= "x"
-    [radius]="90"
-    [outerStrokeWidth]="9"
-    [innerStrokeWidth]="5"
-    [outerStrokeColor]="'#f99f38'"
-    [innerStrokeColor]="'#1ba561'"
-    [animation]="true"
-    [animationDuration]="500"
-    [imageSrc]= "'./assets/pictures/Logo-circle-cropped.png'" 
-    [showImage]="true"
-    [imageWidth]="153"
-    [imageHeight]="153">
-    </circle-progress>
-    <h3>Your Total Progress</h3>
+      <div text-center>
+        <circle-progress 
+        [percent]= "userProgressBar"
+        [radius]="90"
+        [outerStrokeWidth]="9"
+        [innerStrokeWidth]="5"
+        [outerStrokeColor]="'#f99f38'"
+        [innerStrokeColor]="'#1ba561'"
+        [animation]="true"
+        [animationDuration]="500"
+        [imageSrc]= "'./assets/pictures/Logo-circle-cropped.png'" 
+        [showImage]="true"
+        [imageWidth]="153"
+        [imageHeight]="153">
+        </circle-progress>
+        <h3>Your Total Progress</h3>
+      </div>
+    </ion-grid>
+    
+    <br>
   </div>
-</ion-grid>
-<br>
-</div>
 
-<div class="orangeBackground">
+  <div class="orangeBackground"> <!--______________OrangeBlock: Team Progress_________-->
     <br>
     
     <ion-grid>
-    <ion-card class="welcome-card">
-        <ion-card-content class="welcome-card-title">
+      <ion-card class="welcome-card">
+        <ion-card-content class="welcome-card-title" [hidden] = "hideTeamProgressBar">
             Your Team's Points: {{this.teamPoints}}
         </ion-card-content>
-    </ion-card>
+      </ion-card>
     
-    <div text-center>
+      <div text-center>
         <circle-progress 
-        [percent]= "x"
+        [hidden] = "hideTeamProgressBar"
+        [percent]= "teamProgressBar"
         [radius]="90"
         [outerStrokeWidth]="9"
         [innerStrokeWidth]="5"
@@ -131,22 +139,24 @@
         <h3>Your Team's Total Progress</h3>
       </div>
     </ion-grid>
+    
     <br>
+  </div>
+
+  <div class="whiteBackground">
+    <br><br>
+    <div class="ion-text-center">
+      <h1>Powered By Community</h1>
+      <h6>MISSion: Innovation is made possible by grants from the following — </h6>
     </div>
 
-<div class="whiteBackground">
-    <br><br>
-<div class="ion-text-center">
-  <h1>Powered By Community</h1>
-  <h6>MISSion: Innovation is made possible by grants from the following — </h6>
-</div>
-
   <br>
-<ion-grid>
+
+<ion-grid> <!--_____________Sponsors Grid______________-->
     <ion-row>
       <ion-col size='4' size-sm>
-         <a href="https://www.fcgov.com/">
-         <ion-img 
+        <a href="https://www.fcgov.com/">
+        <ion-img 
           src="https://i.ibb.co/TLtKFQk/FC-Logo-blue.png" 
           alt="City of Fort Collins" ></ion-img>
           </a>
@@ -155,8 +165,8 @@
 
           <a href="https://www.cpt12.org/">
           <ion-img 
-             src="https://i.ibb.co/4NTVFYw/cpt12-full-stacked-RGB-1.jpg" 
-             alt="Colorado Public Television"></ion-img>
+            src="https://i.ibb.co/4NTVFYw/cpt12-full-stacked-RGB-1.jpg" 
+            alt="Colorado Public Television"></ion-img>
           </a>
 
       </ion-col>
@@ -203,7 +213,7 @@
   <ion-row>
       <ion-col size='4' size-sm>
           <a href="https://toolboxcreative.com/#Game-Changer">
-         <ion-img 
+        <ion-img 
           src="https://i.ibb.co/HzqmvHp/grunge-blue-Toolbox.jpg" 
           alt="Toolbox Creative" ></ion-img>
           </a>
@@ -284,7 +294,7 @@
 
           <a href="https://www.retailmugs.com/">
           <ion-img
-           src="https://i.ibb.co/F0rCPLx/Retail-Mugs-Color-01.png" 
+          src="https://i.ibb.co/F0rCPLx/Retail-Mugs-Color-01.png" 
           alt="Retail Mugs" ></ion-img>
           </a>
 
