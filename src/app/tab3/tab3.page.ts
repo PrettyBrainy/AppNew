@@ -10,10 +10,11 @@ import 'firebase/firestore';
 })
 export class Tab3Page {
   
-  public businessName: string;
-  public suggestionId: string;
-  public hideBusinesses: boolean=false;
-  public moreBusinesses: boolean=true;
+  public businessName: String;
+  public suggestionId: String;
+  public hideBusinesses: Boolean=false;
+  public moreBusinesses: Boolean=true;
+  public productSuggestion: String;
 
   constructor() {}
   
