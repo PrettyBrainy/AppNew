@@ -24,6 +24,8 @@ public incompletePledge2: boolean=true;
 public incompletePledge3: boolean=true;
 public incompletePledge4: boolean=true;
 public incompletePledge5: boolean=true;
+public incomplete: boolean=false;
+public completeWord: boolean=true;
 public hidePledges: boolean=true;
 public completePledge1: boolean=false;
 public completePledge2: boolean=false;
@@ -148,6 +150,21 @@ let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collect
 var countPercent = (count/5)*100;
 this.pledgeCount = String(countPercent);
 console.log(this.pledgeCount);
+  
+ if (ed1Verf == ' ' && ed2Verf == ' ' && ed3Verf == ' ' && ed4Verf == ' ' && ed5Verf == ' '){
+    this.completeWord = true;
+    this.incomplete = false;
+ }
+
+ else if (ed1Verf != ' ' && ed2Verf != ' ' && ed3Verf != ' ' && ed4Verf != ' ' && ed5Verf != ' '){
+    this.completeWord = false;
+    this.incomplete = true;
+ }
+ 
+ else{
+   this.completeWord = false;
+   this.incomplete = false;
+ } 
 }) 
 
 }
