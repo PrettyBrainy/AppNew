@@ -15,7 +15,6 @@ export class Tab3Page {
   constructor(private business: BusinessesService) {}
   
   getBusinesses(){
-    this.business.addBusiness(this.businessName, this.suggestionId );
     this.hideBusinesses = true;
     this.moreBusinesses= false;
   }
@@ -24,5 +23,17 @@ export class Tab3Page {
     this.moreBusinesses = true;
     this.hideBusinesses = false;
   }
+
+  addBusinessToList(){
+
+  var addition ={
+    businessSuggestion: `${this.businessName}`,
+    productSuggestion: `${this.productSuggestion}`
+  }
+  const addBusiness = firebase.firestore().collection('businessList').doc(`${this.businessName}`).set(addition);
+    
+  }
+
+
 
 }
