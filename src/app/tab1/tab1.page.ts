@@ -14,6 +14,8 @@ export class Tab1Page implements OnInit{
   x:number;
   public userPoints:number;
   public userProfile: any;
+  public team: String;
+  public teamPoints: Number;
   constructor(private profileService: ProfileService) 
   { this.x=45 }
 
@@ -21,9 +23,17 @@ export class Tab1Page implements OnInit{
 ngOnInit() {
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
-      var userPoints = Number(userProfileSnapshot.data().points);
-      this.userPoints = Number(userPoints)
-    console.log(this.userPoints); 
+      this.userPoints = Number(userProfileSnapshot.data().points);
+      this.team= String(userProfileSnapshot.data().team);
+
+      let teamPointsSearch = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
+        this.teamPoints = Number(docSnapshot.data().points);
+        console.log(this.teamPoints)
+      })
+    }
+    else{
+      this.userPoints = 0;
+      this.teamPoints = 0;
     }
   })
   }
