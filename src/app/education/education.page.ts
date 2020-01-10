@@ -48,6 +48,7 @@ public teamUsers: Number;
 public teamProgressBar: Number;
 public cityUserNumber: Number;
 public cityProgressBar: Number;
+public hideTeamProgressBar: Boolean;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private eventService: EventService) { this.x=45 }
