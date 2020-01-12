@@ -2,3 +2,30 @@ ion-title{
     font-size: 26px;
     text-align: justify;
   }
+
+  ion-card-content{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 20px;
+  }
+
+  p{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 20px;
+  }
+  
+  ion-card{
+    background:#f4f5f7;
+    font-family: 'ChollaSans-Thin' !important; 
+    color: #000000;
+  }
+  
+  ion-card-title{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 30px;
+    color: #66b067;
+  }
+  
+  ion-card-subtitle{
+    color: #252528;
+    font-size: 18px;
+  }
