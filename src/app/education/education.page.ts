@@ -175,6 +175,8 @@ console.log(this.pledgeCount);
  } 
 }) 
 
+this.teamAndCityProgressBarTotals();
+
 }
   
 
