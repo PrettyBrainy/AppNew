@@ -16,7 +16,6 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./education.page.scss'],
 })
 export class EducationPage implements OnInit {
-x:number;
 public hideButton: boolean=false;
 public hideText: boolean=false;
 public incompletePledge1: boolean=true;
@@ -51,7 +50,7 @@ public cityProgressBar: Number;
 public hideTeamProgressBar: Boolean;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
-              private eventService: EventService) { this.x=45 }
+              private eventService: EventService) { }
 
   ngOnInit() {
     //____________________Import userId
@@ -189,6 +188,11 @@ startEdModule(){
   this.incompletePledge3=false;
   this.incompletePledge4=false;
   this.incompletePledge5=false;
+  this.completePledge1=true;
+  this.completePledge2=true;
+  this.completePledge3=true;
+  this.completePledge4=true;
+  this.completePledge5=true;
   
   this.createPledgeList = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
   let pledges = {
@@ -198,7 +202,26 @@ startEdModule(){
     ed4: " ",
     ed5: " ",
   }
+
+  let approval = {
+    ed1: " ",
+    ed2: " ",
+    ed3: " ",
+    ed4: " ",
+    ed5: " ",
+  }
+
+  let points = {
+    ed1: " ",
+    ed2: " ",
+    ed3: " ",
+    ed4: " ",
+    ed5: " ",
+  }
+
   this.createPledgeList.collection("pledges").doc("education").set(pledges);
+  this.createPledgeList.collection("approval").doc("education").set(approval);
+  this.createPledgeList.collection("points").doc("education").set(points);
   
 }
 
