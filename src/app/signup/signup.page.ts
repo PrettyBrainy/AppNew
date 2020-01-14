@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../services/user/auth.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -18,7 +18,8 @@ export class SignupPage implements OnInit {
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public navCtrl: NavController
   ) {
     this.signupForm = this.formBuilder.group({
       email: [
