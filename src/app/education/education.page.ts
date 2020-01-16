@@ -212,15 +212,16 @@ startEdModule(){
   }
 
   let points = {
-    ed1: " ",
-    ed2: " ",
-    ed3: " ",
-    ed4: " ",
-    ed5: " ",
+    ed1: 0,
+    ed2: 0,
+    ed3: 0,
+    ed4: 0,
+    ed5: 0,
   }
   let newUserTotals = {
     totalPledgesComplete: 0,
-    totalEdPledgeComplete: 0
+    totalEdPledgeComplete: 0,
+    points: 0
   }
   this.createPledgeList.collection("pledges").doc("education").set(pledges);
   this.createPledgeList.collection("approval").doc("education").set(approval);
@@ -228,6 +229,7 @@ startEdModule(){
   this.createPledgeList.update(newUserTotals);
   
 }
+
 
 
 checkForCompletion(pledge: String){
