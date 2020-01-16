@@ -139,9 +139,38 @@
         <h3>Your Team's Total Progress</h3>
       </div>
     </ion-grid>
-    
     <br>
   </div>
+  
+   <div> <!--______________BlueBlock: City Progress_________-->
+        <br>
+        <ion-grid>
+            <ion-card class="welcome-card">
+                <ion-card-content class="welcome-card-title">
+                  The City's Total Carbon Reductions: <strong> </strong>
+                </ion-card-content>
+            </ion-card>
+
+        <div text-center>
+            <circle-progress 
+            [percent]= "cityProgressBar"
+            [radius]="90"
+            [outerStrokeWidth]="9"
+            [innerStrokeWidth]="5"
+            [outerStrokeColor]="'#f99f38'"
+            [innerStrokeColor]="'#1ba561'"
+            [animation]="true"
+            [animationDuration]="500"
+            [imageSrc]= "'./assets/pictures/circle-cropped-FC-Logo.png'" 
+            [showImage]="true"
+            [imageWidth]="153"
+            [imageHeight]="153">
+            </circle-progress>
+            <h3>The City's Total Progress</h3>
+          </div>
+        </ion-grid>
+        <br>
+       </div>
 
   <div class="whiteBackground">
     <br><br>
