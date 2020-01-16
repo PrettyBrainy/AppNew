@@ -23,6 +23,8 @@ export class Ed1Page implements OnInit {
   public verification = '';
   private uid = '';
   public pledgeContent = '';
+  public pledgeIsPending:Boolean = true;
+  public pledgeIsApproved: Boolean = true;
   
   constructor(
     public profileService: ProfileService,
