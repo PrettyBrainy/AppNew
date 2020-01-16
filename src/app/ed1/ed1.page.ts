@@ -143,8 +143,33 @@ checkForPledgeContent(){
 let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
   this.pledgeContent = docSnapshot.data().ed1;
   console.log(this.pledgeContent);
-})
 
+  if (this.pledgeContent !=''){
+    this.hideVerfCard = true;
+  }
+})
+this.checkForPledgeStatus();
 }
+
+checkForPledgeStatus(){
+  let statusCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    let status = String(docSnapshot.data().ed1);
+    console.log(status);
+    if(status == 'pending'){
+      console.log(status);
+      this.hideVerfCard = true;
+      this.pledgeIsPending = false;
+    } else if (status == "approved"){
+      this.hideVerfCard = true;
+      this.pledgeIsApproved = false;
+    } else {
+      this.hideVerfCard = false;
+      this.pledgeIsApproved = true;
+      this.pledgeIsPending = true;
+    }
+  })
+}
+
 
 }
