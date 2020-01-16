@@ -225,7 +225,7 @@ startEdModule(){
   this.createPledgeList.collection("pledges").doc("education").set(pledges);
   this.createPledgeList.collection("approval").doc("education").set(approval);
   this.createPledgeList.collection("points").doc("education").set(points);
-  this.createPledgeList.set(newUserTotals);
+  this.createPledgeList.update(newUserTotals);
   
 }
 
