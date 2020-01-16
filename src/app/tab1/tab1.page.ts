@@ -77,7 +77,7 @@ this.profileService.getUserProfile().then((userProfileSnapshot) => {
       //__________________________________Get team info for team progress bar
       let getTeamInfo = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
 
-      this.teamPoints = Number(docSnapshot.data().points);
+      this.teamPoints = Number(docSnapshot.data().teamPoints);
       this.teamTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete)
       this.teamUsers = Number(docSnapshot.data().teamUsers);
       
