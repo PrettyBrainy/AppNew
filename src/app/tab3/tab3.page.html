@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -7,27 +8,31 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-Purchase rewards here with your points!
-  
+<ion-grid>
+<ion-card class = "pledgeCard">
+  <ion-card-title align="center" padding>Purchase rewards here with your points!</ion-card-title> 
+   <ion-card-content>
+     This is our rewards store.
+   </ion-card-content>
+</ion-card>
 
+<ion-card class = "pledgeCard">
+<ion-card-title align="center" padding>Business and Product Suggestion</ion-card-title>
+<ion-card-content>
+<ion-grid>
 <ion-col style="text-align:center">
 <h3>Aside from saving the planet, you can earn rewards by taking pledges in  our app! In the coming weeks you will be able to purchase rewards here with your points.</h3>
   
-<br><br>
-
-  <div align="center">
     <h4 [hidden]="hideBusinesses">If you know of any local businesses who might want to donate 
                                   products to our cause please submit their name below. </h4>
-    </div>
     <ion-label position="stacked">Suggest:</ion-label>                            
     <ion-item [hidden]="hideBusinesses" > 
-    <ion-input [(ngModel)]="businessName" type="text" placeholder="This is a business?"></ion-input>
+    <ion-input [(ngModel)]="businessName" type="text" placeholder="Type a business suggestion here."></ion-input>
     </ion-item><br>
 
     <ion-label position="stacked">Suggest:</ion-label>
-    <ion-item [hidden]="hideBusinesses" >
-    <ion-input [(ngModel)]="productSuggestion" type="text" placeholder="This is a sandwich?"></ion-input>
+    <ion-item [hidden]="hideBusinesses">
+    <ion-input [(ngModel)]="productSuggestion" type="text" placeholder="Type a product suggestion here."></ion-input>
     </ion-item>
     <div align = "center">
       <ion-button [hidden]="hideBusinesses" (click)="addBusinessToList()" style="font-size: 20px;">Submit</ion-button>
@@ -39,4 +44,7 @@ Purchase rewards here with your points!
     </div>
   </ion-col>
   </ion-grid>
+</ion-card-content>
+</ion-card>
+</ion-grid>
 </ion-content>
