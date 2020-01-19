@@ -79,14 +79,17 @@
     
     <br>
 
-    <ion-grid>
-      <ion-card class="welcome-card">
-        <ion-card-content class="welcome-card-title">
-          
-            Your Points: {{this.userPoints}}
-          
-        </ion-card-content>
-      </ion-card>
+    <ion-card class="welcome-card">
+    <ion-card-content class="welcome-card-title">
+        Your Points: <strong>{{this.userPoints}}</strong>
+    </ion-card-content>
+</ion-card>
+
+<ion-card class="welcome-card">
+    <ion-card-content class="welcome-card-title">
+        Your Total Carbon Reductions: <strong> </strong>
+    </ion-card-content>
+</ion-card>
 
       <div text-center>
         <circle-progress 
@@ -115,10 +118,22 @@
     
     <ion-grid>
       <ion-card class="welcome-card">
-        <ion-card-content class="welcome-card-title" [hidden] = "hideTeamProgressBar">
-            Your Team's Points: {{this.teamPoints}}
-        </ion-card-content>
-      </ion-card>
+            <ion-card-content class="welcome-card-title">
+                Your Team Name: <strong> </strong>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card class="welcome-card">
+          <ion-card-content class="welcome-card-title">
+              Your Team Access Code: <strong> </strong>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="welcome-card">
+            <ion-card-content class="welcome-card-title">
+                Your Team's Total Carbon Reductions: <strong> </strong>
+            </ion-card-content>
+        </ion-card>
     
       <div text-center>
         <circle-progress 
