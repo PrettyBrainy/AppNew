@@ -228,15 +228,15 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+<ion-card [hidden]  ="pledgeSubmittedCard">
     <ion-card-header>
       <ion-card-title>
         Thank you for taking the pledge! 
       </ion-card-title>
       <ion-card-content>
         <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
-        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br><br>
-        Your submission: <br>
+        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
+        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
         <p>
           <em>{{this.pledgeContent}}</em>
         </p>
