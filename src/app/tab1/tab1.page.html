@@ -79,17 +79,14 @@
     
     <br>
 
-    <ion-card class="welcome-card">
-    <ion-card-content class="welcome-card-title">
-        Your Points: <strong>{{this.userPoints}}</strong>
-    </ion-card-content>
-</ion-card>
-
-<ion-card class="welcome-card">
-    <ion-card-content class="welcome-card-title">
-        Your Total Carbon Reductions: <strong> </strong>
-    </ion-card-content>
-</ion-card>
+    <ion-grid>
+      <ion-card class="welcome-card">
+        <ion-card-content class="welcome-card-title">
+          
+            Your Points: {{this.userPoints}}
+          
+        </ion-card-content>
+      </ion-card>
 
       <div text-center>
         <circle-progress 
@@ -118,22 +115,10 @@
     
     <ion-grid>
       <ion-card class="welcome-card">
-            <ion-card-content class="welcome-card-title">
-                Your Team Name: <strong> </strong>
-            </ion-card-content>
-        </ion-card>
-
-        <ion-card class="welcome-card">
-          <ion-card-content class="welcome-card-title">
-              Your Team Access Code: <strong> </strong>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="welcome-card">
-            <ion-card-content class="welcome-card-title">
-                Your Team's Total Carbon Reductions: <strong> </strong>
-            </ion-card-content>
-        </ion-card>
+        <ion-card-content class="welcome-card-title" [hidden] = "hideTeamProgressBar">
+            Your Team's Points: {{this.teamPoints}}
+        </ion-card-content>
+      </ion-card>
     
       <div text-center>
         <circle-progress 
@@ -201,7 +186,7 @@
       <ion-col size='4' size-sm>
          <a href="https://www.fcgov.com/">
          <ion-img 
-          src="./src/assets/sponsor/CityOfFortCollins.png" 
+          src='./assets/sponsor/CityOfFortCollins.png' 
           alt="City of Fort Collins" ></ion-img>
           </a>
 
@@ -209,7 +194,7 @@
 
           <a href="https://www.cpt12.org/">
           <ion-img 
-             src="./src/assets/sponsor/ColradoPublicTelevision.jpeg" 
+             src='./assets/sponsor/ColradoPublicTelevision.jpeg' 
              alt="Colorado Public Television"></ion-img>
           </a>
 
@@ -217,7 +202,7 @@
       <ion-col size='4' size-sm>
         <a href="https://sim-colorado.org/">
         <ion-img
-          src="./src/assets/sponsor/SIMColorado.png" 
+          src='./assets/sponsor/SIMColorado.png' 
           alt="SIM-Logo" ></ion-img>
           </a>
 
@@ -225,7 +210,7 @@
 
           <a href="https://www.coloradogives.org/">
           <ion-img
-          src="./src/assets/sponsor/ColoradoGives.png" 
+          src='./assets/sponsor/ColoradoGives.png' 
           alt="Colorado Gives" ></ion-img>
         </a>
 
@@ -233,14 +218,14 @@
       <ion-col size='4' size-sm>
           <a href="https://www.rotary.org/en">
           <ion-img
-            src="./src/assets/sponsor/RotaryInternational.png" 
+            src='./assets/sponsor/RotaryInternational.png' 
             alt="Rotary" ></ion-img>
           </a>
 
             <br>
             <a href="https://www.wfco.org/">
             <ion-img
-          src="./src/assets/sponsor/WomensFoundationOfColorado.png" 
+          src='./assets/sponsor/WomensFoundationOfColorado.png' 
           alt="Women's Foundation of Colorado" ></ion-img>
           </a>
       </ion-col>
@@ -258,7 +243,7 @@
       <ion-col size='4' size-sm>
           <a href="https://toolboxcreative.com/#Game-Changer">
          <ion-img 
-          src="./src/assets/sponsor/ToolboxCreative.png" 
+          src='./assets/sponsor/ToolboxCreative.png' 
           alt="Toolbox Creative" ></ion-img>
           </a>
 
@@ -266,7 +251,7 @@
 
           <a href="https://csuventures.org/">
           <ion-img
-            src="./src/assets/sponsor/CSUVentures.jpeg" 
+            src='./assets/sponsor/CSUVentures.jpeg' 
             alt="CSU Ventures" ></ion-img>
           </a>
 
@@ -274,7 +259,7 @@
 
           <a href="https://www.pho-co.com/">
           <ion-img
-            src="./src/assets/sponsor/Phoco.png" 
+            src='./assets/sponsor/Phoco.png' 
             alt="Phoco" ></ion-img>
             </a>
 
@@ -282,7 +267,7 @@
 
           <a href="https://www.natsci.colostate.edu/">
           <ion-img
-            src="./src/assets/sponsor/CSUCollegeOfNaturalSciences.png" 
+            src='./assets/sponsor/CSUCollegeOfNaturalSciences.png' 
             alt="CSU College of Natural Sciences" ></ion-img>
             </a>
 
@@ -290,7 +275,7 @@
       <ion-col size='4' size-sm>
           <a href="https://energy.colostate.edu/">
         <ion-img
-          src="./src/assets/sponsor/CSUEnergyInstitute.png" 
+          src='./assets/sponsor/CSUEnergyInstitute.png' 
           alt="CSU Energy Institute" ></ion-img>
           </a>
 
@@ -298,7 +283,7 @@
 
           <a href="https://www.research.colostate.edu/">
           <ion-img
-          src="./src/assets/sponsor/CSUVicePresidentForResearch.png" 
+          src='./assets/sponsor/CSUVicePresidentForResearch.png' 
           alt="CSU Vice President for Research" ></ion-img>
           </a>
 
@@ -306,7 +291,7 @@
 
           <a href="https://littlewordsproject.com/">
           <ion-img
-          src="./src/assets/sponsor/LittleWordsProject.png" 
+          src='./assets/sponsor/LittleWordsProject.png' 
           alt="Little Words Project" ></ion-img>
           </a>
 
@@ -314,7 +299,7 @@
 
           <a href="http://www.edcarrollmotorco.com/">
           <ion-img
-            src="./src/assets/sponsor/EdCarrolMotorCompany.jpeg" 
+            src='./assets/sponsor/EdCarrolMotorCompany.jpeg' 
             alt="Ed Carrol Motor Company" ></ion-img>
             </a>
 
@@ -322,7 +307,7 @@
       <ion-col size='4' size-sm>
           <a href="https://www.natsci.colostate.edu/women-in-natural-sciences-wins/">
           <ion-img
-            src="./src/assets/sponsor/CSUWomenInNaturalSciences.png" 
+            src='./assets/sponsor/CSUWomenInNaturalSciences.png' 
             alt="CSU Women in Natural Sciences" ></ion-img>
             </a>
 
@@ -330,7 +315,7 @@
 
             <a href="http://www.sixdogtshirtco.com/">
             <ion-img
-              src="./src/assets/sponsor/SixDog.png" 
+              src='./assets/sponsor/SixDog.png' 
               alt="Six Dog T-shirt Co." ></ion-img>
               </a>
 
@@ -338,7 +323,7 @@
 
           <a href="https://www.retailmugs.com/">
           <ion-img
-           src="./src/assets/sponsor/RetailMugs.png" 
+           src='./assets/sponsor/RetailMugs.png' 
           alt="Retail Mugs" ></ion-img>
           </a>
 
@@ -346,7 +331,7 @@
 
           <a href="https://www.engr.colostate.edu/me/">
           <ion-img
-            src="./src/assets/sponsor/CSUMechanicalEngineering.png" 
+            src='./assets/sponsor/CSUMechanicalEngineering.png' 
             alt="CSU Mechanical Engineering"></ion-img>
             </a>
       </ion-col>
