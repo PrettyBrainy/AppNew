@@ -29,6 +29,8 @@ export class ProfilePage implements OnInit {
   public showTeamButtons: boolean = true;
   private code: string;
   private uid: string;
+  public userAgeInput: string;
+  public displayAge: string;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -125,12 +127,46 @@ refreshProfilePage(){
 }
 
 //__________________________Update Age Range
-updateDOB(birthDate: string): void {
-  if (birthDate === undefined) {
-    return;
-  }
-  this.profileService.updateDOB(birthDate);
-  this.refreshProfilePage();
+updateDOB(range: string) {
+var ageRange = {
+  birthDate:  `${range}`
+}
+var user = firebase.auth().currentUser;
+if (user != null) {
+  this.uid = user.uid;
+}
+const updateAge = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(ageRange);
+this.displayAge = range;
+}
+
+
+async updateDOBAlert(): Promise<void> {
+  const alert = await this.alertCtrl.create({
+    subHeader: 'Your age range',
+    inputs: [
+      { type: 'radio', name: 'youngAge', value: '11-15', label: '11-15'},
+      { type: 'radio', name:'teenAge', value: '16-18', label: '16-18 (in highschool)'},
+      { type: 'radio', name:'youngAdultAge', value: '18-20', label: '18-20'}, 
+      { type: 'radio', name:'adultAge', value:'21+', label: '21+'},
+    ],
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: 'Save',
+        handler: data => {
+          this.userAgeInput = String(data);
+          this.updateDOB(this.userAgeInput);
+          
+        },
+      },
+    ],
+  });
+  await alert.present();
+}
+
+correctAge(ageStuff: string){
+    this.updateDOB(ageStuff);
+    this.age = true;
 }
 
 //___________________Update User Email
