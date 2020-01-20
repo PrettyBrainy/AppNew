@@ -30,7 +30,9 @@ export class ProfilePage implements OnInit {
   private code: string;
   private uid: string;
   public userAgeInput: string;
-  public displayAge: string;
+  public showIfAgeChangeMade: Boolean;
+  public showIfAgeInDB: Boolean;
+
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -46,6 +48,9 @@ export class ProfilePage implements OnInit {
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
       if (userProfileSnapshot.data()) {
         this.userProfile = userProfileSnapshot.data();
+        if (this.userProfile.birthDate != undefined){
+          this.showIfAgeChangeMade = true;
+        };
       }
     });
 
@@ -136,7 +141,8 @@ if (user != null) {
   this.uid = user.uid;
 }
 const updateAge = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(ageRange);
-this.displayAge = range;
+this.showIfAgeInDB = true;
+this.showIfAgeChangeMade = false;
 }
 
 
