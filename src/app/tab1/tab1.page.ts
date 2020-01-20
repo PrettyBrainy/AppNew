@@ -14,42 +14,70 @@ export class Tab1Page implements OnInit{
   public userPoints:number;
   public userProfile: any;
   public team: String;
-  public teamPoints: Number;
   public hideTeamProgressBar: Boolean;
   public teamProgressBar: Number;
-  public uid: '';
+  public uid: string;
   public cityTotalPledgeCount: Number;
   public cityUserNumber: Number;
   public cityProgressBar: Number;
   public teamPledgeCount: Number;
   public teamUsers: Number;
-  public teamTotalPledgeCount: Number;
   public totalPledgesPossiblePerUser: Number;
   public userProgressBar: Number;
+  public teamAccessCode: String;
+  public teamTotalPoundsCarbon: Number;
+  public teamPoints: Number;
+  public teamTotalPledgeCount: Number;
+  public cityTotalPoundsCarbon: Number;
+  public hidePersonalProgress: Boolean;
   constructor(private profileService: ProfileService) {}
 
 
 ngOnInit() {
-  this.profileService.getUserProfile().then((userProfileSnapshot) => {
+
+this.teamAndCityProgressBarTotals();
+this.getUserProgressBar();
+this.getUserandTeamData();
+this.hasUserStartedModules();
+
+}
+
+hasUserStartedModules(){
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    this.uid = user.uid; 
+  }
+  const checkStart = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((edSnap)=>{
+    if (edSnap.data()){
+      this.hidePersonalProgress = false;
+    }
+  })
+
+}
+
+getUserandTeamData(){
+  this.profileService.getUserProfile().then((userProfileSnapshot) => {    //Get team from user profile and store in public variables to display on page
     if (userProfileSnapshot.data()) {
       this.userPoints = Number(userProfileSnapshot.data().points);
       this.team= String(userProfileSnapshot.data().team);
       let teamPointsSearch = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
-        this.teamPoints = Number(docSnapshot.data().points);
-        this.teamTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete)
+        this.teamAccessCode = String(docSnapshot.data().accessCode);
+        this.teamTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
 
       })
     }
     else{
       this.userPoints = 0;
-      this.teamPoints = 0;
+      this.teamTotalPoundsCarbon = 0;
     }
   })
 
-this.teamAndCityProgressBarTotals();
-this.getUserProgressBar();
-}
+  const getCityInfo = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then( (citySnap) =>{
+    this.cityTotalPoundsCarbon = Number(citySnap.data().totalPoundsCarbon)
+  })
 
+
+}
 
 
 teamAndCityProgressBarTotals(){
