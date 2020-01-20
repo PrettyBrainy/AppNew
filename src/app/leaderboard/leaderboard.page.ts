@@ -15,7 +15,7 @@ export class LeaderboardPage implements OnInit {
 public teamsArray: Array<String>;
 public arrayToSort: Array<any>;
 public team1: String;
-public team2 = String;
+public team2 = '';
 public team3 = '';
 public team4 = '';
 public team5 = '';
@@ -25,6 +25,7 @@ public team8 = '';
 public team9 = '';
 public team10 = '';
 public poundsOrder: Array<Number>;
+public pledgesOrder: Array<Number>;
 public pounds1: Number;
 public pounds2: Number;
 public pounds3: Number;
@@ -35,6 +36,16 @@ public pounds7: Number;
 public pounds8: Number;
 public pounds9: Number;
 public pounds10: Number;
+public pledges1: Number;
+public pledges2: Number;
+public pledges3: Number;
+public pledges4: Number;
+public pledges5: Number;
+public pledges6: Number;
+public pledges7: Number;
+public pledges8: Number;
+public pledges9: Number;
+public pledges10: Number;
 
   constructor() { }
 
@@ -105,12 +116,176 @@ orderByPounds(){
       this.team10 = orderedTeamNames[9];
 
       this.assignPoundsVariables();
+      this.retrieveCompletedPledges();
 
   })
   .catch(function(error) {
       console.log("Error getting documents: ", error);
   });
 //console.log(teamsArray);
+}
+
+orderByPledges(){
+  const teamRef = firebase.firestore().collection('teams');
+  var teamsArray = [];
+  var pledgesArray = [];
+  teamRef.orderBy("TotalPoundsCarbon", 'asc').limit(10);
+  teamRef
+  .get()
+  .then((snapshot) => {
+      snapshot.forEach(function(doc) {
+        teamsArray.push(String(doc.id), Number(doc.data().totalPledgesComplete));
+        pledgesArray.push(Number(doc.data().totalPledgesComplete));
+      });
+      console.log(teamsArray);
+      
+      let sortThisArray = [];
+      for(let n = 0; n<teamsArray.length; n+=2){
+        sortThisArray.push([teamsArray[n], teamsArray[n+1]])
+      }
+      console.log(sortThisArray);
+      var pledgesOrder = pledgesArray.sort((a,b) => b-a);
+      this.pledgesOrder = pledgesOrder;
+      console.log(pledgesOrder);
+
+      let orderedTeamNames = [];
+      for( let n = 0; n<sortThisArray.length; n++){
+        for (let i = 0; i<sortThisArray.length; i++)
+          if (sortThisArray[i][1] == pledgesOrder[n]){
+            orderedTeamNames.push(sortThisArray[i][0]);
+          }
+      }
+
+      if (sortThisArray.length<10){
+        var diff = 10-sortThisArray.length;
+        var diff2 = 10-orderedTeamNames.length;
+        for (let n = 0; n<=diff; n++){
+          sortThisArray.push(["Your Team Here!", 0])
+          orderedTeamNames.push("Your Team Here!");
+        }
+      }
+
+      if (orderedTeamNames.length<10){
+        var diff = 10-orderedTeamNames.length;
+        for (let n = 0; n<=diff; n++){
+          orderedTeamNames.push("Your Team Here!");
+        }
+      }
+      console.log(orderedTeamNames);
+      this.team1 = orderedTeamNames[0];
+      this.team2 = orderedTeamNames[1];
+      this.team3 = orderedTeamNames[2];
+      this.team4 = orderedTeamNames[3];
+      this.team5 = orderedTeamNames[4];
+      this.team6 = orderedTeamNames[5];
+      this.team7 = orderedTeamNames[6];
+      this.team8 = orderedTeamNames[7];
+      this.team9 = orderedTeamNames[8];
+      this.team10 = orderedTeamNames[9];
+
+      this.assignPledgesVariables();
+      this.retrieveTotalPounds();
+
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+
+}
+
+assignPledgesVariables(){
+  if (this.pledgesOrder.length <10){
+    let diff = 10 - this.pledgesOrder.length;
+    for (let n = 0; n<diff; n++){
+      this.pledgesOrder.push(0);
+    }
+  }
+this.pledges1 = this.pledgesOrder[0]
+this.pledges2 = this.pledgesOrder[1]
+this.pledges3 = this.pledgesOrder[2]
+this.pledges4 = this.pledgesOrder[3]
+this.pledges5 = this.pledgesOrder[4]
+this.pledges6 = this.pledgesOrder[5]
+this.pledges7 = this.pledgesOrder[6]
+this.pledges8 = this.pledgesOrder[7]
+this.pledges9 = this.pledgesOrder[8]
+this.pledges10 = this.pledgesOrder[9]
+}
+
+retrieveTotalPounds(){
+  let teamsListRef = firebase.firestore().collection('teams')
+
+  teamsListRef.doc(`${this.team1}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds1 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds1 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team2}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds2 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds2 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team3}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds3 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds3 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team4}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds4 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds4 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team5}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds5 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds5 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team6}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds6 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds6 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team7}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds7 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds7 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team8}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds8 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds8 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team9}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds9 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds9 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team10}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pounds10 = Number(snap.data().totalPoundsCarbon);
+    } else {
+      this.pounds10 = 0;
+    }
+  })
+
 }
 
 assignPoundsVariables(){
@@ -133,6 +308,84 @@ assignPoundsVariables(){
   this.pounds10 = this.poundsOrder[9];
 }
 
+retrieveCompletedPledges(){
+  let teamsListRef = firebase.firestore().collection('teams')
+
+  teamsListRef.doc(`${this.team1}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges1 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges1 = 0;
+    }
+  })
+
+  teamsListRef.doc(`${this.team2}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges2 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges2 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team3}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges3 = Number(snap.data().totalPledgesComplete);
+    } else{
+      this.pledges3 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team4}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges4 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges4 = 0;
+    }
+  })
+
+  teamsListRef.doc(`${this.team5}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges5 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges5 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team6}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges6 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges6 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team7}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges7 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges7 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team8}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges8 = Number(snap.data().totalPledgesComplete);
+    } else { 
+      this.pledges8 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team9}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges9 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges9 = 0;
+    }
+  })
+  teamsListRef.doc(`${this.team10}`).get().then((snap)=> {
+    if (snap.data()){
+    this.pledges10 = Number(snap.data().totalPledgesComplete);
+    } else {
+      this.pledges10 = 0;
+    }
+  })
+
 
 }
 
+
+}
