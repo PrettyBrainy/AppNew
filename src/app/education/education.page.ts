@@ -219,8 +219,6 @@ startEdModule(){
     ed3: 0,
     ed4: 0,
     ed5: 0,
-    teamPointsCounted: 0,
-    cityPointsCounted: 0
   }
   let pounds = {
     ed1: 0,
