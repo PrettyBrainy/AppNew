@@ -32,6 +32,9 @@ export class ProfilePage implements OnInit {
   public userAgeInput: string;
   public showIfAgeChangeMade: Boolean;
   public showIfAgeInDB: Boolean;
+  public showIfTeamChangeMade: Boolean;
+  public userTeamInput: string;
+  public showTeamName: Boolean;
 
   constructor(
     private alertCtrl: AlertController,
@@ -53,7 +56,7 @@ export class ProfilePage implements OnInit {
         };
       }
     });
-
+ 
 //_______________________Check to display age dropdown
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
       if (userProfileSnapshot.data()) {
@@ -79,9 +82,11 @@ export class ProfilePage implements OnInit {
       if (this.team != 'undefined'){
         this.showTeam = false;
         this.showTeamButtons = true;
+        this.showIfTeamChangeMade = true;
       } else {
         this.showTeam = true;
         this.showTeamButtons = false;
+        this.showIfTeamChangeMade = true;
       }
     }
   })
@@ -310,13 +315,14 @@ createTeam(teamId: string, accessCode: string) {
       let createTeam = teamsList.doc(`${teamId}`).set(access);
       let addUser = teamRef.update(userArray);
       alert('Success! Team ' + teamId + ' has been created! Send your Team Name and access code to your friends now.')
-      this.showTeam = false;
+      this.showTeamButtons = true;
+      this.showIfTeamChangeMade = false;
+      this.showTeamName = true;
       this.showTeamButtons = true;
       }
       });
     //_______________Increase number of teams in city, refresh page so correct team information shows
     this.increaseCityTeamCount();
-    this.refreshProfilePage();
   }
 
 
@@ -359,7 +365,10 @@ joinTeam(teamId: string, accessCode:string){
         let increaseNumUsers = teamRef.update(trackUsers);    //Update number of users with new number
         let updateAllUsers = teamRef.update(addUsers);        //Update user array to include current user
         let addTeamToUser = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(teamName); //Update user profile to include team
-        this.refreshProfilePage();      //Refresh page to reflect changes.
+        this.userTeamInput = teamId;
+        this.showIfTeamChangeMade = false;
+        this.showTeamName = true;
+        this.showTeamButtons = true;
       }else {
         alert('Access code is incorrect! Double check your spelling and try again (:') //Wrong Access Code alert
       }
