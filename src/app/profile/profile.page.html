@@ -64,8 +64,8 @@
 
 
 
-      <!--    TEAM INFO   -->
-      <ion-item [hidden] = "showTeam">
+      <!--    TEAM INFO  __________ Autopopulates  -->
+      <ion-item [hidden] = "showTeamName">
         <ion-label>
           <ion-grid>
             <ion-row>
@@ -83,8 +83,27 @@
           </ion-grid>
         </ion-label>
       </ion-item>
+
+
+
+
+      <!--    TEAM INFO  __________ on New Input  -->
+      <ion-item [hidden] = "showIfTeamChangeMade">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Team </ion-col>
+              <ion-col class="text-center" size="7">
+                {{this.userTeamInput}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
       
       
+
+
       
       <!--    USER AGE ------ AUTOPOPULATES   -->
       <ion-item (click)="updateDOBAlert()" [hidden] = "showIfAgeInDB">
@@ -108,20 +127,20 @@
       </ion-item>
 
 
-            <!--    USER AGE------ On New Input -->
-            <ion-item (click)="updateDOBAlert()" [hidden] = "showIfAgeChangeMade">
-              <ion-label>
-                <ion-grid>
-                  <ion-row>
-                    <ion-col class="text-left" size="5"> Age Range </ion-col>
-                    <ion-col class="text-center" size="7">
-                      {{this.userAgeInput}}
-                    </ion-col>
-              
-                  </ion-row>
-                </ion-grid>
-              </ion-label>
-            </ion-item>
+      <!--    USER AGE------ On New Input -->
+      <ion-item (click)="updateDOBAlert()" [hidden] = "showIfAgeChangeMade">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="text-left" size="5"> Age Range </ion-col>
+              <ion-col class="text-center" size="7">
+                {{this.userAgeInput}}
+              </ion-col>
+        
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
 
     <!-- UPDATE PASSWORD-->
     <ion-item (click)="updatePassword()">
