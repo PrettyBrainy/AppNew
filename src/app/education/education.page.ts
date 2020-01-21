@@ -23,8 +23,14 @@ public incompletePledge2: boolean=true;
 public incompletePledge3: boolean=true;
 public incompletePledge4: boolean=true;
 public incompletePledge5: boolean=true;
+public pendingPledge1: boolean=true;
+public pendingPledge2: boolean=true;
+public pendingPledge3: boolean=true;
+public pendingPledge4: boolean=true;
+public pendingPledge5: boolean=true;
 public incomplete: boolean=false;
 public completeWord: boolean=true;
+public pending: boolean=true;
 public hidePledges: boolean=true;
 public completePledge1: boolean=false;
 public completePledge2: boolean=false;
@@ -78,106 +84,8 @@ let modStarted = firebase.firestore()
         this.hideText=false;
         this.hidePledges=true;
       }
+      this.checkForPledgeStatus();
 })
-
-var count = 0;
-//__________________________________________ Show/Hide for all ed pledges
-let data1 = firebase.firestore().collection('userProfile').doc(`${uid}`).collection('pledges').doc('education').get()
-.then((docSnapshot) =>{
-  var ed1Verf = String(docSnapshot.data().ed1); 
-  console.log(ed1Verf)
-  if (ed1Verf == ' '){
-    this.incompletePledge1=false;
-    this.completePledge1=true;
-    console.log("no data - 1");
-   
-  }
-  else{
-    this.incompletePledge1=true;
-    this.completePledge1=false;
-    console.log("has data - 1");
-    count += 1;
-  }
-
-  var ed2Verf = String(docSnapshot.data().ed2); 
-  console.log(ed2Verf)
-  if (ed2Verf == ' '){
-    this.incompletePledge2=false;
-    this.completePledge2=true;
-    console.log("no data - 2");
-  }
-  else{
-    this.incompletePledge2=true;
-    this.completePledge2=false;
-    console.log("has data - 2");
-    count += 1;
-  }
-
-  var ed3Verf = String(docSnapshot.data().ed3); 
-  console.log(ed3Verf)
-  if (ed3Verf == ' '){
-    this.incompletePledge3=false;
-    this.completePledge3=true;
-    console.log("no data - 3");
-  }
-  else{
-    this.incompletePledge3=true;
-    this.completePledge3=false;
-    console.log("has data - 3");
-    count += 1;
-  }
-
-  var ed4Verf = String(docSnapshot.data().ed4); 
-  console.log(ed4Verf)
-  if (ed4Verf == ' '){
-    this.incompletePledge4=false;
-    this.completePledge4=true;
-    console.log("no data - 4");
-  }
-  else{
-    this.incompletePledge4=true;
-    this.completePledge4=false;
-    console.log("has data - 4");
-    count += 1;
-  }
-
-  var ed5Verf = String(docSnapshot.data().ed5); 
-  console.log(ed5Verf)
-  if (ed5Verf == ' '){
-    this.incompletePledge5=false;
-    this.completePledge5=true;
-    console.log("no data - 5");
-  }
-  else{
-    this.incompletePledge5=true;
-    this.completePledge5=false;
-    console.log("has data - 5");
-    count += 1;
-  }
-var countPercent = (count/5)*100;
-this.pledgeCount = String(countPercent);
-console.log(this.pledgeCount);
-  
- if (ed1Verf == ' ' && ed2Verf == ' ' && ed3Verf == ' ' && ed4Verf == ' ' && ed5Verf == ' '){
-    this.completeWord = true;
-    this.incomplete = false;
- }
-
- else if (ed1Verf != ' ' && ed2Verf != ' ' && ed3Verf != ' ' && ed4Verf != ' ' && ed5Verf != ' '){
-    this.completeWord = false;
-    this.incomplete = true;
- }
- 
- else{
-   this.completeWord = false;
-   this.incomplete = false;
- } 
-}) 
-
-this.teamAndCityProgressBarTotals();
-
-}
-  
 
 startEdModule(){
   this.hideButton=true;
@@ -285,6 +193,180 @@ let bumblebee = firebase.firestore().collection('userProfile').doc(`${this.uid}`
 })
 }
 
+checkForPledgeStatus(){
+  let statusCheck1 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    var status1 = String(docSnapshot.data().ed1);
+    console.log(status1);
+    
+    if(status1 == ' '){
+      this.incompletePledge1=false;
+      this.pendingPledge1=true;
+      this.completePledge1=true;
+      console.log("no data - 1");
+    } 
+    else if(status1 == 'pending'){
+      this.incompletePledge1=true;
+      this.pendingPledge1=false;
+      this.completePledge1=true;
+      console.log("pending - 1");
+    }else {
+      this.incompletePledge1=true;
+      this.pendingPledge1=true;
+      this.completePledge1=false;
+      console.log("has data - 1");
+    } 
+
+let statusCheck2 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    var status2 = String(docSnapshot.data().ed2);
+    console.log(status2); 
+    
+    if(status2 == ' '){
+      this.incompletePledge2=false;
+      this.completePledge2=true;
+      this.pendingPledge2=true;
+      console.log("no data - 2");
+    }else if (status2 == 'pending'){
+      this.incompletePledge2=true;
+      this.completePledge2=true;
+      this.pendingPledge2=false;
+      console.log("pending - 2");
+    }else {
+      this.incompletePledge2=true;
+      this.completePledge2=false;
+      this.pendingPledge2=true;
+      console.log("has data - 2");
+    } 
+
+let statusCheck3 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    var status3 = String(docSnapshot.data().ed3);
+    console.log(status3);
+    
+    if(status3 == ' '){
+      this.incompletePledge3=false;
+      this.completePledge3=true;
+      this.pendingPledge3=true;
+      console.log("no data - 3");
+    }else if(status3 == 'pending'){
+      this.incompletePledge3=true;
+      this.completePledge3=true;
+      this.pendingPledge3=false;
+      console.log("pending - 3");
+    }else {
+      this.incompletePledge3=true;
+      this.completePledge3=false;
+      this.pendingPledge3=true;
+      console.log("has data - 3");
+    } 
+
+let statusCheck4 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    var status4 = String(docSnapshot.data().ed4);
+    console.log(status4);
+    
+    if(status4 == ' '){
+      this.incompletePledge4=false;
+      this.completePledge4=true;
+      this.pendingPledge4=true;
+      console.log("no data - 4");
+    }else if(status4 == 'pending'){
+      this.incompletePledge4=true;
+      this.completePledge4=true;
+      this.pendingPledge4=false;
+      console.log("pending - 4");
+    }else {
+      this.incompletePledge4=true;
+      this.completePledge4=false;
+      this.pendingPledge4=true;
+      console.log("has data - 4");
+    } 
+
+let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    var status5 = String(docSnapshot.data().ed5);
+    console.log(status5);
+    
+    if(status5 == ' '){
+      this.incompletePledge5=false;
+      this.completePledge5=true;
+      this.pendingPledge5=true;
+      console.log("no data - 5");
+    }else if (status5 == 'pending'){
+      this.incompletePledge5=true;
+      this.completePledge5=true;
+      this.pendingPledge5=false;
+      console.log("pending - 5");
+    }else {
+      this.incompletePledge5=true;
+      this.completePledge5=false;
+      this.pendingPledge5=true;
+      console.log("has data - 5");
+    } 
+  
+ if (status1 == ' ' && status2 == ' ' && status3 == ' ' && status4 == ' ' && status5 == ' '){
+    this.completeWord = true;
+    this.incomplete = false;
+    this.pending = true;
+ }
+
+ else if (status1 == 'pending' && status2 == 'pending' && status3 == 'pending' && status4 == 'pending' && status5 == 'pending'){
+    this.completeWord = true;
+    this.incomplete = true;
+    this.pending = false;
+ }
+
+ else if (status1 != ' ' && status2 != ' ' && status3 != ' ' && status4 != ' ' && status5 != ' '){
+    this.completeWord = false;
+    this.incomplete = true;
+    this.pending = true;
+ }
+ 
+ else if (status1 != 'pending' && status2 != 'pending' && status3 != 'pending' && status4 != 'pending' && status5 != 'pending'){
+  this.completeWord = false;
+  this.incomplete = true;
+  this.pending = true;
+}
+
+else if (status1 == 'pending' || ' ' && status2 == 'pending' || ' ' && status3 == 'pending' || ' ' && status4 == 'pending' || ' ' && status5 == 'pending' || ' '){
+  this.completeWord = true;
+  this.incomplete = false;
+  this.pending = false;
+}
+
+else if (status1 == 'approved' || ' ' && status1 != 'pending' && status2 == 'approved' || ' ' && status2 != 'pending' && status3 == 'approved' || ' ' && status3 != 'pending' && status4 == 'approved' || ' ' && status4 != 'pending' && status5 == 'approved' || ' ' && status5 != 'pending'){
+  this.completeWord = false;
+  this.incomplete = false;
+  this.pending = true;
+}
+
+else if (status1 == 'approved' || 'pending' && status1 != ' ' && status2 == 'approved' || 'pending' && status2 != ' ' && status3 == 'approved' || 'pending'&& status3 != ' ' && status4 == 'approved' || 'pending' && status4 != ' ' && status5 == 'approved' || 'pending' && status5 != ' '){
+  this.completeWord = false;
+  this.incomplete = true;
+  this.pending = false;
+}
+
+ /*else if (status1 == "approved" || 'pending' || ' ' && status2 == "approved" || 'pending' || ' ' && status3 == "approved" || 'pending' || ' ' && status4 == "approved" || 'pending' || ' ' && status5 == "approved" || 'pending' || ' '){
+   this.completeWord = false;
+   this.incomplete = false;
+   this.pending = false; 
+ } */
+
+  else {
+    this.completeWord = false;
+    this.incomplete = false;
+    this.pending = false;
+  }
+ 
+            
+          })
+        })
+      })
+    })
+  })
+}
+    
 teamAndCityProgressBarTotals(){
   let teamPledgeCount = firebase.firestore().collection('userProfile').doc(`${this.uid}`).get().then((docSnapshot) =>{
     this.team = String(docSnapshot.data().team);
