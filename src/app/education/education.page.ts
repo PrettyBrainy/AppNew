@@ -23,14 +23,8 @@ public incompletePledge2: boolean=true;
 public incompletePledge3: boolean=true;
 public incompletePledge4: boolean=true;
 public incompletePledge5: boolean=true;
-public pendingPledge1: boolean=true;
-public pendingPledge2: boolean=true;
-public pendingPledge3: boolean=true;
-public pendingPledge4: boolean=true;
-public pendingPledge5: boolean=true;
 public incomplete: boolean=false;
 public completeWord: boolean=true;
-public pending: boolean=true;
 public hidePledges: boolean=true;
 public completePledge1: boolean=false;
 public completePledge2: boolean=false;
@@ -44,16 +38,23 @@ private uid: String;
 public complete: boolean;
 public checkComplete: String;
 public edPledges: firebase.firestore.DocumentReference;
-public pledgeContent: String;
-public pledgeCount: String;
-public team: String;
-public teamEdPledgeCount: Number;
-public cityEdPledgeCount: Number;
-public teamUsers: Number;
-public teamProgressBar: Number;
-public cityUserNumber: Number;
-public cityProgressBar: Number;
-public hideTeamProgressBar: Boolean;
+public pledgeContent: string;
+public pledgeCount: string;
+public team: string;
+public teamEdPledgeCount: number;
+public cityEdPledgeCount: number;
+public teamUsers: number;
+public teamProgressBar: number;
+public cityUserNumber: number;
+public cityProgressBar: number;
+public hideTeamProgressBar: boolean;
+public pendingPledge1: boolean;
+public pendingPledge2: boolean;
+public pendingPledge3: boolean;
+public pendingPledge4: boolean;
+public pendingPledge5: boolean;
+public pending: boolean=true;
+
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private eventService: EventService) { }
@@ -67,6 +68,8 @@ public hideTeamProgressBar: Boolean;
       this.uid = user.uid;
     }
 
+this.getUserProgressBar();
+this.checkForPledgeStatus();
 
 //______________________________Check if mod started using exist funcion
 let modStarted = firebase.firestore()
@@ -84,8 +87,10 @@ let modStarted = firebase.firestore()
         this.hideText=false;
         this.hidePledges=true;
       }
-      this.checkForPledgeStatus();
 })
+this.doesUserHaveTeam();
+}
+  
 
 startEdModule(){
   this.hideButton=true;
@@ -128,6 +133,7 @@ startEdModule(){
     ed4: 0,
     ed5: 0,
   }
+
   let pounds = {
     ed1: 0,
     ed2: 0,
@@ -137,13 +143,14 @@ startEdModule(){
     teamPoundsCounted: 0,
     cityPoundsCounted: 0
   }
+  
   let newUserTotals = {
     totalPledgesComplete: 0,
-    totalEdPledgeComplete: 0,
+    edPledgeComplete: 0,
     points: 0,
     totalPoundsCarbon: 0
   }
-  
+
   this.createPledgeList.collection("pledges").doc("education").set(pledges);
   this.createPledgeList.collection("approval").doc("education").set(approval);
   this.createPledgeList.collection("points").doc("education").set(points);
@@ -152,46 +159,96 @@ startEdModule(){
   
 }
 
-
-checkForCompletion(pledge: String){
-this.checkComplete = String(this.retreiveContent(pledge));
-    console.log(this.checkComplete)
-    if (this.checkComplete == ' '){
-      this.complete=true;
-      console.log("no data - 5");
-      return this.complete;
+getUserProgressBar(){
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
+  
+  let checkApprovals = approvalRef.get().then(doc =>{
+    if(doc.exists){
+    let approvalArray = [doc.data().ed1, doc.data().ed2, doc.data().ed3, doc.data().ed4, doc.data().ed5];
+    let count = 0;
+    let approvedArray = [];
+    for(let n = 0; n<approvalArray.length; n++){
+      if (approvalArray[n] == "approved"){
+        approvedArray.push(false);
+        count +=1 ;
+      } 
+      var countPercent = (count/5)*100;
+      this.pledgeCount = String(countPercent);
     }
-    else{
-      this.complete = false;
-      console.log("has data - 5");
-      return this.complete;
+  }
+  })
+}
+
+doesUserHaveTeam(){
+  const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+  let getTeam = userRef.get().then(user => {
+    if (user.data().team != undefined){
+      this.hideTeamProgressBar = false;
+      this.team = user.data().team
+      this.teamAndCityProgressBarTotals();
+      
+    } else{
+      this.hideTeamProgressBar = true;
+      this.cityProgressBarTotals();
     }
+  })
 }
 
 
-retreiveContent(pledge:String){
-let bumblebee = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
-  switch (pledge) {
-  case 'ed1':
-    this.pledgeContent = String(docSnapshot.data().ed1);
-    return this.pledgeContent;
-  case 'ed2':
-    this.pledgeContent = String(docSnapshot.data().ed2);
-    return this.pledgeContent;
-  case 'ed3':
-    this.pledgeContent = String(docSnapshot.data().ed3);
-    return this.pledgeContent;
-  case 'ed4':
-    this.pledgeContent = String(docSnapshot.data().ed4);
-    return this.pledgeContent;
-  case 'ed5':
-    this.pledgeContent = String(docSnapshot.data().ed5);
-    return this.pledgeContent;
-  default:
-    break;
+cityProgressBarTotals(){
+  //__________________________________Get City info for city progress bar
+  let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
+    this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+    this.cityUserNumber = Number(docSnapshot.data().totalUsers);
+
+    var totalCityPledges = 5*Number(this.cityUserNumber);
+    this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+  })
 }
-})
-}
+
+
+teamAndCityProgressBarTotals(){
+  let teamPledgeCount = firebase.firestore().collection('userProfile').doc(`${this.uid}`).get().then((docSnapshot) =>{
+    this.team = String(docSnapshot.data().team);
+    
+//______________________________________Check fot team, show team progress bar if user has team
+
+    if (this.team == 'undefined'){
+      this.hideTeamProgressBar = true;
+
+      //__________________________________Get City info for city progress bar
+      let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
+        this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+        this.cityUserNumber = Number(docSnapshot.data().totalUsers);
+
+        var totalCityPledges = 5*Number(this.cityUserNumber);
+        this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+      })
+
+    } else{
+      
+      //__________________________________Get team info for team progress bar
+      let teamCount = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
+      this.teamEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+      this.teamUsers = Number(docSnapshot.data().teamUsers);
+      
+      //__________________________________Get City info for city progress bar
+      let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
+        this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+        this.cityUserNumber = Number(docSnapshot.data().totalUsers);
+  
+        var totalTeamPledges = 5 * Number(this.teamUsers);
+        this.teamProgressBar = Number((Number(this.teamEdPledgeCount)/totalTeamPledges)*100);
+        console.log(this.teamProgressBar);
+      
+        var totalCityPledges = 5*Number(this.cityUserNumber);
+        this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+      })
+    }) 
+
+    }
+  })
+}  
 
 checkForPledgeStatus(){
   let statusCheck1 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
@@ -366,47 +423,5 @@ else if (status1 == 'approved' || 'pending' && status1 != ' ' && status2 == 'app
     })
   })
 }
-    
-teamAndCityProgressBarTotals(){
-  let teamPledgeCount = firebase.firestore().collection('userProfile').doc(`${this.uid}`).get().then((docSnapshot) =>{
-    this.team = String(docSnapshot.data().team);
-    
-//______________________________________Check fot team, show team progress bar if user has team
 
-    if (this.team == 'undefined'){
-      this.hideTeamProgressBar = true;
-
-      //__________________________________Get City info for city progress bar
-      let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
-        this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
-        this.cityUserNumber = Number(docSnapshot.data().totalUsers);
-
-        var totalCityPledges = 5*Number(this.cityUserNumber);
-        this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
-      })
-
-    } else{
-      
-      //__________________________________Get team info for team progress bar
-      let teamCount = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
-      this.teamEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
-      this.teamUsers = Number(docSnapshot.data().teamUsers);
-      
-      //__________________________________Get City info for city progress bar
-      let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
-        this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
-        this.cityUserNumber = Number(docSnapshot.data().totalUsers);
-  
-        var totalTeamPledges = 5 * Number(this.teamUsers);
-        this.teamProgressBar = Number((Number(this.teamEdPledgeCount)/totalTeamPledges)*100);
-        console.log(this.teamProgressBar);
-      
-        var totalCityPledges = 5*Number(this.cityUserNumber);
-        this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
-      })
-    }) 
-
-    }
-  })
-}  
 }
