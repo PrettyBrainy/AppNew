@@ -1,3 +1,4 @@
+<!--Header-->
 <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -7,16 +8,16 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content class = "ion-padding">
-    <ion-grid>
+<ion-content class = "ion-content-padding">
+<ion-grid>
   
 
     <!--________________________KID VIEW______________________________-->
+ 
 
 
-  <p [hidden] = "kidPledge">
   
-     <ion-card class = "pledgeCard">
+     <ion-card class = "pledgeCard" [hidden] = kidPledge>
         <ion-card-header>
           <ion-card-title>Take the Pledge</ion-card-title>
           <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
@@ -36,14 +37,15 @@
             Tell us what you did and upload an image!
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
           </ion-card-content>
+          </ion-card>
   
 
 
   <!--________________________TEEN VIEW______________________________-->
      
-  <p [hidden] = "teenPledge">
+
   
-      <ion-card class = "pledgeCard">
+      <ion-card class = "pledgeCard" [hidden] = "teenPledge">
         <ion-card-header>
           <ion-card-title>Take the Pledge</ion-card-title>
           <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
@@ -63,13 +65,13 @@
             Tell us what you did and upload an image! 
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
         </ion-card-content>
-
+      </ion-card>
   
   <!--________________________ADULT  VIEW______________________________-->
     
-  <p [hidden] = "adultPledge">
+
   
-      <ion-card class = "pledgeCard">
+      <ion-card class = "pledgeCard" [hidden] = "adultPledge">
         <ion-card-header>
           <ion-card-title>Take the Pledge</ion-card-title>
           <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
@@ -89,18 +91,18 @@
             Tell us what you did and upload an image!
             Complete all items on the list and you will become an official Cool Climate Ambassador for your community.
         </ion-card-content>
-
+      </ion-card>
   
     <Br>
   
-    <div class = "ion-text-center">
+    <div class = "ion-text-center" [hidden] = "hideVerfCard">
         <h4 [hidden]="kidPledge">I pledge to become a Cool Climate Ambassador.</h4>
         <h4 [hidden]="teenPledge">I pledge to become a Cool Climate Ambassador.</h4>
         <h4 [hidden]="adultPledge">I pledge to become a Cool Climate Ambassador.</h4>     
     </div>
         
         
-   <ion-card class="verifyPledgeForm">
+   <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
     <ion-card-header> Verify your impact. </ion-card-header>
     <ion-card-content>
       <ion-row>
@@ -124,5 +126,25 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-card [hidden]  ="pledgeSubmittedCard">
+    <ion-card-header>
+      <ion-card-title>
+        Thank you for taking the pledge! 
+      </ion-card-title>
+      <ion-card-content>
+        <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
+        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
+        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
+        <p>
+          <em>{{this.pledgeContent}}</em>
+        </p>
+      </ion-card-content>
+    </ion-card-header>  
+  </ion-card>
+
 </ion-grid>
-  </ion-content>
+
+</ion-content>
+
+
