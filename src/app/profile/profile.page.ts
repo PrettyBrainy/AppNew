@@ -30,11 +30,11 @@ export class ProfilePage implements OnInit {
   private code: string;
   private uid: string;
   public userAgeInput: string;
-  public showIfAgeChangeMade: Boolean;
-  public showIfAgeInDB: Boolean;
-  public showIfTeamChangeMade: Boolean;
+  public showIfAgeChangeMade: boolean;
+  public showIfAgeInDB: boolean;
+  public showIfTeamChangeMade: boolean;
   public userTeamInput: string;
-  public showTeamName: Boolean;
+  public showTeamName: boolean;
 
   constructor(
     private alertCtrl: AlertController,
@@ -46,6 +46,7 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.showIfAgeChangeMade = true;
 
     //____________________Pull User Data from Firebase
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
@@ -78,13 +79,13 @@ export class ProfilePage implements OnInit {
   //_______________________Checks to see if user has a team and hides correct information
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
-      this.team = String(userProfileSnapshot.data().team);
-      if (this.team != 'undefined'){
-        this.showTeam = false;
+      this.team = userProfileSnapshot.data().team;
+      if (userProfileSnapshot.data().team != undefined){
+        this.showTeamName = false;
         this.showTeamButtons = true;
         this.showIfTeamChangeMade = true;
       } else {
-        this.showTeam = true;
+        this.showTeamName = true;
         this.showTeamButtons = false;
         this.showIfTeamChangeMade = true;
       }
@@ -315,6 +316,7 @@ createTeam(teamId: string, accessCode: string) {
       let createTeam = teamsList.doc(`${teamId}`).set(access);
       let addUser = teamRef.update(userArray);
       alert('Success! Team ' + teamId + ' has been created! Send your Team Name and access code to your friends now.')
+      this.userTeamInput = teamId;
       this.showTeamButtons = true;
       this.showIfTeamChangeMade = false;
       this.showTeamName = true;
