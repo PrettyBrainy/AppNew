@@ -18,11 +18,15 @@ export class Ed2Page implements OnInit {
   public kidPledge: boolean = true;
   public teenPledge: boolean = true;
   public adultPledge: boolean = true;
-  public pledgePicture: string = null;
   public hideVerfCard: boolean = false;
+  public pledgePicture: string = null;
   public verification = '';
-  public id = '';
-  public pledgeVerificationUpdate: firebase.firestore.DocumentReference;
+  private uid = '';
+  public pledgeContent = '';
+  public pledgeIsPending:Boolean = true;
+  public pledgeIsApproved: Boolean = true;
+  public pledgeSubmittedCard: Boolean = true;
+  public hideYourSubmissionHeading: Boolean = false;
   
   constructor(
     public profileService: ProfileService,
@@ -30,7 +34,7 @@ export class Ed2Page implements OnInit {
     public router: Router
 
   ) {}
-
+ 
   ngOnInit() {
     this.kidPledge = true;
     this.teenPledge = true;
@@ -51,13 +55,9 @@ export class Ed2Page implements OnInit {
   
     }
   )
+  this.checkForPledgeContent()
   }
 
-getCurrent(){
-  let view = this.router.url;
-  let id = view.substr(1);
-  return id;
-} 
 
 
 async takePicture(): Promise<void> {
@@ -90,53 +90,70 @@ verifyPledge(){
     ed2: this.verification
   }
 
-  //_________________________Get Team Info and Update Team Points and Update Team Pledge Progress Count_________________
-  const teamRef = firebase.firestore().collection("teams").doc(`${team}`);
-  let getTeam = teamRef.get().then(doc =>{
-      var teamPoints = doc.data().points;
-      let newTeamPoints = Number(teamPoints) + 100;   //Update with correct points
-
-      var teamPledgeCount = doc.data().edPledgeComplete;
-      let newTeamPledgeCount = Number(teamPledgeCount) + 1;
-
-      let newInfoTeam = {
-        points: `${newTeamPoints}`,
-        edPledgeComplete: `${newTeamPledgeCount}`
-        }
-      let updateTeamInfo = teamRef.update(newInfoTeam);
-  })
-
-  //_________________________Get City Info and Update City Points_________________
-  const cityRef = firebase.firestore().collection("cityOverall").doc("cityOverall");
-  let getCity = cityRef.get().then(doc => {
-      var cityPoints = doc.data().points;
-      let newCityPoints = Number(cityPoints) + 100;    //Update with correct points
-      
-      var cityPledgeCount = doc.data().edPledgeComplete;
-      let newCityPledgeCount = Number(cityPledgeCount) + 1;
-      
-      
-      let newInfoCity = {
-        points: `${newCityPoints}`,
-        edPledgeComplete: `${newCityPledgeCount}`
-      }
-      let updateCityInfo = cityRef.update(newInfoCity);
-  })
-
-  //_________________________Get User Info and Update User Points_________________
-  const userRef = firebase.firestore().collection('userProfile').doc(`${uid}`);
-  let getUser = userRef.get().then(doc=>{
-      var userPoints = doc.data().points;
-      let newIndiPoints = Number(indiPoints) + 100;   //Update with correct points
-      let newPointsIndi = {
-        points: `${newIndiPoints}`
-      }
-      let updateIndiPoints = userRef.update(newPointsIndi);
-  })
   //__________________________________________Update Database with verification
-  userRef.collection("pledges").doc("education").update(verificationUpdate);
+  const verify = firebase.firestore().collection('userProfile').doc(`${uid}`).collection("pledges").doc("education").update(verificationUpdate);
   })
+
 this.hideVerfCard = true;
+this.hideYourSubmissionHeading = true;
+this.changePledgeApprovalStatus();
 }
+
+
+
+changePledgeApprovalStatus(){
+let approvalStatus = {
+  ed2: "pending"
+}
+
+const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+.collection('approval').doc('education').update(approvalStatus);
+this.pledgeSubmittedCard = false;
+
+}
+
+
+
+checkForPledgeContent(){
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    this.uid = user.uid;
+  }
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
+  this.pledgeContent = docSnapshot.data().ed2;
+  console.log(this.pledgeContent);
+
+  if (this.pledgeContent !=''){
+    this.hideVerfCard = true;
+  }
+})
+this.checkForPledgeStatus();
+}
+
+
+
+checkForPledgeStatus(){
+  let statusCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+  .collection('approval').doc('education').get().then((docSnapshot)=>{
+    let status = String(docSnapshot.data().ed2);
+    console.log(status);
+    if(status == 'pending'){
+      console.log(status);
+      this.hideVerfCard = true;
+      this.pledgeIsPending = false;
+      this.pledgeSubmittedCard = false;
+    } else if (status == "approved"){
+      this.hideVerfCard = true;
+      this.pledgeIsApproved = false;
+      this.pledgeSubmittedCard = false;
+    } else {
+      this.hideVerfCard = false;
+      this.pledgeIsApproved = true;
+      this.pledgeIsPending = true;
+      this.pledgeSubmittedCard = true;
+    }
+  })
+}
+
 
 }
