@@ -15,7 +15,7 @@ import 'firebase/storage';
   styleUrls: ['./ed1.page.scss'],
 })
 export class Ed1Page implements OnInit {
-public kidPledge: boolean = true;
+  public kidPledge: boolean = true;
   public teenPledge: boolean = true;
   public adultPledge: boolean = true;
   public hideVerfCard: boolean = false;
@@ -23,10 +23,10 @@ public kidPledge: boolean = true;
   public verification = '';
   private uid = '';
   public pledgeContent = '';
-  public pledgeIsPending:Boolean = true;
-  public pledgeIsApproved: Boolean = true;
-  public pledgeSubmittedCard: Boolean = true;
-  public hideYourSubmissionHeading: Boolean = false;
+  public pledgeIsPending:boolean = true;
+  public pledgeIsApproved: boolean = true;
+  public pledgeSubmittedCard: boolean = true;
+  public hideYourSubmissionHeading: boolean = false;
   
   
   constructor(
