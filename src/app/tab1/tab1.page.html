@@ -39,22 +39,6 @@
       reduce your negative impact on the world.
       </h5>
     </ion-col>
-    
-        <ion-col style="text-align:center">
-    <ion-card>
-    <ion-card-content>
-      <h5>        
-        Pretty Brainy gathered inspiration for the MISSion Innovation App from the University of California Cool Campus Challenge. 
-        With the goal of reducing greenhouse gases across the UC system, the Cool Campus Challenge engaged nearly 20,000 participants and documented a reduction in greenhouse gas emissions by about 1 metric ton per user.
-          <br><br>
-        We think Fort Collins can do at least as well as the Californians. 
-        With the MISSion Innovation App, we can see how we already are saving carbon emissions and learn new ways to live more sustainably than we already are. 
-        Can we each reduce our carbon emissions by at least 1 metric ton? Yes, we can. 
-        We love where we live, so let’s do our part for the planet and help Fort Collins be carbon neutral by 2050.  
-      </h5>
-    </ion-card-content>
-    </ion-card>
-    </ion-col>
 
     <ion-col width-50 style="text-align: center" >
       <h1>Ready to get started?</h1> 
@@ -106,6 +90,7 @@
 
       <div text-center>
         <circle-progress 
+        (click) = "getUserProgressBar()"
         [hidden] = "hidePersonalProgress"
         [percent]= "userProgressBar"
         [radius]="90"
@@ -151,6 +136,7 @@
     
       <div text-center>
         <circle-progress 
+        (click) = "teamAndCityProgressBarTotals()"
         [hidden] = "hideTeamProgressBar"
         [percent]= "teamProgressBar"
         [radius]="90"
@@ -170,12 +156,13 @@
     </ion-grid>
     <br>
   </div>
+  
    <div> <!--______________BlueBlock: City Progress_________-->
         <br>
         <ion-grid>
             <ion-card class="welcome-card">
                 <ion-card-content class="welcome-card-title">
-                  The City's Total Carbon Reductions: <strong> </strong>
+                  The City's Total Carbon Reductions: <strong>{{this.cityTotalPoundsCarbon}}</strong>
                 </ion-card-content>
             </ion-card>
 
@@ -222,7 +209,7 @@
 
           <a href="https://www.cpt12.org/">
           <ion-img 
-             src='./assets/sponsor/ColradoPublicTelevision.png' 
+             src='./assets/sponsor/ColradoPublicTelevision.jpeg' 
              alt="Colorado Public Television"></ion-img>
           </a>
 
@@ -327,7 +314,7 @@
 
           <a href="http://www.edcarrollmotorco.com/">
           <ion-img
-            src='./assets/sponsor/EdCarrolMotorCompany.jpg' 
+            src='./assets/sponsor/EdCarrolMotorCompany.jpeg' 
             alt="Ed Carrol Motor Company" ></ion-img>
             </a>
 
