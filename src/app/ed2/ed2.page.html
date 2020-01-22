@@ -217,13 +217,13 @@
 
   <Br><Br>
 
-  <div class = "ion-text-center">
+  <div class = "ion-text-center" [hidden] = "hideVerfCard">
       <h4 [hidden]="kidPledge">I pledge to lead my family in a preliminary home energy efficiency audit.</h4>
       <h4 [hidden]="teenPledge">I pledge to take the lead on conducting a preliminary home efficiency audit for my family.</h4>
       <h4 [hidden]="adultPledge"> I pledge to conduct a preliminary home efficiency audit in my own living space.</h4>    
   </div>
     
-    <ion-card class="verifyPledgeForm">
+    <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
     <ion-card-header> Verify your impact. </ion-card-header>
     <ion-card-content>
       <ion-row>
@@ -247,5 +247,22 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-card [hidden]  ="pledgeSubmittedCard">
+    <ion-card-header>
+      <ion-card-title>
+        Thank you for taking the pledge! 
+      </ion-card-title>
+      <ion-card-content>
+        <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
+        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
+        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
+        <p>
+          <em>{{this.pledgeContent}}</em>
+        </p>
+      </ion-card-content>
+    </ion-card-header>  
+  </ion-card>
+
 </ion-grid>
 </ion-content>
