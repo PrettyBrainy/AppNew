@@ -46,6 +46,8 @@ public pledges7: Number;
 public pledges8: Number;
 public pledges9: Number;
 public pledges10: Number;
+public lbs: boolean = true;
+public pledges: boolean = false;
 
   constructor() { }
 
@@ -57,6 +59,8 @@ public pledges10: Number;
 
 
 orderByPounds(){
+  this.lbs = true;
+  this.pledges = false;
   const teamRef = firebase.firestore().collection('teams');
   var teamsArray = [];
   var poundsArray = [];
@@ -126,6 +130,8 @@ orderByPounds(){
 }
 
 orderByPledges(){
+  this.lbs = false;
+  this.pledges = true;
   const teamRef = firebase.firestore().collection('teams');
   var teamsArray = [];
   var pledgesArray = [];
