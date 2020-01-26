@@ -380,59 +380,49 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
       console.log("has data - 5");
     } 
   
- if (status1 == ' ' && status2 == ' ' && status3 == ' ' && status4 == ' ' && status5 == ' '){
-    this.completeWord = true;
-    this.incomplete = false;
-    this.pending = true;
- }
+if (status1 == ' ' && status2 == ' ' && status3 == ' ' && status4 == ' ' && status5 == ' '){  //all incomplete
+    this.completeWord = true;   //hide
+    this.incomplete = false;   //show
+    this.pending = true;       //hide
+ }    //works correctly
 
- else if (status1 == 'pending' && status2 == 'pending' && status3 == 'pending' && status4 == 'pending' && status5 == 'pending'){
-    this.completeWord = true;
-    this.incomplete = true;
-    this.pending = false;
- }
+ else if (status1 == 'pending' && status2 == 'pending' && status3 == 'pending' && status4 == 'pending' && status5 == 'pending'){ //all pending
+    this.completeWord = true;  //hide
+    this.incomplete = true;   //hide
+    this.pending = false;     //show
+ }    //works correctly
 
- else if (status1 != ' ' && status2 != ' ' && status3 != ' ' && status4 != ' ' && status5 != ' '){
-    this.completeWord = false;
-    this.incomplete = true;
-    this.pending = true;
- }
- 
- else if (status1 != 'pending' && status2 != 'pending' && status3 != 'pending' && status4 != 'pending' && status5 != 'pending'){
-  this.completeWord = false;
-  this.incomplete = true;
-  this.pending = true;
-}
+ else if (status1 == 'approved' && status2 == 'approved' && status3 == 'approved' && status4 == 'approved' && status5 == 'approved'){  //all complete
+    this.completeWord = false; //show
+    this.incomplete = true;  //hide
+    this.pending = true;     //hide
+ }   //works correctly
 
-else if (status1 == 'pending' || ' ' && status2 == 'pending' || ' ' && status3 == 'pending' || ' ' && status4 == 'pending' || ' ' && status5 == 'pending' || ' '){
-  this.completeWord = true;
-  this.incomplete = false;
-  this.pending = false;
-}
+else if (status1 == 'pending' || ' ' && status1 != 'approved' && status2 == 'pending' || ' ' &&  status2 != 'approved' && status3 == 'pending' || ' ' && status3 != 'approved' && status4 == 'pending' || ' ' && status4 != 'approved' && status5 == 'pending' || ' ' && status5 != 'approved'){  //pending or incomplete
+  this.completeWord = true;    //hide
+  this.incomplete = false;     //show
+  this.pending = false;        //show
+}   //works correctly
 
-else if (status1 == 'approved' || ' ' && status1 != 'pending' && status2 == 'approved' || ' ' && status2 != 'pending' && status3 == 'approved' || ' ' && status3 != 'pending' && status4 == 'approved' || ' ' && status4 != 'pending' && status5 == 'approved' || ' ' && status5 != 'pending'){
-  this.completeWord = false;
-  this.incomplete = false;
-  this.pending = true;
-}
+else if (status1 == 'approved' || ' ' && status1 != 'pending' && status2 == 'approved' || ' ' && status2 != 'pending' && status3 == 'approved' || ' ' && status3 != 'pending' && status4 == 'approved' || ' ' && status4 != 'pending' && status5 == 'approved' || ' ' && status5 != 'pending'){ //approved or incomplete
+  this.completeWord = false;     //show
+  this.incomplete = false;      //show
+  this.pending = true;         //hide
+}   // --------- does not work -----------------------
 
-else if (status1 == 'approved' || 'pending' && status1 != ' ' && status2 == 'approved' || 'pending' && status2 != ' ' && status3 == 'approved' || 'pending'&& status3 != ' ' && status4 == 'approved' || 'pending' && status4 != ' ' && status5 == 'approved' || 'pending' && status5 != ' '){
-  this.completeWord = false;
-  this.incomplete = true;
-  this.pending = false;
-}
+else if (status1 == 'approved' || 'pending' && status1 != ' ' && status2 == 'approved' || 'pending' && status2 != ' ' && status3 == 'approved' || 'pending'&& status3 != ' ' && status4 == 'approved' || 'pending' && status4 != ' ' && status5 == 'approved' || 'pending' && status5 != ' '){  //approved or pending
+  this.completeWord = false;   //show
+  this.incomplete = true;      //hide
+  this.pending = false;       //show
+}    // ----------- does not work ---------------------
 
- /*else if (status1 == "approved" || 'pending' || ' ' && status2 == "approved" || 'pending' || ' ' && status3 == "approved" || 'pending' || ' ' && status4 == "approved" || 'pending' || ' ' && status5 == "approved" || 'pending' || ' '){
-   this.completeWord = false;
-   this.incomplete = false;
-   this.pending = false; 
- } */
+ else if (status1 == 'approved' || 'pending' || ' ' && status2 == 'approved' || 'pending' || ' ' && status3 == 'approved' || 'pending' || ' ' && status4 == 'approved' || 'pending' || ' ' && status5 == 'approved' || 'pending' || ' '){  //all different status
+   this.completeWord = false;  //show
+   this.incomplete = false;   //show
+   this.pending = false;      //show
+ }   //  ----------- does not work -------------------
 
-  else {
-    this.completeWord = false;
-    this.incomplete = false;
-    this.pending = false;
-  }
+ else {} 
  
             
           })
