@@ -122,9 +122,27 @@ export class ProfilePage implements OnInit {
 }
 
 profileComplete(){
-  if(((this.dbName = true)||(this.newName = true)) && ((this.dbAge = true)||(this.newAge = true))){
-    this.hideProfileCompleteNotice = false;
+  if((this.userFirstNameInput != undefined) || (this.userLastNameInput != undefined)){
+    if(this.userAgeInput != undefined){
+          this.hideProfileCompleteNotice = false;  
+    }
   }
+  
+  this.profileService.getUserProfile().then((user) => {
+    if (user.data()) {
+      let fn = user.data().firstName;
+      let ln = user.data().lastName;
+      let bd = user.data().birthDate;
+      if(((fn != undefined) || (ln != undefined)) && (this.userAgeInput != undefined)){
+        console.log("Name in DB, user age entered: ", fn, ln, this.userAgeInput)
+        this.hideProfileCompleteNotice = false;
+      }
+      if((bd != undefined) && ((this.userFirstNameInput != undefined) || (this.userLastNameInput != undefined))){
+        console.log("Age in db and name entered", bd, this.userFirstNameInput, this.userLastNameInput)
+        this.hideProfileCompleteNotice = false;
+      }
+      }
+  }) 
 }
 
 //_______________Logout function. Redirects to Login Page.
