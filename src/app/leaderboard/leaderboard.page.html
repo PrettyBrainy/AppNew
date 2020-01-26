@@ -10,8 +10,12 @@
 <ion-content>
 
   <!---------------PAGE TITLE------------>
-  <div style="text-align: center">
-    <h2>Leaderboard</h2>
+  <div [hidden] = pledges style="text-align: center">
+    <h2>Leaderboard: LBS C0<sub>2</sub> Reduced </h2>
+  </div>
+
+  <div [hidden] = lbs style="text-align: center">
+    <h2>Leaderboard: number of pledges completed </h2>
   </div>
 
   <!--------------TITLES FOR THE LIST------------->
@@ -256,8 +260,14 @@
 
 </ion-grid>
 <ion-grid>
-  <div align-items-center>
-    <ion-button (click) = "orderByPledges()">Order by Completed Pledges</ion-button>
+  <div align="center">
+    <ion-button [hidden] = pledges (click) = "orderByPledges()">Order by Completed Pledges</ion-button>
+  </div>
+</ion-grid>
+
+<ion-grid>
+  <div align="center">
+    <ion-button [hidden] = lbs (click) = "orderByPounds()">Order by LBS C0<sub>2</sub>  Reduced </ion-button>
   </div>
 </ion-grid>
 
