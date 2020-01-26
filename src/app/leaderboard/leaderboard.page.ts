@@ -26,6 +26,7 @@ public team9 = '';
 public team10 = '';
 public poundsOrder: Array<Number>;
 public pledgesOrder: Array<Number>;
+public removeDuplicates: Array<Number>;
 public pounds1: Number;
 public pounds2: Number;
 public pounds3: Number;
@@ -82,6 +83,10 @@ orderByPounds(){
       var poundsOrder = poundsArray.sort((a,b) => b-a);
       this.poundsOrder = poundsOrder;
       console.log(poundsOrder);
+    
+      var removeDuplicates = orderedTeamNames.filter((a, b) => orderedTeamNames.indexOf(a) === b);
+            this.removeDuplicates = removeDuplicates;
+            console.log("remove duplicates", removeDuplicates);
 
       let orderedTeamNames = [];
       for( let n = 0; n<sortThisArray.length; n++){
