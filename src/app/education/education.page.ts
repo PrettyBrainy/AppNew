@@ -54,6 +54,8 @@ public pendingPledge3: boolean;
 public pendingPledge4: boolean;
 public pendingPledge5: boolean;
 public pending: boolean=true;
+public hasAgeRange: boolean = true;
+public noAgeRange: boolean = true;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService,
@@ -68,8 +70,8 @@ public pending: boolean=true;
       this.uid = user.uid;
     }
 
-this.getUserProgressBar();
-this.checkForPledgeStatus();
+
+this.checkForAgeRange();
 
 //______________________________Check if mod started using exist funcion
 let modStarted = firebase.firestore()
@@ -82,6 +84,8 @@ let modStarted = firebase.firestore()
         this.hideButton=true;
         this.hideText=true;
         this.hidePledges=false;
+        this.getUserProgressBar();
+        this.checkForPledgeStatus();
       } else{
         this.hideButton=false;
         this.hideText=false;
@@ -89,6 +93,20 @@ let modStarted = firebase.firestore()
       }
 })
 this.doesUserHaveTeam();
+}
+
+checkForAgeRange(){
+  let getUserAge = firebase.firestore().collection('userProfile').doc(`${this.uid}`).get().then(user =>{
+    console.log(user.data().birthDate);
+    if(user.data().birthDate != undefined){
+      this.hasAgeRange = false;
+      this.noAgeRange = true;
+    }else{
+      this.hasAgeRange = true;
+      this.noAgeRange = false;
+    }
+  })
+
 }
   
 
