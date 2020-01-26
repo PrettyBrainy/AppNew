@@ -35,6 +35,18 @@ export class ProfilePage implements OnInit {
   public showIfTeamChangeMade: boolean;
   public userTeamInput: string;
   public showTeamName: boolean;
+  public showIfNameChangeMade: boolean;
+  public showName: boolean;
+  public userFirstNameInput: string;
+  public userLastNameInput: string;
+  public changedEmailOld: boolean;
+  public changedEmailNew: boolean = true;
+  public userEmailInput: string;
+  public dbName: boolean;
+  public dbAge: boolean;
+  public newName: boolean;
+  public newAge: boolean;
+  public hideProfileCompleteNotice: boolean = true;
 
   constructor(
     private alertCtrl: AlertController,
@@ -47,6 +59,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.showIfAgeChangeMade = true;
+    this.showIfNameChangeMade = true;
 
     //____________________Pull User Data from Firebase
     this.profileService.getUserProfile().then((userProfileSnapshot) => {
@@ -54,7 +67,15 @@ export class ProfilePage implements OnInit {
         this.userProfile = userProfileSnapshot.data();
         if (this.userProfile.birthDate != undefined){
           this.showIfAgeChangeMade = true;
-        };
+          this.dbAge = true;
+        } else{
+          this.dbAge = false;
+        }
+        if(this.userProfile.firstName != undefined ||this.userProfile.firstName != undefined){
+          this.dbName = true;
+        } else {
+          this.dbName = false;
+        }
       }
     });
  
@@ -89,8 +110,21 @@ export class ProfilePage implements OnInit {
         this.showTeamButtons = false;
         this.showIfTeamChangeMade = true;
       }
+      if (userProfileSnapshot.data().firstName != undefined || userProfileSnapshot.data().lastName != undefined){
+        this.showName = false;
+        this.showIfNameChangeMade = true;
+      } else{
+        this.showIfNameChangeMade = true;
+        this.showName = false;
+      }
     }
   })
+}
+
+profileComplete(){
+  if(((this.dbName = true)||(this.newName = true)) && ((this.dbAge = true)||(this.newAge = true))){
+    this.hideProfileCompleteNotice = false;
+  }
 }
 
 //_______________Logout function. Redirects to Login Page.
@@ -124,7 +158,12 @@ async updateName(): Promise<void> {
         text: 'Save',
         handler: data => {
           this.profileService.updateName(data.firstName, data.lastName);
-          this.refreshProfilePage();
+          this.showIfNameChangeMade = false;
+          this.showName = true;
+          this.userFirstNameInput = data.firstName;
+          this.userLastNameInput = data.lastName;
+          this.newName = true;
+          this.profileComplete();
         },
       },
     ],
@@ -132,10 +171,6 @@ async updateName(): Promise<void> {
   await alert.present();
 }
 
-//____________________________Refresh the profile page
-refreshProfilePage(){
-  window.location.reload()
-}
 
 //__________________________Update Age Range
 updateDOB(range: string) {
@@ -167,8 +202,9 @@ async updateDOBAlert(): Promise<void> {
         text: 'Save',
         handler: data => {
           this.userAgeInput = String(data);
+          this.newAge = true;
           this.updateDOB(this.userAgeInput);
-          
+          this.profileComplete();
         },
       },
     ],
@@ -197,7 +233,9 @@ async updateEmail(): Promise<void> {
             .updateEmail(data.newEmail, data.password)
             .then(() => {
               console.log('Email Changed Successfully');
-              this.refreshProfilePage();
+              this.changedEmailNew = false;
+              this.changedEmailOld = true;
+              this.userEmailInput = data.newEmail;
             })
             .catch(error => {
               console.log('ERROR: ' + error.message);
@@ -323,7 +361,7 @@ createTeam(teamId: string, accessCode: string) {
       this.showTeamButtons = true;
       }
       });
-    //_______________Increase number of teams in city, refresh page so correct team information shows
+    //_______________Increase number of teams in city
     this.increaseCityTeamCount();
   }
 

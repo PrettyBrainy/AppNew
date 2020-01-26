@@ -1,6 +1,13 @@
 ion-list-header {
     background-color: #ececec;
   }
+ 
+  i.dashboard-button{
+    --background:#8fcc90;
+    --color: #282929;
+    --background-activated:#66b067;
+    --color-activated:#282929;
+  }
   
   .text-center {
     text-align: center;
@@ -59,6 +66,23 @@ ion-list-header {
   display: block;
 }
 
+.team-card{
+  font-size: 20px;
+  background:#f4f5f7;
+  font-family: 'ChollaSans-Thin' !important;
+}
+
+.profileComplete{
+  font-size: 20px;
+  background: #ffdd77;
+  font-family: 'ChollaSans-Thin' !important;
+}
+
+.team-card-title{
+  font-family: 'ChollaSans-Thin' !important;
+  font-size: 30px;
+  color: #f99f38;
+}
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #bee1eb}
 .dropdown:hover .dropdown-content {display: block;}

@@ -13,13 +13,14 @@
   <ion-list >
     <ion-list-header>Personal Information</ion-list-header>
     
-    <!-- UPDATE USERNAME-->
-    <ion-item (click)="updateName()">
+    <!-- User Name  __________ Autopopulates -->
+    <ion-item (click)="updateName()" [hidden] = 'showName'>
       <ion-label>
         <ion-grid>
           <ion-row>
             <ion-col class="text-left" size="5"> Name </ion-col>
             <ion-col
+              class = "ion-text-capitalize"
               class="text-center"
               size="7"
               *ngIf="userProfile?.firstName || userProfile?.lastName"
@@ -30,8 +31,28 @@
               size="7"
               class="placeholder-profile text-center"
               *ngIf="!userProfile?.firstName"
+              class = "ion-text-wrap"
             >
-              <span> Tap here to edit. </span>
+              <span class = "ion-text-wrap"> Tap here to edit. </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+
+    <!-- UPDATE USER NAME________________-->
+    <ion-item [hidden] = 'showIfNameChangeMade'>
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-left" size="5"> Name </ion-col>
+            <ion-col
+              class = "ion-text-wrap"
+              class = "ion-text-capitalize"
+              class="text-center"
+              size="7"
+            >
+              {{this.userFirstNameInput}} {{this.userLastNameInput}}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -41,8 +62,8 @@
 
 
 
-    <!--    UPDATE EMAIL   -->
-    <ion-item (click)="updateEmail()">
+    <!--    User EMAIL  _________Autopopulates -->
+    <ion-item (click)="updateEmail()" [hidden] = "changedEmailOld">
       <ion-label>
         <ion-grid>
           <ion-row>
@@ -54,8 +75,27 @@
               size="7"
               class="placeholder-profile text-center"
               *ngIf="!userProfile?.email"
+              class = "ion-text-wrap"
             >
               <span> Tap here to edit your email. </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+
+
+    <!--    UPDATE EMAIL  _________-->
+    <ion-item [hidden] = "changedEmailNew">
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-left" size="5"> Email </ion-col>
+            <ion-col
+              size="7"
+              class = "ion-text-wrap"
+              class="placeholder-profile text-center"
+            >{{this.userEmailInput}}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -119,7 +159,7 @@
                 class="placeholder-profile text-center"
                 *ngIf="!userProfile?.birthDate"
               >
-              <span> Tap here to edit your age range. </span>
+              <span class = "ion-text-wrap"> Tap here to edit your age range. </span>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -142,7 +182,7 @@
         </ion-label>
       </ion-item>
 
-    <!-- UPDATE PASSWORD-->
+    <!-- UPDATE PASSWORD
     <ion-item (click)="updatePassword()">
       <ion-label>
         <ion-grid>
@@ -154,13 +194,31 @@
           </ion-row>
         </ion-grid>
       </ion-label>
-    </ion-item>
+    </ion-item> -->
 
+  </ion-list> 
 
-  </ion-list>
+  <ion-card class = "profileComplete" [hidden] = "hideProfileCompleteNotice">
+    <div align="center">
+    <ion-card-content class = "profileComplete">Text Pending Approval: <br><strong>Your profile is complete!</strong><br>
+    Return to the Dashboard or create or join a team below. <br>
 
  
+      <ion-button routerLink = "/tabs/tab1" align = "center">Dashboard</ion-button>
+    </ion-card-content>
+  </div>
+  </ion-card>
 
+<ion-card class = "team-card" [hidden] = "showTeamButtons">
+  <ion-card-content class = "team-card-title">Team Up!
+    </ion-card-content>
+  <ion-card-content class = "team-card">Text pending final approval:<br>MISSion Innovation is more effective and enjoyable when you surround 
+    yourself with friends who have the same goals as you. So <strong>join a team! </strong>
+    You can join a team that has already been created or create your own team with friends, 
+    family members, or colleagues. Working with a team on the MISSion Innovation 
+    Seven Weeks of Peaks challenge will increase your competitiveness, give you 
+    some new Earth-loving friends, and keep you on track to reduce your carbon footprint! 
+    </ion-card-content>
 
 <ion-row >
   <ion-col class = "ion-text-center" >
@@ -168,5 +226,10 @@
     <ion-button (click) = joinTeamAlert() [hidden] = "showTeamButtons">Join a Team</ion-button>
   </ion-col>
 </ion-row>
+</ion-card>
+</ion-grid>
+<ion-grid><div align = "center">
+<ion-button (click) = "updatePassword()">Change Password</ion-button>
+</div>
 </ion-grid>
 </ion-content>
