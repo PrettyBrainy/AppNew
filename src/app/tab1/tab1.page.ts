@@ -45,40 +45,59 @@ export class Tab1Page implements OnInit{
   public HCPounds: Array<Number>;
   public userTotalPoundsCarbon: number;
   public hasStarted: boolean;
-
+  public hasNotStarted: boolean;
+  public try: number; 
+  public userPledgeCount: number;
+  public lifetimeUserPoints: number;
+  public hideJoinTeamText: boolean;
   constructor(private profileService: ProfileService) {}
 
 
 ngOnInit() {
 
-  var user = firebase.auth().currentUser;
+  var user = firebase.auth().currentUser;     //Get User ID
   if (user != null) {
     this.uid = user.uid; 
   }
 
-  this.hasUserStartedModules();
-  this.doesUserHaveTeam();
 
 
+  this.hasUserStartedModules();         //Check if User has Started the Modules
+  this.doesUserHaveTeam();              //Check if User Has a Team and get team info
+  this.countApprovedEd().then(value =>{
+    return value;
+  });
+  console.log(this.try);
+ 
+
+  
 }
+
+
 
 hasUserStartedModules() {    //Check to see if user has started any modules.
   const checkStart = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((edSnap)=>{  
     if (edSnap.exists){                   //does the very first pledge exist in their database? if so, it will show personal progress.
       this.hidePersonalProgress = false;
+      this.hasNotStarted = true;
     
-      this.updateUserPoints();
-      this.updateEdPledgeComplete();
-      this.updateTotalUserPledgesComplete();
-      this.getUserProgressBar();
-      this.getUserData();
+      this.refreshDB();
 
     } else {
-
+      this.hasNotStarted =false;
     }
   })
 }
 
+async refreshDB(){
+  const updatePledgeTotalByMod = await this.updateEdPledgeComplete();
+  const countTotalPledges = await this.updateTotalUserPledgesComplete();
+  const points = await this.updateUserPoints();
+  const pointsTotal = await this.totalUserPoints();
+  const progressBar = await this.tryGetUserProgressBar();
+  const getData = await this.getUserData();
+
+}
 
 doesUserHaveTeam(){
   const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
@@ -89,11 +108,12 @@ doesUserHaveTeam(){
       this.teamAndCityProgressBarTotals();
       this.updateTotalTeamPledgesComplete();
       this.getUserandTeamData();
+      this.hideJoinTeamText = true;
       
     } else{
       this.hideTeamProgressBar = true;
       this.cityProgressBarTotals();
-      
+      this.hideJoinTeamText = false;
     }
   })
 }
@@ -118,7 +138,7 @@ getUserandTeamData(){
   })
 }
 
-getUserData(){        // Remove Team Info
+getUserData(){        
   this.profileService.getUserProfile().then((userProfileSnapshot) => {    //Get team from user profile and store in public variables to display on page
     if (userProfileSnapshot.data()) {
       this.userPoints = Number(userProfileSnapshot.data().points);
@@ -132,6 +152,8 @@ getUserData(){        // Remove Team Info
     this.cityTotalPoundsCarbon = Number(citySnap.data().totalPoundsCarbon)
   })
 }
+
+
 
 updateEdPledgeComplete(){
   const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
@@ -249,6 +271,7 @@ cityProgressBarTotals(){
 
     var totalCityPledges = 5*Number(this.cityUserNumber);
     this.cityProgressBar = Number((Number(this.cityTotalPledgeCount)/totalCityPledges)*100);
+    this.cityTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
   })
 }
 
@@ -302,7 +325,7 @@ this.profileService.getUserProfile().then((userProfileSnapshot) => {
 }  
 
 
-getUserProgressBar(){
+/*getUserProgressBar(){
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
     if (userProfileSnapshot.data()) {
       let userPledges = Number(userProfileSnapshot.data().totalPledgesComplete)
@@ -317,51 +340,10 @@ getUserProgressBar(){
     
     }
   })
-}
+}*/
 
 
-thingsCopiedFromEd1(){
-  //_________________________Get Team Info and Update Team Points and Update Team Pledge Progress Count_________________
-  const teamRef = firebase.firestore().collection("teams").doc(`${this.team}`);
-  let getTeam = teamRef.get().then(doc =>{
-      var teamPoints = doc.data().points;
-      let newTeamPoints = Number(teamPoints) + 100;   //Update with correct points
-
-      var teamPoundsCarbon = Number(doc.data().totalPoundsCarbon)
-      let newTeamCarbonReductions = Number(teamPoundsCarbon) + 0; //Update team pounds of CO2
-
-      var teamPledgeCount = doc.data().edPledgeComplete;
-      let newTeamPledgeCount = Number(teamPledgeCount) + 1;      //Update team pledge count
-
-      let newInfoTeam = {
-        points: `${newTeamPoints}`,
-        edPledgeComplete: `${newTeamPledgeCount}`,
-        totalPoundsCarbon: `${newTeamCarbonReductions}`
-        }
-      let updateTeamInfo = teamRef.update(newInfoTeam);
-  })
-
-  //_________________________Get City Info and Update City Points_________________
-  const cityRef = firebase.firestore().collection("cityOverall").doc("cityOverall");
-  let getCity = cityRef.get().then(doc => {
-      var cityPoints = doc.data().points;
-      let newCityPoints = Number(cityPoints) + 100;    //Update with correct points
-      
-      var cityPledgeCount = doc.data().edPledgeComplete;
-      let newCityPledgeCount = Number(cityPledgeCount) + 1; //update pledge count
-
-      var cityCarbonEmissions = Number(doc.data().totalPoundsCarbon);
-      let newCityCarbonReductions = Number(cityCarbonEmissions) + 0;   //update carbon reductions
-      
-    
-      let newInfoCity = {
-        points: `${newCityPoints}`,
-        edPledgeComplete: `${newCityPledgeCount}`,
-        totalCarbonEmissions: `${newCityCarbonReductions}`
-      }
-      let updateCityInfo = cityRef.update(newInfoCity);
-  })
-
+randomFunctionToGetUserInfoAndPoints(){
   //_________________________Get User Info and Update User Points_________________
   const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
   let getUser = userRef.get().then(doc=>{
@@ -372,6 +354,121 @@ thingsCopiedFromEd1(){
       }
       let updateIndiPoints = userRef.update(newPointsIndi);
   })
+}
+
+totalUserPoints(){
+  const edPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('education'); 
+  const plPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('plugLoads'); 
+  const cPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('computer'); 
+  const hcPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('heatingAndCooling'); 
+  const epPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('equipmentAndPurchasing'); 
+  const tyPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('transportationYou'); 
+  const tpPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('transportationProducts'); 
+  const lPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('lighting'); 
+  
+  let checkEdPoints = edPointsRef.get().then(doc =>{
+    if(doc.exists){
+    let total = 0;
+    let edPointsArray = [doc.data().ed1, doc.data().ed2, doc.data().ed3, doc.data().ed4, doc.data().ed5];
+    for(let n = 0; n<edPointsArray.length; n++){
+      if (edPointsArray[n] != 0){
+        total += Number(edPointsArray[n]);
+        console.log(Number(edPointsArray[n]));
+      } 
+    }
+    
+      let checkPlPoints = plPointsRef.get().then(doc =>{
+        if(doc.exists){
+        let plPointsArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5, doc.data().pl6];
+        total += plPointsArray.length;
+        for(let n = 0; n<plPointsArray.length; n++){
+          if (plPointsArray[n] == "approved"){
+            total += Number(plPointsArray[n]);
+          } 
+        }
+
+          let checkLPoints = lPointsRef.get().then(doc =>{
+            if(doc.exists){
+            let lPointsArray = [doc.data().l1, doc.data().l2, doc.data().l3];
+            total += lPointsArray.length;
+            for(let n = 0; n<lPointsArray.length; n++){
+              if (lPointsArray[n] == "approved"){
+                total += Number(lPointsArray[n]);
+              } 
+            }
+
+              let checkCPoints = cPointsRef.get().then(doc =>{
+                if(doc.exists){
+                let cPointsArray = [doc.data().c1, doc.data().c2, doc.data().c3];
+                total += cPointsArray.length;
+                for(let n = 0; n<cPointsArray.length; n++){
+                  if (cPointsArray[n] == "approved"){
+                    total += Number(cPointsArray[n]);
+                  } 
+                }
+                 
+                  let checkEPPoints = epPointsRef.get().then(doc =>{
+                    if(doc.exists){
+                    let epPointsArray = [doc.data().ep1, doc.data().ep2, doc.data().ep3, doc.data().ep4, doc.data().ep5];
+                    total += epPointsArray.length;
+                    for(let n = 0; n<epPointsArray.length; n++){
+                      if (epPointsArray[n] == "approved"){
+                        total += Number(epPointsArray[n]);
+                      } 
+                    }
+
+                      let checkTYPoints = tyPointsRef.get().then(doc =>{
+                        if(doc.exists){
+                        let tyPointsArray = [doc.data().ty1, doc.data().ty2, doc.data().ty3];
+                        total += tyPointsArray.length;
+                        for(let n = 0; n<tyPointsArray.length; n++){
+                          if (tyPointsArray[n] == "approved"){
+                            total += Number(tyPointsArray[n]);
+                          } 
+                          }
+
+                          let checkTPPoints = tpPointsRef.get().then(doc =>{
+                            if(doc.exists){
+                            let tpPointsArray = [doc.data().tp1, doc.data().tp2, doc.data().tp3, doc.data().tp4, doc.data().tp5, doc.data().tp6];
+                            total += tpPointsArray.length;
+                            for(let n = 0; n<tpPointsArray.length; n++){
+                              if (tpPointsArray[n] == "approved"){
+                                total += Number(tpPointsArray[n]);
+                              } 
+                              }
+                              let checkHCPoints = hcPointsRef.get().then(doc =>{
+                                if(doc.exists){
+                                let hcPointsArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
+                                total += hcPointsArray.length;
+                                for(let n = 0; n<hcPointsArray.length; n++){
+                                  if (hcPointsArray[n] == "approved"){
+                                    total +=1 ;
+                                    } 
+                                  }
+
+                                  }
+                                }
+                              )}
+                            }
+                          )}
+                         }
+                      )}
+                    }
+              )}
+           }
+      )}
+
+    }
+   )}
+  })
+
+  this.lifetimeUserPoints = total;
+  }
+}
+
+)
+
+
 }
 
 updateUserPoints(){
@@ -385,8 +482,8 @@ this.updateTPPoints();
 this.updateHCPoints();
 
 
-this.updateTeamEdPounds();
-this.updateTeamEdPledges();
+//this.updateTeamEdPounds();
+//this.updateTeamEdPledges();
 
 }
 
@@ -729,5 +826,151 @@ updateHCPoints(){
   })
 }
 
+countApprovedEd(){
+
+  let count = 0;
+  let edRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education');
+  var array = []
+  let edSnap = edRef.get().then( snap =>{
+    var obj = snap.data();
+    console.log(obj);
+    let array = Object.values(obj);
+    console.log(array);
+    for (let n = 0; n<array.length; n++){
+      if (array[n] == "approved"){
+        count+=1;
+      }
+    }
+    return count;
+  })
+  console.log(edSnap);
+  return edSnap;
 }
+
+arrayToString(array: Array<string>){    // This is here if we can figure out promises.
+  let string = array.toString();
+  console.log(string);
+
+}
+
+
+tryGetUserProgressBar(){
+  const edApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
+  const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plugLoads'); 
+  const cApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('computer'); 
+  const hcApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('heatingAndCooling'); 
+  const epApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('equipmentAndPurchasing'); 
+  const tyApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('transportationYou'); 
+  const tpApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('transportationProducts'); 
+  const lApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('lighting'); 
+  
+  let checkEdApprovals = edApprovalRef.get().then(doc =>{
+    if(doc.exists){
+    let total = 0;
+    let edApprovalArray = [doc.data().ed1, doc.data().ed2, doc.data().ed3, doc.data().ed4, doc.data().ed5];
+    let count = 0;
+    total += edApprovalArray.length;
+    for(let n = 0; n<edApprovalArray.length; n++){
+      if (edApprovalArray[n] == "approved"){
+        count +=1 ;
+      } 
+    }
+    
+      let checkPlApprovals = plApprovalRef.get().then(doc =>{
+        if(doc.exists){
+        let plApprovalArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5, doc.data().pl6];
+        total += plApprovalArray.length;
+        for(let n = 0; n<plApprovalArray.length; n++){
+          if (plApprovalArray[n] == "approved"){
+            count +=1 ;
+          } 
+        }
+
+          let checkLApprovals = lApprovalRef.get().then(doc =>{
+            if(doc.exists){
+            let lApprovalArray = [doc.data().l1, doc.data().l2, doc.data().l3];
+            total += lApprovalArray.length;
+            for(let n = 0; n<lApprovalArray.length; n++){
+              if (lApprovalArray[n] == "approved"){
+                count +=1 ;
+              } 
+            }
+
+              let checkCApprovals = cApprovalRef.get().then(doc =>{
+                if(doc.exists){
+                let cApprovalArray = [doc.data().c1, doc.data().c2, doc.data().c3];
+                total += cApprovalArray.length;
+                for(let n = 0; n<cApprovalArray.length; n++){
+                  if (cApprovalArray[n] == "approved"){
+                    count +=1 ;
+                  } 
+                }
+                 
+                  let checkEPApprovals = epApprovalRef.get().then(doc =>{
+                    if(doc.exists){
+                    let epApprovalArray = [doc.data().ep1, doc.data().ep2, doc.data().ep3, doc.data().ep4, doc.data().ep5];
+                    total += epApprovalArray.length;
+                    for(let n = 0; n<epApprovalArray.length; n++){
+                      if (epApprovalArray[n] == "approved"){
+                        count +=1 ;
+                      } 
+                    }
+
+                      let checkTYApprovals = tyApprovalRef.get().then(doc =>{
+                        if(doc.exists){
+                        let tyApprovalArray = [doc.data().ty1, doc.data().ty2, doc.data().ty3];
+                        total += tyApprovalArray.length;
+                        for(let n = 0; n<tyApprovalArray.length; n++){
+                          if (tyApprovalArray[n] == "approved"){
+                            count +=1 ;
+                          } 
+                          }
+
+                          let checkTPApprovals = tpApprovalRef.get().then(doc =>{
+                            if(doc.exists){
+                            let tpApprovalArray = [doc.data().tp1, doc.data().tp2, doc.data().tp3, doc.data().tp4, doc.data().tp5, doc.data().tp6];
+                            total += tpApprovalArray.length;
+                            for(let n = 0; n<tpApprovalArray.length; n++){
+                              if (tpApprovalArray[n] == "approved"){
+                                count +=1 ;
+                              } 
+                              }
+                              let checkHCApprovals = hcApprovalRef.get().then(doc =>{
+                                if(doc.exists){
+                                let hcApprovalArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
+                                total += hcApprovalArray.length;
+                                for(let n = 0; n<hcApprovalArray.length; n++){
+                                  if (hcApprovalArray[n] == "approved"){
+                                    count +=1 ;
+                                    } 
+                                  }
+
+                                  }
+                                }
+                              )}
+                            }
+                          )}
+                         }
+                      )}
+                    }
+              )}
+           }
+      )}
+
+    }
+   )}
+  })
+  var countPercent = (count/total)*100;
+  this.userPledgeCount = countPercent;
+  console.log(this.userPledgeCount);
+  }
+}
+
+)}
+                                
+}
+
+
+
+
 
