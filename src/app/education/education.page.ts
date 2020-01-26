@@ -132,8 +132,6 @@ startEdModule(){
     ed3: " ",
     ed4: " ",
     ed5: " ",
-    teamPledgesCounted: 0,
-    cityPledgesCounted: 0
   }
 
   let approval = {
@@ -142,6 +140,8 @@ startEdModule(){
     ed3: " ",
     ed4: " ",
     ed5: " ",
+    teamPledgesCounted: 0,
+    cityPledgesCounted: 0,
   }
 
   let points = {
