@@ -84,9 +84,7 @@ orderByPounds(){
       this.poundsOrder = poundsOrder;
       console.log(poundsOrder);
     
-      var removeDuplicates = orderedTeamNames.filter((a, b) => orderedTeamNames.indexOf(a) === b);
-            this.removeDuplicates = removeDuplicates;
-            console.log("remove duplicates", removeDuplicates);
+
 
       let orderedTeamNames = [];
       for( let n = 0; n<sortThisArray.length; n++){
