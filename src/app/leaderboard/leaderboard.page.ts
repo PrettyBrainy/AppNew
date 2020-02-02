@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -55,7 +54,7 @@ public pledges: boolean = false;
   ngOnInit() {
   this.orderByPounds();
 
-    
+
   }
 
 
@@ -74,7 +73,7 @@ orderByPounds(){
         poundsArray.push(Number(doc.data().totalPoundsCarbon));
       });
       console.log(teamsArray);
-      
+
       let sortThisArray = [];
       for(let n = 0; n<teamsArray.length; n+=2){
         sortThisArray.push([teamsArray[n], teamsArray[n+1]])
@@ -83,31 +82,24 @@ orderByPounds(){
       var poundsOrder = poundsArray.sort((a,b) => b-a);
       this.poundsOrder = poundsOrder;
       console.log(poundsOrder);
-    
 
+
+
+      
+      var removeDuplicates = poundsOrder.filter((a, b) => poundsOrder.indexOf(a) === b);
+      this.removeDuplicates = removeDuplicates;
+      console.log("remove duplicates", removeDuplicates);
 
       let orderedTeamNames = [];
       for( let n = 0; n<sortThisArray.length; n++){
         for (let i = 0; i<sortThisArray.length; i++)
-          if (sortThisArray[i][1] == poundsOrder[n]){
-            var removeDuplicates = orderedTeamNames.filter((a, b) => orderedTeamNames.indexOf(a) === b);
-            this.removeDuplicates = removeDuplicates;
-            console.log("remove duplicates", removeDuplicates);
+          if (sortThisArray[i][1] == this.removeDuplicates[n]){
 
-            removeDuplicates.push(sortThisArray[i][0]);
+            orderedTeamNames.push(sortThisArray[i][0]);
             //orderedTeamNames.push(sortThisArray[i][0]);
           }
       }
 
-     /* if (sortThisArray.length<10){
-        var diff = 10-sortThisArray.length;
-        var diff2 = 10-orderedTeamNames.length;
-        for (let n = 0; n<=diff; n++){
-          sortThisArray.push(["Your Team Here!", 0])
-          orderedTeamNames.push("Your Team Here!");
-        }
-      } */
-    
     if (sortThisArray.length<10){
         var diff = 10-sortThisArray.length;
         var diff2 = 10-removeDuplicates.length;
@@ -117,22 +109,15 @@ orderByPounds(){
         }
       }
 
-     /* if (orderedTeamNames.length<10){
+      if (orderedTeamNames.length<10){
         var diff = 10-orderedTeamNames.length;
         for (let n = 0; n<=diff; n++){
           orderedTeamNames.push("Your Team Here!");
         }
-      } */
-    
-    if (removeDuplicates.length<10){
-        var diff = 10-removeDuplicates.length;
-        for (let n = 0; n<=diff; n++){
-          removeDuplicates.push("Your Team Here!");
-        }
-      }
-    
-     /* console.log(orderedTeamNames);
-      let that = this;
+      } 
+
+
+      console.log(orderedTeamNames);
       this.team1 = orderedTeamNames[0];
       this.team2 = orderedTeamNames[1];
       this.team3 = orderedTeamNames[2];
@@ -142,21 +127,7 @@ orderByPounds(){
       this.team7 = orderedTeamNames[6];
       this.team8 = orderedTeamNames[7];
       this.team9 = orderedTeamNames[8];
-      this.team10 = orderedTeamNames[9]; */
-    
-      console.log(removeDuplicates);
-      let that = this;
-      this.team1 = removeDuplicates[0];
-      this.team2 = removeDuplicates[1];
-      this.team3 = removeDuplicates[2];
-      this.team4 = removeDuplicates[3];
-      this.team5 = removeDuplicates[4];
-      this.team6 = removeDuplicates[5];
-      this.team7 = removeDuplicates[6];
-      this.team8 = removeDuplicates[7];
-      this.team9 = removeDuplicates[8];
-      this.team10 = removeDuplicates[9];
-
+      this.team10 = orderedTeamNames[9]; 
 
       this.assignPoundsVariables();
       this.retrieveCompletedPledges();
@@ -165,7 +136,7 @@ orderByPounds(){
   .catch(function(error) {
       console.log("Error getting documents: ", error);
   });
-//console.log(teamsArray);
+
 }
 
 orderByPledges(){
@@ -183,7 +154,7 @@ orderByPledges(){
         pledgesArray.push(Number(doc.data().totalPledgesComplete));
       });
       console.log(teamsArray);
-      
+
       let sortThisArray = [];
       for(let n = 0; n<teamsArray.length; n+=2){
         sortThisArray.push([teamsArray[n], teamsArray[n+1]])
@@ -192,11 +163,14 @@ orderByPledges(){
       var pledgesOrder = pledgesArray.sort((a,b) => b-a);
       this.pledgesOrder = pledgesOrder;
       console.log(pledgesOrder);
+      var removeDuplicates = pledgesOrder.filter((a, b) => pledgesOrder.indexOf(a) === b);
+      this.removeDuplicates = removeDuplicates;
+      console.log("remove duplicates", removeDuplicates);
 
       let orderedTeamNames = [];
       for( let n = 0; n<sortThisArray.length; n++){
         for (let i = 0; i<sortThisArray.length; i++)
-          if (sortThisArray[i][1] == pledgesOrder[n]){
+          if (sortThisArray[i][1] == removeDuplicates[n]){
             orderedTeamNames.push(sortThisArray[i][0]);
           }
       }
@@ -410,7 +384,7 @@ retrieveCompletedPledges(){
   teamsListRef.doc(`${this.team8}`).get().then((snap)=> {
     if (snap.data()){
     this.pledges8 = Number(snap.data().totalPledgesComplete);
-    } else { 
+    } else {
       this.pledges8 = 0;
     }
   })
