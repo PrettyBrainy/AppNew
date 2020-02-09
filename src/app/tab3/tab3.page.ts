@@ -24,12 +24,15 @@ export class Tab3Page {
   }
 
   anotherBusiness(){
-    this.moreBusinesses = true;
     this.hideBusinesses = false;
+    this.moreBusinesses = true;
+
+    this.businessName = "";
+    this.productSuggestion = "";
   }
 
   addBusinessToList(){
-    
+
     this.hideBusinesses=true;
     this.moreBusinesses=false;
     
@@ -38,9 +41,6 @@ export class Tab3Page {
     productSuggestion: `${this.productSuggestion}`
   }
   const addBusiness = firebase.firestore().collection('businessList').doc(`${this.businessName}`).set(addition);
-    
   }
-
-
-
 }
+
