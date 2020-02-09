@@ -75,7 +75,7 @@ this.checkForAgeRange();
 this.doesUserHaveTeam();
 const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
 let getTeam = userRef.get().then(user => {
-  if (user.data().team != undefined){
+  if (user.data().team != "undefined"){
     this.hideTeamProgressBar = false;
     this.team = user.data().team
     this.teamAndCityProgressBarTotals();
