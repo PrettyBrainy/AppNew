@@ -11,7 +11,7 @@
 <ion-grid>
 <ion-card class = "pledgeCard">
   <ion-card-title align="center" padding>Purchase rewards here with your points!</ion-card-title> 
-   <ion-card-content>
+   <ion-card-content style="text-align:center">
      This is our rewards store.
    </ion-card-content>
 </ion-card>
@@ -19,31 +19,33 @@
 <ion-card class = "pledgeCard">
 <ion-card-title align="center" padding>Business and Product Suggestion</ion-card-title>
 <ion-card-content>
-<ion-grid>
-<ion-col style="text-align:center">
-<h3>Aside from saving the planet, you can earn rewards by taking pledges in  our app! In the coming weeks you will be able to purchase rewards here with your points.</h3>
+<div style="text-align: center">Aside from saving the planet, you can earn rewards by taking pledges in  our app! In the 
+             coming weeks you will be able to purchase rewards here with your points.</div>
+
+      <br [hidden]="hideBusinesses">
   
-    <h4 [hidden]="hideBusinesses">If you know of any local businesses who might want to donate 
-                                  products to our cause please submit their name below. </h4>
-    <ion-label position="stacked">Suggest a business:</ion-label>                            
+    <div [hidden]="hideBusinesses" style="text-align: center">If you know of any local businesses who might want to donate 
+                                  products to our cause please submit their name below. </div>
+                                  <br [hidden]="hideBusinesses">
+    <ion-label position="stacked" [hidden]="hideBusinesses">Suggest a business:</ion-label>                            
     <ion-item [hidden]="hideBusinesses" > 
     <ion-input [(ngModel)]="businessName" type="text" placeholder="Type a business suggestion here."></ion-input>
-    </ion-item><br>
+    </ion-item>
+    <br [hidden]="hideBusinesses">
 
-    <ion-label position="stacked">Suggest a product:</ion-label>
+    <ion-label position="stacked" [hidden]="hideBusinesses">Suggest a product:</ion-label>
     <ion-item [hidden]="hideBusinesses">
     <ion-input [(ngModel)]="productSuggestion" type="text" placeholder="Type a product suggestion here."></ion-input>
     </ion-item>
     <div align = "center">
       <ion-button [hidden]="hideBusinesses" (click)="addBusinessToList()" style="font-size: 20px;">Submit</ion-button>
 
-      <h4 [hidden]="moreBusinesses">Thank you for your suggestion!</h4>
+      <br [hidden]="moreBusinesses">
+      <div [hidden]="moreBusinesses">Thank you for your suggestion!</div>
 
      
       <ion-button [hidden]="moreBusinesses" (click)="anotherBusiness()" style="font-size: 20px;">Suggest Another Business</ion-button>
     </div>
-  </ion-col>
-  </ion-grid>
 </ion-card-content>
 </ion-card>
 </ion-grid>
