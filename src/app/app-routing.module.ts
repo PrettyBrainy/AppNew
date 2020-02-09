@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'overview', loadChildren: './overview/overview.module#OverviewPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
   { path: 'welcome1', loadChildren: './welcome/welcome1/welcome1.module#Welcome1PageModule' },
   { path: 'welcome2', loadChildren: './welcome/welcome2/welcome2.module#Welcome2PageModule' },
   { path: 'edpledgelist', loadChildren: './edpledgelist/edpledgelist.module#EdpledgelistPageModule' },
