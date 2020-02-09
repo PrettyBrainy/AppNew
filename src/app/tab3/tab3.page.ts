@@ -29,7 +29,10 @@ export class Tab3Page {
   }
 
   addBusinessToList(){
-
+    
+    this.hideBusinesses=true;
+    this.moreBusinesses=false;
+    
   var addition ={
     businessSuggestion: `${this.businessName}`,
     productSuggestion: `${this.productSuggestion}`
