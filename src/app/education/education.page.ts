@@ -26,11 +26,11 @@ public incompletePledge5: boolean=true;
 public incomplete: boolean=false;
 public completeWord: boolean=true;
 public hidePledges: boolean=true;
-public completePledge1: boolean=false;
-public completePledge2: boolean=false;
-public completePledge3: boolean=false;
-public completePledge4: boolean=false;
-public completePledge5: boolean=false;
+public completePledge1: boolean=true;
+public completePledge2: boolean=true;
+public completePledge3: boolean=true;
+public completePledge4: boolean=true;
+public completePledge5: boolean=true;
 public createPledgeList: firebase.firestore.DocumentReference;
 public pledgeListRef: firebase.firestore.CollectionReference;
 public array: Array<any>;
@@ -47,12 +47,12 @@ public teamUsers: number;
 public teamProgressBar: number;
 public cityUserNumber: number;
 public cityProgressBar: number;
-public hideTeamProgressBar: boolean;
-public pendingPledge1: boolean;
-public pendingPledge2: boolean;
-public pendingPledge3: boolean;
-public pendingPledge4: boolean;
-public pendingPledge5: boolean;
+public hideTeamProgressBar: boolean = true;
+public pendingPledge1: boolean = true;
+public pendingPledge2: boolean = true;
+public pendingPledge3: boolean = true;
+public pendingPledge4: boolean = true;
+public pendingPledge5: boolean = true;
 public pending: boolean=true;
 public hasAgeRange: boolean = true;
 public noAgeRange: boolean = true;
@@ -72,7 +72,21 @@ public noAgeRange: boolean = true;
 
 
 this.checkForAgeRange();
-
+this.doesUserHaveTeam();
+const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+let getTeam = userRef.get().then(user => {
+  if (user.data().team != undefined){
+    this.hideTeamProgressBar = false;
+    this.team = user.data().team
+    this.teamAndCityProgressBarTotals();
+    console.log(this.team);
+    
+  } else{
+    this.hideTeamProgressBar = true;
+    this.cityProgressBarTotals();
+    console.log(this.team);
+  }
+})
 //______________________________Check if mod started using exist funcion
 let modStarted = firebase.firestore()
     .collection('userProfile')
@@ -92,7 +106,7 @@ let modStarted = firebase.firestore()
         this.hidePledges=true;
       }
 })
-this.doesUserHaveTeam();
+
 }
 
 checkForAgeRange(){
@@ -204,10 +218,12 @@ doesUserHaveTeam(){
       this.hideTeamProgressBar = false;
       this.team = user.data().team
       this.teamAndCityProgressBarTotals();
+      console.log(this.team);
       
     } else{
       this.hideTeamProgressBar = true;
       this.cityProgressBarTotals();
+      console.log(this.team);
     }
   })
 }
@@ -379,51 +395,52 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
       this.pendingPledge5=true;
       console.log("has data - 5");
     } 
-  
-if (status1 == ' ' && status2 == ' ' && status3 == ' ' && status4 == ' ' && status5 == ' '){  //all incomplete
-    this.completeWord = true;   //hide
-    this.incomplete = false;   //show
-    this.pending = true;       //hide
- }    //works correctly
 
- else if (status1 == 'pending' && status2 == 'pending' && status3 == 'pending' && status4 == 'pending' && status5 == 'pending'){ //all pending
-    this.completeWord = true;  //hide
-    this.incomplete = true;   //hide
-    this.pending = false;     //show
- }    //works correctly
 
- else if (status1 == 'approved' && status2 == 'approved' && status3 == 'approved' && status4 == 'approved' && status5 == 'approved'){  //all complete
-    this.completeWord = false; //show
-    this.incomplete = true;  //hide
-    this.pending = true;     //hide
- }   //works correctly
+  if (status1 == status2 && status3 && status4 && status5){
+    if (status1 == ' '){
+      this.completeWord = true;
+      this.pending = true;
+      this.incomplete = false;
+    }
+    else if( status1 == "pending"){
+      this.completeWord = true;
+      this.pending = false;
+      this.incomplete = true;
+    }
+    else if (status1 == "approved"){
+      this.completeWord = false;
+      this.pending = true;
+      this.incomplete = true;
+    }
+  } else {
 
-else if (status1 == 'pending' || ' ' && status1 != 'approved' && status2 == 'pending' || ' ' &&  status2 != 'approved' && status3 == 'pending' || ' ' && status3 != 'approved' && status4 == 'pending' || ' ' && status4 != 'approved' && status5 == 'pending' || ' ' && status5 != 'approved'){  //pending or incomplete
-  this.completeWord = true;    //hide
-  this.incomplete = false;     //show
-  this.pending = false;        //show
-}   //works correctly
+  let status = [status1, status2, status3, status4, status5];
+  let approved = 0;
+  let pending = 0; 
+  let incomplete = 0;
+  for(let n = 0; n<status.length; n++){
+    if (status[n] == "approved"){
+      approved +=1;
+      console.log(approved);
+    }else if (status[n] == "pending"){
+      pending +=1;
+    }else if (status[n]== " "){
+      incomplete +=1;
+    }
+  }
 
-else if (status1 == 'approved' || ' ' && status1 != 'pending' && status2 == 'approved' || ' ' && status2 != 'pending' && status3 == 'approved' || ' ' && status3 != 'pending' && status4 == 'approved' || ' ' && status4 != 'pending' && status5 == 'approved' || ' ' && status5 != 'pending'){ //approved or incomplete
-  this.completeWord = false;     //show
-  this.incomplete = false;      //show
-  this.pending = true;         //hide
-}   // --------- does not work -----------------------
+  if (incomplete > 0){
+    this.incomplete = false;
+  }
+  if(pending > 0){
+    this.pending = false;
+  }
+  if(approved > 0){
+    this.completeWord = false;
+  }
 
-else if (status1 == 'approved' || 'pending' && status1 != ' ' && status2 == 'approved' || 'pending' && status2 != ' ' && status3 == 'approved' || 'pending'&& status3 != ' ' && status4 == 'approved' || 'pending' && status4 != ' ' && status5 == 'approved' || 'pending' && status5 != ' '){  //approved or pending
-  this.completeWord = false;   //show
-  this.incomplete = true;      //hide
-  this.pending = false;       //show
-}    // ----------- does not work ---------------------
-
- else if (status1 == 'approved' || 'pending' || ' ' && status2 == 'approved' || 'pending' || ' ' && status3 == 'approved' || 'pending' || ' ' && status4 == 'approved' || 'pending' || ' ' && status5 == 'approved' || 'pending' || ' '){  //all different status
-   this.completeWord = false;  //show
-   this.incomplete = false;   //show
-   this.pending = false;      //show
- }   //  ----------- does not work -------------------
-
- else {} 
- 
+}
             
           })
         })
