@@ -23,3 +23,18 @@ ion-card{
   font-style: bold;
   --ion-font-color: #f99f38;
 }
+
+ion-card-content{
+  font-family: 'ChollaSans-Thin' !important; 
+  font-size: 17px;
+}
+
+ion-card-title{
+  font-family: 'ChollaSans-Thin' !important; 
+  font-size: 25px;
+}
+
+ion-card-subtitle{
+  color: #252528;
+  font-size: 18px;
+}
