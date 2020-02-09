@@ -24,18 +24,7 @@
   </ion-grid>
 
 <ion-grid>
-
-    <!--___________Button to view Leaderboard________________-->
-    <ion-row>
-      <ion-col width-50 style="text-align: center">
-        <ion-button align-items-center
-        size="large"
-        routerLink = "/leaderboard"
-        routerDirection = "root">
-          View the Leaderboard
-          </ion-button>
-        </ion-col>
-      </ion-row>
+  
       <!-- __________________Button to view target overview__________-->
       <ion-row [hidden] = 'hidePersonalProgress'>
         <ion-col width-50 style="text-align: center">
@@ -48,6 +37,18 @@
         </ion-col>
       </ion-row> 
     </ion-grid>
+  
+   <!--___________Button to view Leaderboard________________-->
+    <ion-row>
+      <ion-col width-50 style="text-align: center">
+        <ion-button align-items-center
+        size="large"
+        routerLink = "/leaderboard"
+        routerDirection = "root">
+          View the Leaderboard
+          </ion-button>
+        </ion-col>
+      </ion-row>
     
   <br>
 
