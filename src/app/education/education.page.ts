@@ -323,16 +323,29 @@ doesUserHaveTeam(){
 }
 
 
+
 cityProgressBarTotals(){
   //__________________________________Get City info for city progress bar
-  let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
-    this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
-    this.cityUserNumber = Number(docSnapshot.data().totalUsers);
 
-    var totalCityPledges = 5*Number(this.cityUserNumber);
-    this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+  var count = 0;
+
+
+  let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
+    let cityUserCount = firebase.firestore().collection('userProfile').get().then(snap =>{
+      snap.forEach(doc =>{
+        count +=1;
+      })
+      console.log(count);
+      this.cityEdPledgeCount = Number(docSnapshot.data().edPledgeComplete);
+      this.cityUserNumber = count;
+      var totalCityPledges = 5*Number(this.cityUserNumber);
+      this.cityProgressBar = Number((Number(this.cityEdPledgeCount)/totalCityPledges)*100);
+
+    })
   })
+
 }
+
 
 
 teamAndCityProgressBarTotals(){
