@@ -253,13 +253,21 @@ updateTotalTeamPledgesComplete(){
 //NEED THIS ONE. Populates City Progress Bar and lbs carbon
 cityProgressBarTotals(){
   //__________________________________Get City info for city progress bar
+  var count = 0;
+
   let cityCount = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot)=>{
-    this.cityTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete);
-    this.cityUserNumber = Number(docSnapshot.data().totalUsers);
-    var possible = Number(docSnapshot.data().totalPossiblePledgesPerUser);
-    var totalCityPledges = possible*Number(this.cityUserNumber);
-    this.cityProgressBar = Number((Number(this.cityTotalPledgeCount)/totalCityPledges)*100);
-    this.cityTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
+    let cityUserCount = firebase.firestore().collection('userProfile').get().then(snap =>{
+      snap.forEach(doc =>{
+        count +=1;
+      })
+      console.log(count);
+      this.cityTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete);
+      this.cityUserNumber = count;
+      var possible = Number(docSnapshot.data().totalPossiblePledgesPerUser);
+      var totalCityPledges = possible*Number(this.cityUserNumber);
+      this.cityProgressBar = Number((Number(this.cityTotalPledgeCount)/totalCityPledges)*100);
+      this.cityTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
+    })
   })
 }
 
