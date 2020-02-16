@@ -63,6 +63,7 @@ ngOnInit() {
 
   this.hasUserStartedModules();         //Check if User has Started the Modules
   this.doesUserHaveTeam();              //Check if User Has a Team and get team info
+  this.cityProgressBarTotals();
 
 }
 
