@@ -365,6 +365,7 @@ createTeam(teamId: string, accessCode: string) {
         tyPledgeComplete: 0,
         epPledgeComplete: 0,
         totalPoundsCarbon: 0,
+        totalPledgesComplete: 0
       }
 
       let userArray = {users: [this.uid]};
