@@ -1,4 +1,3 @@
-  
 import { EventService } from './../services/pledges/pledge-service.service';
 import { AuthService } from '../services/user/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -71,6 +70,7 @@ public noAgeRange: boolean = true;
     }
 
 
+this.updateCityPledgeCount();
 this.checkForAgeRange();
 this.doesUserHaveTeam();
 const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
@@ -80,6 +80,7 @@ let getTeam = userRef.get().then(user => {
     this.team = user.data().team
     this.teamAndCityProgressBarTotals();
     console.log(this.team);
+    this.updateTeamPledgeCount(this.team);
     
   } else{
     this.hideTeamProgressBar = true;
@@ -122,7 +123,100 @@ checkForAgeRange(){
   })
 
 }
+
+updateTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('education').get().then((userSnap) => {
+      var status = [userSnap.data().ed1, userSnap.data().ed2, userSnap.data().ed3, userSnap.data().ed4, userSnap.data().ed5];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamEdPledges = Number(teamSnap.data().edPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewEd = difference + teamEdPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          edPledgeComplete: `${teamNewEd}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('education').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
   
+
+updateCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('education').get().then((userSnap) => {
+      var status = [userSnap.data().ed1, userSnap.data().ed2, userSnap.data().ed3, userSnap.data().ed4, userSnap.data().ed5];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityEdPledges = Number(citySnap.data().edPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewEd = difference + cityEdPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          edPledgeComplete: `${cityNewEd}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('education').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
 
 startEdModule(){
   this.hideButton=true;
@@ -396,25 +490,6 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
       console.log("has data - 5");
     } 
 
-
-  if (status1 == status2 && status3 && status4 && status5){
-    if (status1 == ' '){
-      this.completeWord = true;
-      this.pending = true;
-      this.incomplete = false;
-    }
-    else if( status1 == "pending"){
-      this.completeWord = true;
-      this.pending = false;
-      this.incomplete = true;
-    }
-    else if (status1 == "approved"){
-      this.completeWord = false;
-      this.pending = true;
-      this.incomplete = true;
-    }
-  } else {
-
   let status = [status1, status2, status3, status4, status5];
   let approved = 0;
   let pending = 0; 
@@ -423,13 +498,15 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
     if (status[n] == "approved"){
       approved +=1;
       console.log(approved);
-    }else if (status[n] == "pending"){
+    }
+     if (status[n] == "pending"){
       pending +=1;
-    }else if (status[n]== " "){
+    }
+     if (status[n]== " "){
       incomplete +=1;
     }
-  }
 
+  console.log(incomplete);
   if (incomplete > 0){
     this.incomplete = false;
   }
