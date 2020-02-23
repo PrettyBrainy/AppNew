@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'ed1docs', loadChildren: './educationdocuments/ed1docs/ed1docs.module#Ed1docsPageModule' },
   { path: 'ed2docs', loadChildren: './educationdocuments/ed2docs/ed2docs.module#Ed2docsPageModule' },
   { path: 'ed3docs', loadChildren: './educationdocuments/ed3docs/ed3docs.module#Ed3docsPageModule' }
- {path: 'labgraphpics', loadChildren: './educationdocuments/labgraphpics/labgraphpics.module#Labgraphpics'}
+ {path: 'labgraphpics', loadChildren: './educationdocuments/labgraphpics/labgraphpics.module#LabgraphpicsPageModule'}
 ];
 @NgModule({
   imports: [
