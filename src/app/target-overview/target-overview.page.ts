@@ -30,7 +30,7 @@ export class TargetOverviewPage implements OnInit {
 
   goToPlugLoadsPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/plug-loads');
   }
 
   goToEandPPage()
