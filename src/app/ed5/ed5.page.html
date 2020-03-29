@@ -93,6 +93,7 @@
     <h4 [hidden]="adultPledge">I pledge to take the Environmental Protection Agency’s carbon calculator.</h4>
 </div>
     
+<p [hidden] = "kidPledge"> 
   <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
     <ion-card-header> Verify your impact. </ion-card-header>
     <ion-card-content>
@@ -100,7 +101,8 @@
         <ion-col size="9">
           <ion-item>
             <ion-label position="stacked">Completion Details:</ion-label>
-            <ion-textarea [(ngModel)]="verification" type="text" placeholder="How did you complete this pledge?"></ion-textarea>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="What results did you get from this calculator that surprised you the most? What could you do right now to try and lower your carbon footprint?"></ion-textarea>
           </ion-item>
         </ion-col>
 
@@ -113,10 +115,69 @@
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-       Earn 250 Points
+        Earn 250 Points
       </ion-button>
     </ion-card-content>
   </ion-card>
+   </p>
+
+
+   <p [hidden] = "teenPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="What results did you get from this calculator that surprised you the most? What could you do right now to try and lower your carbon footprint?"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn 250 Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
+
+
+<p [hidden] = "adultPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="What results did you get from this calculator that surprised you the most? What could you do right now to try and lower your carbon footprint?"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn 250 Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
 
   <ion-card [hidden]  ="pledgeSubmittedCard">
     <ion-card-header>
