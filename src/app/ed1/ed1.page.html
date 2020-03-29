@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/education"></ion-back-button>
-    <ion-title>Know More Carbon Emissions</ion-title>
+    <ion-title><i>Know</i> More Carbon Emissions</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -34,7 +34,7 @@
           <ion-card-header>
             <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
             
-            <ion-card-subtitle>Know More Carbon Emissions</ion-card-subtitle>
+            <ion-card-subtitle><i>Know</i> More Carbon Emissions</ion-card-subtitle>
           </ion-card-header>
          
           <ion-card-content>
@@ -71,16 +71,7 @@
         <ion-button expand = "full" routerLink = "/ed1docs" routerDirection = "root">
           Greenhouse Gas Lab Activity Sheet  
         </ion-button>
-       
-       <br>
 
-        <ion-button expand = "full" routerLink = "/labgraphpics" routerDirection = "root">
-          Greenhouse Gas Lab Graph Examples 
-        </ion-button>
-       
-       <br> 
-       
-       <iframe width="410" height="315" src="https://www.youtube.com/embed/4bNShFcagCo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       
            </p> 
     
@@ -105,7 +96,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
-            <ion-card-subtitle>Know More Carbon Emissions</ion-card-subtitle>
+            <ion-card-subtitle><i>Know</i> More Carbon Emissions</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <ion-card-header>
@@ -142,16 +133,7 @@
           Greenhouse Gas Lab Activity Sheet  
         </ion-button>
 
-              <br>
-              
-        <ion-button expand = "full" routerLink = "/labgraphpics" routerDirection = "root">
-          Greenhouse Gas Lab Graph Examples 
-        </ion-button>
     
-              <br>
-              
-              <iframe width="410" height="315" src="https://www.youtube.com/embed/4bNShFcagCo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              
           </p> 
     
             <p [hidden] = "adultPledge">
@@ -174,7 +156,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
-            <ion-card-subtitle>Know More Carbon Emissions</ion-card-subtitle>
+            <ion-card-subtitle><i>Know</i> More Carbon Emissions</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <ion-card-header>
@@ -210,16 +192,7 @@
         <ion-button expand = "full" routerLink = "/ed1docs" routerDirection = "root">
           Greenhouse Gas Lab Activity Sheet  
         </ion-button>
-        
-              <br>
-              
-        <ion-button expand = "full" routerLink = "/labgraphpics" routerDirection = "root">
-          Greenhouse Gas Lab Graph Examples 
-        </ion-button>
 
-              <br>
-              
-              <iframe width="410" height="315" src="https://www.youtube.com/embed/4bNShFcagCo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               
          </p>
   
@@ -230,30 +203,88 @@
           <h4 [hidden]="adultPledge">I pledge to understand the effect of carbon emissions on the environment.</h4>
     </div> 
 
-  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
-    <ion-card-header> Verify your impact. </ion-card-header>
-    <ion-card-content>
-      <ion-row>
-        <ion-col size="9">
-          <ion-item>
-            <ion-label position="stacked">Completion Details:</ion-label>
-            <ion-textarea [(ngModel)]="verification" type="text" placeholder="How did you complete this pledge?"></ion-textarea>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-button (click)="takePicture()">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
+    <p [hidden] = "kidPledge"> 
+      <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+        <ion-card-header> Verify your impact. </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="9">
+              <ion-item>
+                <ion-label position="stacked">Completion Details:</ion-label>
+                <ion-textarea [(ngModel)]="verification" type="text" placeholder="What was one observation you made from the lab, and how does it relate to the atmospheric changes our planet is making?"></ion-textarea>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="3">
+              <ion-button (click)="takePicture()">
+                <ion-icon slot="icon-only" name="camera"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <span *ngIf="pledgePicture">Picture taken!</span>
+    
+          <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+            Earn 70 Points
           </ion-button>
-        </ion-col>
-      </ion-row>
-      <span *ngIf="pledgePicture">Picture taken!</span>
-
-      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Earn 100 Points
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+        </ion-card-content>
+      </ion-card>
+       </p>
+    
+    
+       <p [hidden] = "teenPledge">
+      <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+        <ion-card-header> Verify your impact. </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="9">
+              <ion-item>
+                <ion-label position="stacked">Completion Details:</ion-label>
+                <ion-textarea [(ngModel)]="verification" type="text" placeholder="What was one observation you made from the lab, and how does it relate to the atmospheric changes our planet is making?"></ion-textarea>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="3">
+              <ion-button (click)="takePicture()">
+                <ion-icon slot="icon-only" name="camera"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <span *ngIf="pledgePicture">Picture taken!</span>
+    
+          <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+            Earn 70 Points
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </p>
+    
+    
+    <p [hidden] = "adultPledge">
+      <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+        <ion-card-header> Verify your impact. </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="9">
+              <ion-item>
+                <ion-label position="stacked">Completion Details:</ion-label>
+                <ion-textarea [(ngModel)]="verification" type="text" placeholder="What was one observation you made from the lab, and how does it relate to the atmospheric changes our planet is making?"></ion-textarea>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="3">
+              <ion-button (click)="takePicture()">
+                <ion-icon slot="icon-only" name="camera"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <span *ngIf="pledgePicture">Picture taken!</span>
+    
+          <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+            Earn 70 Points
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </p>
 
   <ion-card [hidden]  ="pledgeSubmittedCard">
     <ion-card-header>
