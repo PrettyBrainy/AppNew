@@ -307,7 +307,7 @@ randomFunctionToGetUserInfoAndPoints(){
 
 updateUserPoundsPointsAndPledgeTotals(){
   const edPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('education'); 
-  const plPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('plugLoads'); 
+  const plPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('plug-loads'); 
   const cPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('computer'); 
   const hcPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('heatingAndCooling'); 
   const epPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('equipmentAndPurchasing'); 
@@ -316,7 +316,7 @@ updateUserPoundsPointsAndPledgeTotals(){
   const lPointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('lighting'); 
 
   const edPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('education'); 
-  const plPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('plugLoads'); 
+  const plPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('plug-loads'); 
   const cPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('computer'); 
   const hcPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('heatingAndCooling'); 
   const epPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('equipmentAndPurchasing'); 
@@ -325,7 +325,7 @@ updateUserPoundsPointsAndPledgeTotals(){
   const lPoundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('lighting'); 
 
   const edApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
-  const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plugLoads'); 
+  const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads'); 
   const cApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('computer'); 
   const hcApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('heatingAndCooling'); 
   const epApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('equipmentAndPurchasing'); 
@@ -716,8 +716,8 @@ updateTeamEdPledges(){
 
 
 updatePLPoints(){
-  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plugLoads');
-  const pointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('plugLoads');
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads');
+  const pointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('plug-loads');
   
   let checkPLApprovals = approvalRef.get().then((docSnapshot) => {
     if (docSnapshot.data()){
@@ -955,7 +955,7 @@ arrayToString(array: Array<string>){    // This is here if we can figure out pro
 
 tryGetUserProgressBar(){
   const edApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
-  const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plugLoads'); 
+  const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads'); 
   const cApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('computer'); 
   const hcApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('heatingAndCooling'); 
   const epApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('equipmentAndPurchasing'); 
