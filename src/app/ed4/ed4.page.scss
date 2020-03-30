@@ -19,7 +19,7 @@ ion-title{
 /* #### iPhone 5 Portrait or Landscape #### */
 @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
  ion-title{
-     font-size: 12px;
+     font-size: 15px;
      text-align: left;
  }
 }
@@ -27,7 +27,7 @@ ion-title{
 /* #### iPhone 6 and 6 plus Portrait or Landscape #### */
 @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
  ion-title{
-     font-size: 17px;
+     font-size: 19px;
      text-align: left;
  }
 }
@@ -35,7 +35,7 @@ ion-title{
 /* #### Tablets Portrait or Landscape #### */
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px){
  ion-title{
-     font-size: 33px;
+     font-size: 28px;
      text-align: left;
  }
 }
@@ -43,7 +43,7 @@ ion-title{
 /* #### Desktops #### */
 @media screen and (min-width: 1024px){
  ion-title{
-     font-size: 35px;
+     font-size: 33px;
      text-align: left;
  }
 }
