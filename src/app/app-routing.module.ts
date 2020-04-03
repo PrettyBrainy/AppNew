@@ -50,8 +50,18 @@ const routes: Routes = [
   { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' },
   { path: 'ed1docs', loadChildren: './educationdocuments/ed1docs/ed1docs.module#Ed1docsPageModule' },
   { path: 'ed2docs', loadChildren: './educationdocuments/ed2docs/ed2docs.module#Ed2docsPageModule' },
-  { path: 'ed3docs', loadChildren: './educationdocuments/ed3docs/ed3docs.module#Ed3docsPageModule' }
- {path: 'labgraphpics', loadChildren: './educationdocuments/labgraphpics/labgraphpics.module#LabgraphpicsPageModule'}
+  { path: 'ed3docs', loadChildren: './educationdocuments/ed3docs/ed3docs.module#Ed3docsPageModule' },
+  { path: 'pl1', loadChildren: './plug-loads/pl1/pl1.module#Pl1PageModule' },
+  { path: 'pl2', loadChildren: './plug-loads/pl2/pl2.module#Pl2PageModule' },
+  { path: 'pl3', loadChildren: './plug-loads/pl3/pl3.module#Pl3PageModule' },
+  { path: 'pl4', loadChildren: './plug-loads/pl4/pl4.module#Pl4PageModule' },
+  { path: 'pl5', loadChildren: './plug-loads/pl5/pl5.module#Pl5PageModule' },
+  { path: 'pl6', loadChildren: './plug-loads/pl6/pl6.module#Pl6PageModule' },
+  { path: 'lighting', loadChildren: './lighting/lighting.module#LightingPageModule' },
+  { path: 'l1', loadChildren: './l1/l1.module#L1PageModule' },
+  { path: 'l2', loadChildren: './l2/l2.module#L2PageModule' },
+  { path: 'l3', loadChildren: './l3/l3.module#L3PageModule' },
+  { path: 'pl-document', loadChildren: './pl-document/pl-document.module#PlDocumentPageModule' }
 ];
 @NgModule({
   imports: [
