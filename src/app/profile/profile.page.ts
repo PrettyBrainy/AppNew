@@ -442,7 +442,7 @@ joinTeam(teamId: string, accessCode:string){
 //____________________Increase number of teams in cityOverall collection in Firebase
 increaseCityTeamCount(){
   let cityOverall = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then((docSnapshot) => {
-    var numTeams = docSnapshot.data().totalTeams;
+    var numTeams = Number(docSnapshot.data().totalTeams);
     numTeams +=1;
     var update = {
       totalTeams: `${numTeams}`,
