@@ -74,7 +74,7 @@ async takePicture(): Promise<void> {
 }
 
 
-verifyPledge(){
+verifyPledge(verification){
   this.profileService.getUserProfile().then((userProfileSnapshot) => {
       var team = String(userProfileSnapshot.data().team);
       var indiPoints = Number(userProfileSnapshot.data().points)
