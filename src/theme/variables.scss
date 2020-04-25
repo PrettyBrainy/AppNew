@@ -210,6 +210,11 @@ ion-row{
     flex-wrap: wrap;   
 }
 
+.highlight{
+  background-color: #f99f38;
+  font-family: 'ChollaSans-Thin' !important; 
+}
+  
 //___________________________________________Here and below makes scalable titles for different displays
 ion-toolbar{
   --background: #bee1eb;
