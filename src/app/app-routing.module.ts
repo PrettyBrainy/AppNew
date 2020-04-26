@@ -56,7 +56,6 @@ const routes: Routes = [
   { path: 'pl3', loadChildren: './plug-loads/pl3/pl3.module#Pl3PageModule' },
   { path: 'pl4', loadChildren: './plug-loads/pl4/pl4.module#Pl4PageModule' },
   { path: 'pl5', loadChildren: './plug-loads/pl5/pl5.module#Pl5PageModule' },
-  { path: 'pl6', loadChildren: './plug-loads/pl6/pl6.module#Pl6PageModule' },
   { path: 'lighting', loadChildren: './lighting/lighting.module#LightingPageModule' },
   { path: 'l1', loadChildren: './lighting/l1/l1.module#L1PageModule' },
   { path: 'l2', loadChildren: './lighting/l2/l2.module#L2PageModule' },
