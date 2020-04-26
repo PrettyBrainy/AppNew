@@ -215,6 +215,10 @@ ion-row{
   font-family: 'ChollaSans-Thin' !important; 
 }
   
+  .scaledAlert {
+  transform: scale(1.5);
+}
+  
 //___________________________________________Here and below makes scalable titles for different displays
 ion-toolbar{
   --background: #bee1eb;
