@@ -61,6 +61,28 @@ export class LoginPage implements OnInit {
         }
       );
     }
+  }
+  
+  async covidAlert() {
+  const alert = await this.alertCtrl.create({
+    header: `COVID-19 Message`,
+    cssClass: "scaledAlert",
+    message: ` 
+    <p> To Our Community — </p>
+     <p> As COVID-19 travels and spreads, the top priority of Team MISSion Innovation is for you to be safe, healthy, and comfortable while taking action for the climate. </p> 
+     <p> While using the MISSion Innovation App, you may discover new ways of completing the pledges within the guidelines of social distancing, stay-at-home orders, and quarantines. Be creative as you reduce your carbon footprint! Complete the pledges from home. As you venture out and complete pledges, be safe. </p> 
+     <p> Now is a prime time to take the personal actions that are Climate Action. As we have changed our behavior to minimize the risks from COVID-19, we are discovering that our new actions, including driving less and preparing our own food at home, are reducing our carbon footprint. Let’s sustain these actions. </p>
+     <p> Thank you for being part of this movement. Though practicing social distancing, WE ARE TOGETHER taking action for the climate. </p>
+     <p> Thank you for being safe. </p> 
+     <p> Sincerely, </p>
+     <p> The MISSion Innovation Leadership Team</p>`,
 
+    buttons: ['Dismiss'],
+  });
+  alert.present();
+  let result = await alert.onDidDismiss();
+  console.log(result);
 }
+  
+  
 }
