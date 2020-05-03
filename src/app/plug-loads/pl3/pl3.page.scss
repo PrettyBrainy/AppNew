@@ -3,7 +3,7 @@ ion-toolbar{
   }
   
   ion-title{
-    padding-left: 10px;
+    padding-left: 25px;
     padding-right: 0px;
     text-transform: uppercase;
   }
@@ -11,40 +11,40 @@ ion-toolbar{
   /* #### iPhone 4+ Portrait or Landscape #### */
   @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
   ion-title{
-      font-size: 19px;
-      text-align: left;
+      font-size: 14px;
+      text-align: center;
   }
   }
   
   /* #### iPhone 5 Portrait or Landscape #### */
   @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
    ion-title{
-       font-size: 19px;
-       text-align: left;
+       font-size: 14px;
+       text-align: center;
    }
   }
   
   /* #### iPhone 6 and 6 plus Portrait or Landscape #### */
   @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
    ion-title{
-       font-size: 24px;
-       text-align: left;
+       font-size: 20px;
+       text-align: center;
    }
   }
   
   /* #### Tablets Portrait or Landscape #### */
   @media screen and (min-device-width: 768px) and (max-device-width: 1024px){
    ion-title{
-       font-size: 33px;
-       text-align: left;
+       font-size: 28px;
+       text-align: center;
    }
   }
   
   /* #### Desktops #### */
   @media screen and (min-width: 1024px){
    ion-title{
-       font-size: 33px;
-       text-align: left;
+       font-size: 30px;
+       text-align: center;
    }
   }
   
