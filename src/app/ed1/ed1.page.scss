@@ -11,7 +11,7 @@ ion-title{
 /* #### iPhone 4+ Portrait or Landscape #### */
 @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
 ion-title{
-    font-size: 15px;
+    font-size: 13px;
     text-align: right;
 }
 }
@@ -19,7 +19,7 @@ ion-title{
 /* #### iPhone 5 Portrait or Landscape #### */
 @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
  ion-title{
-     font-size: 15px;
+     font-size: 13px;
      text-align: right;
  }
 }
