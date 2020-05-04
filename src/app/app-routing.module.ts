@@ -60,7 +60,11 @@ const routes: Routes = [
   { path: 'l1', loadChildren: './lighting/l1/l1.module#L1PageModule' },
   { path: 'l2', loadChildren: './lighting/l2/l2.module#L2PageModule' },
   { path: 'l3', loadChildren: './lighting/l3/l3.module#L3PageModule' },
-  { path: 'pl-document', loadChildren: './pl-document/pl-document.module#PlDocumentPageModule' }
+  { path: 'pl-document', loadChildren: './pl-document/pl-document.module#PlDocumentPageModule' },
+  { path: 'c1', loadChildren: './computers/c1/c1.module#C1PageModule' },
+  { path: 'c2', loadChildren: './computers/c2/c2.module#C2PageModule' },
+  { path: 'c3', loadChildren: './computers/c3/c3.module#C3PageModule' }
+ 
 ];
 @NgModule({
   imports: [
