@@ -1,9 +1,299 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>L1</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/lighting"></ion-back-button>
+    </ion-buttons>
+    <ion-title>So Watt? My Lights Are Off!</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class = "ion-padding">
+  <ion-grid>
 
+     <p [hidden] = "kidPledge">   
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+
+          </ion-card-header>
+         
+          <ion-card-content>
+           <p> Did you know that something as simple as shutting off a light can slow global warming? 
+             By turning off the lights when you leave a room, you can reduce <strong class="vocabulary">
+               greenhouse gas emissions</strong> by approximately .15 pounds per hour. Leave a light on for 3 
+               hours, and you’ve generated carbon dioxide equivalent to driving a gasoline-powered vehicle for 
+               one-half mile.</p> <br>
+               <p> Instead of switching on a light, use <strong class="vocabulary">natural light alternatives</strong> 
+               by opening window blinds, using skylights, or working outside when you can. If everyone in the 
+               United States were to shut off all lights in their homes for 2 hours every day for one year, 
+               we would save more than 5 million <strong class="vocabulary">kilowatt hours</strong> nationwide 
+               per year! That’s equivalent to taking 764 passenger cars completely off the road for a year or not 
+               burning 20 railcars full of coal. So turn off the lights! It’s good for you and the planet. </p>
+          </ion-card-content>
+        </ion-card>
+  
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>So Watt? My Lights Are Off!</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+              <p>Educate your family about how switching off overhead lights can help fight global warming. 
+                Bring your family together to read your electricity bill and calculate your energy savings! </p>
+                <br>
+                <p>To see how much you can save by turning off your lights, check the wattage rating printed 
+                  on each of your light bulbs. For each bulb, multiply that number by 0.001 and you will have the 
+                  amount of electricity in kilowatts you are saving per hour each specific light is switched off. 
+                  Use these calculations to determine how much money turning off all of the lights in your home for 
+                  2 hours a day would save your family. Remember that this also reduces carbon emissions!</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">What else can you do?</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Before leaving any room, turn off all lights and encourage your family to do the same. 
+              You can also talk to your family about purchasing energy-saving controls, including dimmers, 
+              motion detectors, and  light timers. And don’t forget to use alternative, natural sources of light.</p>
+          </ion-card-content>
+          </ion-card>
+
+        <br>
+      </p> 
+    
+
+            <p [hidden] = "teenPledge">
+              
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p> Did you know that something as simple as shutting off a light can slow global warming? 
+              By turning off the lights when you leave a room, you can reduce <strong class="vocabulary">
+                greenhouse gas emissions</strong> by approximately .15 pounds per hour. Leave a light on for 3 
+                hours, and you’ve generated carbon dioxide equivalent to driving a gasoline-powered vehicle for 
+                one-half mile. </p> <br>
+                <p> Instead of switching on a light, use <strong class="vocabulary">natural light alternatives</strong> 
+                by opening window blinds, using skylights, or working outside when you can. If everyone in the 
+                United States were to shut off all lights in their homes for 2 hours every day for one year, 
+                we would save more than 5 million <strong class="vocabulary">kilowatt hours</strong> nationwide 
+                per year! That’s equivalent to taking 764 passenger cars completely off the road for a year or not 
+                burning 20 railcars full of coal. So turn off the lights! It’s good for you and the planet.</p>
+          </ion-card-content>
+        </ion-card>
+    
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>So Watt? My Lights Are Off!</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+              <p>Educate your family about how switching off overhead lights can help fight global warming. 
+                Bring your family together to read your electricity bill and calculate your energy savings! </p>
+                <br>
+                <p>To see how much you can save by turning off your lights, check the wattage rating printed 
+                  on each of your light bulbs. For each bulb, multiply that number by 0.001 and you will have the 
+                  amount of electricity in kilowatts you are saving per hour each specific light is switched off. 
+                  Use these calculations to determine how much money turning off all of the lights in your home for 
+                  2 hours a day would save your family. Remember that this also reduces carbon emissions!</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">What else can you do?</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Before leaving any room, turn off all lights and encourage your family to do the same. 
+              You can also talk to your family about purchasing energy-saving controls, including dimmers, 
+              motion detectors, and  light timers. And don’t forget to use alternative, natural sources of light.</p>
+          </ion-card-content>
+          </ion-card>
+
+        <br>
+     </p> 
+    
+            <p [hidden] = "adultPledge">
+              
+        
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p> Did you know that something as simple as shutting off a light can slow global warming? 
+              By turning off the lights when you leave a room, you can reduce <strong class="vocabulary">
+                greenhouse gas emissions</strong> by approximately .15 pounds per hour. Leave a light on for 3 
+                hours, and you’ve generated carbon dioxide equivalent to driving a gasoline-powered vehicle for 
+                one-half mile. </p> <br>
+                <p>Instead of switching on a light, use <strong class="vocabulary">natural light alternatives</strong> 
+                by opening window blinds, using skylights, or working outside when you can. If everyone in the 
+                United States were to shut off all lights in their homes for 2 hours every day for one year, 
+                we would save more than 5 million <strong class="vocabulary">kilowatt hours</strong> nationwide 
+                per year! That’s equivalent to taking 764 passenger cars completely off the road for a year or not 
+                burning 20 railcars full of coal. So turn off the lights! It’s good for you and the planet.</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>So Watt? My Lights Are Off!</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+                <p>To see how much you can save by turning off your lights, check the wattage rating printed 
+                  on each of your light bulbs. For each bulb, multiply that number by 0.001 and you will have the 
+                  amount of electricity in kilowatts you are saving per hour each specific light is switched off. 
+                  Use these calculations to determine how much money turning off all of the lights in your home for 
+                  2 hours a day would save you. Remember that this also reduces carbon emissions!</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">What else can you do?</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Before leaving any room, turn off all lights. You can also purchase energy-saving controls, 
+              including dimmers, motion detectors, and light timers. And don’t forget to use alternative, 
+              natural sources of light.</p>
+          </ion-card-content>
+          </ion-card>
+
+           <br>   
+         </p>
+
+  
+    
+         <div class = "ion-text-center" [hidden] = "hideVerfCard">
+          <h4 [hidden]="kidPledge"> To reduce my carbon footprint, I pledge to turn off the lights when I leave rooms and to find 
+            natural lighting alternatives. </h4>
+          <h4 [hidden]="teenPledge">To reduce my carbon footprint, I pledge to turn off the lights when I leave rooms and to find 
+            natural lighting alternatives. </h4>
+          <h4 [hidden]="adultPledge">To reduce my carbon footprint, I pledge to turn off the lights when I leave rooms and to find 
+            natural lighting alternatives. </h4>
+    </div> 
+
+   <p [hidden] = "kidPledge"> 
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="How much electricity in kilowatts would your family save by turning off the lights in your home for 2 hours on any given day?"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn 240 Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+   </p>
+
+
+   <p [hidden] = "teenPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="How much electricity in kilowatts would your family save by turning off the lights in your home for 2 hours on any given day?"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn 240 Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
+
+
+<p [hidden] = "adultPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="How much electricity in kilowatts would your household save by turning off the lights in your home for 2 hours on any given day?"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn 240 Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
+
+  <ion-card [hidden]  ="pledgeSubmittedCard">
+    <ion-card-header>
+      <ion-card-title>
+        Thank you for taking the pledge! 
+      </ion-card-title>
+      <ion-card-content>
+        <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
+        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
+        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
+        <p>
+          <em>{{this.pledgeContent}}</em>
+        </p>
+      </ion-card-content>
+    </ion-card-header>  
+  </ion-card>
+
+</ion-grid>
 </ion-content>
+
+
