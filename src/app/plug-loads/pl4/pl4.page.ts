@@ -88,7 +88,7 @@ verifyPledge(verification){
   }
   //__________________________________________Assign user input to variable
   let verificationUpdate = {
-    ed1: this.verification
+    pl4: this.verification
   }
 
   //__________________________________________Update Database with verification
@@ -104,7 +104,7 @@ this.changePledgeApprovalStatus();
 
 changePledgeApprovalStatus(){
 let approvalStatus = {
-  ed1: "pending"
+  pl4: "pending"
 }
 
 const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
