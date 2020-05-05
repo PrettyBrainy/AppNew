@@ -135,7 +135,7 @@ this.checkForPledgeStatus();
 
 checkForPledgeStatus(){
   let statusCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-  .collection('approval').doc('computers').get().then((docSnapshot)=>{
+  .collection('approval').doc('transportation').get().then((docSnapshot)=>{
     let status = String(docSnapshot.data().t3);
     console.log(status);
     if(status == 'pending'){
