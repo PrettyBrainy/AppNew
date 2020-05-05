@@ -63,7 +63,13 @@ const routes: Routes = [
   { path: 'pl-document', loadChildren: './pl-document/pl-document.module#PlDocumentPageModule' },
   { path: 'c1', loadChildren: './computers/c1/c1.module#C1PageModule' },
   { path: 'c2', loadChildren: './computers/c2/c2.module#C2PageModule' },
-  { path: 'c3', loadChildren: './computers/c3/c3.module#C3PageModule' }
+  { path: 'c3', loadChildren: './computers/c3/c3.module#C3PageModule' },
+  { path: 'appliances-and-recycling', loadChildren: './appliances-and-recycling/appliances-and-recycling.module#AppliancesAndRecyclingPageModule' },
+  { path: 'ar1', loadChildren: './appliances-and-recycling/ar1/ar1.module#Ar1PageModule' },
+  { path: 'ar3', loadChildren: './appliances-and-recycling/ar3/ar3.module#Ar3PageModule' },
+  { path: 'ar2', loadChildren: './appliances-and-recycling/ar2/ar2.module#Ar2PageModule' },
+  { path: 'ar4', loadChildren: './appliances-and-recycling/ar4/ar4.module#Ar4PageModule' },
+  { path: 'ar5', loadChildren: './appliances-and-recycling/ar5/ar5.module#Ar5PageModule' }
  
 ];
 @NgModule({
