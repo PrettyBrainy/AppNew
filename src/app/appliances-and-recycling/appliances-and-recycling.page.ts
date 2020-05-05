@@ -201,7 +201,7 @@ updateCityPledgeCount(){
         var cityNewTotal = difference + cityTotalPledges;
 
         var cityNewTotals = {
-          edPledgeComplete: `${cityNewAr}`,
+          arPledgeComplete: `${cityNewAr}`,
           totalPledgesComplete: `${cityNewTotal}`
         }
 
