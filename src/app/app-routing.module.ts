@@ -69,7 +69,17 @@ const routes: Routes = [
   { path: 'ar3', loadChildren: './appliances-and-recycling/ar3/ar3.module#Ar3PageModule' },
   { path: 'ar2', loadChildren: './appliances-and-recycling/ar2/ar2.module#Ar2PageModule' },
   { path: 'ar4', loadChildren: './appliances-and-recycling/ar4/ar4.module#Ar4PageModule' },
-  { path: 'ar5', loadChildren: './appliances-and-recycling/ar5/ar5.module#Ar5PageModule' }
+  { path: 'ar5', loadChildren: './appliances-and-recycling/ar5/ar5.module#Ar5PageModule' },
+  { path: 'transportation', loadChildren: './transportation/transportation.module#TransportationPageModule' },
+  { path: 't1', loadChildren: './transportation/t1/t1.module#T1PageModule' },
+  { path: 't2', loadChildren: './transportation/t2/t2.module#T2PageModule' },
+  { path: 't3', loadChildren: './transportation/t3/t3.module#T3PageModule' },
+  { path: 't4', loadChildren: './transportation/t4/t4.module#T4PageModule' },
+  { path: 't5', loadChildren: './transportation/t5/t5.module#T5PageModule' },
+  { path: 't6', loadChildren: './transportation/t6/t6.module#T6PageModule' },
+  { path: 't7', loadChildren: './transportation/t7/t7.module#T7PageModule' },
+  { path: 't8', loadChildren: './transportation/t8/t8.module#T8PageModule' },
+  { path: 't9', loadChildren: './transportation/t9/t9.module#T9PageModule' }
  
 ];
 @NgModule({
