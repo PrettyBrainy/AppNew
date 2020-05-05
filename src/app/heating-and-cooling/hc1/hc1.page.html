@@ -1,0 +1,276 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/heating-and-cooling"></ion-back-button>
+    </ion-buttons>
+    <ion-title>pledge name</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class = "ion-padding">
+  <ion-grid>
+
+     <p [hidden] = "kidPledge">   
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+
+          </ion-card-header>
+         
+          <ion-card-content>
+           <p> <strong class="vocabulary"> </strong>    </p>
+             <br> 
+             <p> </p>
+          </ion-card-content>
+        </ion-card>
+  
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>pledge name</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+              <p>  </p> 
+              <br>
+              <p>  </p>
+          </ion-card-content>
+        </ion-card>
+        <br>
+
+        <ion-item href="link here">
+          <ion-icon slot="start" color="danger" name="link"></ion-icon>
+          <ion-label>Title</ion-label>
+        </ion-item>
+
+        <br>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class = "content-heading"> New heading</ion-card-title>
+            </ion-card-header>
+
+          <ion-card-content>
+            <p> </p>
+          </ion-card-content>
+          </ion-card>
+
+        <br>
+      </p> 
+    
+
+            <p [hidden] = "teenPledge">
+              
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>   <strong class="vocabulary"> </strong> </p>
+              <br> 
+              <p> </p>
+          </ion-card-content>
+        </ion-card>
+    
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>pledge name</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+              <p>  </p> 
+              <br>
+                <p> </p>
+          </ion-card-content>
+        </ion-card>
+        <br>
+
+        <ion-item href="link here">
+          <ion-icon slot="start" color="danger" name="link"></ion-icon>
+          <ion-label>Title</ion-label>
+        </ion-item>
+
+        <br>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class = "content-heading">New heading</ion-card-title>
+            </ion-card-header>
+
+          <ion-card-content>
+            <p> </p>
+          </ion-card-content>
+          </ion-card>
+        
+        <br>
+     </p> 
+    
+            <p [hidden] = "adultPledge">
+              
+        
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Let's Learn!</ion-card-title>
+            <ion-card-subtitle>Information to Get Started</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p> <strong class="vocabulary"> </strong>  </p>
+              <br> 
+              <p> </p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
+            
+            <ion-card-subtitle>pledge name</ion-card-subtitle>
+          </ion-card-header>
+    
+           <ion-card-content>
+              <p>  </p> 
+              <br>
+              <p>  </p>
+          </ion-card-content>
+        </ion-card>
+        <br>
+
+        <ion-item href="link here">
+          <ion-icon slot="start" color="danger" name="link"></ion-icon>
+          <ion-label>Title</ion-label>
+        </ion-item>
+
+        <br>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class = "content-heading">New heading</ion-card-title>
+            </ion-card-header>
+
+          <ion-card-content>
+            <p> </p>
+          </ion-card-content>
+          </ion-card>
+        
+           <br>   
+         </p>
+
+  
+    
+         <div class = "ion-text-center" [hidden] = "hideVerfCard">
+          <h4 [hidden]="kidPledge"> kids pledge </h4>
+          <h4 [hidden]="teenPledge"> teen pledge  </h4>
+          <h4 [hidden]="adultPledge"> adult pledge</h4>
+    </div> 
+
+   <p [hidden] = "kidPledge"> 
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="kids prompt"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn (number of points) Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+   </p>
+
+
+   <p [hidden] = "teenPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="teen prompt"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn (number of points) Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
+
+
+<p [hidden] = "adultPledge">
+  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
+    <ion-card-header> Verify your impact. </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="adult prompt"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button (click)="takePicture()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <span *ngIf="pledgePicture">Picture taken!</span>
+
+      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
+        Earn (number of points) Points
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</p>
+
+  <ion-card [hidden]  ="pledgeSubmittedCard">
+    <ion-card-header>
+      <ion-card-title>
+        Thank you for taking the pledge! 
+      </ion-card-title>
+      <ion-card-content>
+        <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
+        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
+        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
+        <p>
+          <em>{{this.pledgeContent}}</em>
+        </p>
+      </ion-card-content>
+    </ion-card-header>  
+  </ion-card>
+
+</ion-grid>
+</ion-content>
