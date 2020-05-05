@@ -79,7 +79,14 @@ const routes: Routes = [
   { path: 't6', loadChildren: './transportation/t6/t6.module#T6PageModule' },
   { path: 't7', loadChildren: './transportation/t7/t7.module#T7PageModule' },
   { path: 't8', loadChildren: './transportation/t8/t8.module#T8PageModule' },
-  { path: 't9', loadChildren: './transportation/t9/t9.module#T9PageModule' }
+  { path: 't9', loadChildren: './transportation/t9/t9.module#T9PageModule' },
+  { path: 'heating-and-cooling', loadChildren: './heating-and-cooling/heating-and-cooling.module#HeatingAndCoolingPageModule' },
+  { path: 'hc1', loadChildren: './heating-and-cooling/hc1/hc1.module#Hc1PageModule' },
+  { path: 'hc2', loadChildren: './heating-and-cooling/hc2/hc2.module#Hc2PageModule' },
+  { path: 'hc3', loadChildren: './heating-and-cooling/hc3/hc3.module#Hc3PageModule' },
+  { path: 'hc4', loadChildren: './heating-and-cooling/hc4/hc4.module#Hc4PageModule' },
+  { path: 'hc5', loadChildren: './heating-and-cooling/hc5/hc5.module#Hc5PageModule' },
+  { path: 'hc6', loadChildren: './heating-and-cooling/hc6/hc6.module#Hc6PageModule' }
  
 ];
 @NgModule({
