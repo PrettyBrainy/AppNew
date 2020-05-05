@@ -1,1 +1,76 @@
-// (:
+ion-toolbar{
+    --background: #bee1eb;
+  }
+  
+  ion-title{
+    padding-left: 22px;
+    padding-right: 0px;
+    text-transform: uppercase;
+  }
+  
+  /* #### iPhone 4+ Portrait or Landscape #### */
+  @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+  ion-title{
+      font-size: 15px;
+      text-align: center;
+  }
+  }
+  
+  /* #### iPhone 5 Portrait or Landscape #### */
+  @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+   ion-title{
+       font-size: 15px;
+       text-align: center;
+   }
+  }
+  
+  /* #### iPhone 6 and 6 plus Portrait or Landscape #### */
+  @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
+   ion-title{
+       font-size: 20px;
+       text-align: center;
+   }
+  }
+  
+  /* #### Tablets Portrait or Landscape #### */
+  @media screen and (min-device-width: 768px) and (max-device-width: 1024px){
+   ion-title{
+       font-size: 30px;
+       text-align: center;
+   }
+  }
+  
+  /* #### Desktops #### */
+  @media screen and (min-width: 1024px){
+   ion-title{
+       font-size: 33px;
+       text-align: center;
+   }
+  }
+  
+  ion-card-content{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 20px;
+  }
+  
+  p{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 20px;
+  }
+  
+  ion-card{
+    background:#f4f5f7;
+    font-family: 'ChollaSans-Thin' !important; 
+    color: #000000;
+  }
+  
+  ion-card-title{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 30px;
+    color: #66b067;
+  }
+  
+  ion-card-subtitle{
+    color: #252528;
+    font-size: 18px;
+  }
