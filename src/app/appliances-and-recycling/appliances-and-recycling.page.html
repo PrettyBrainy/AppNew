@@ -1,0 +1,459 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>APPLIANCES AND RECYCLING</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class = "ion-padding">
+<ion-grid [hidden] = "noAgeRange">
+<ion-card class = "welcome-card">
+  <ion-card-header class = "welcome-card-title">
+    Wait!
+  </ion-card-header>
+  <div align = "center">
+  <ion-card-content class = "welcome-card-content">
+    Your profile is incomplete. Please complete your profile before beginning pledges.<br>
+    <ion-button routerLink = "/profile">
+      Comlete Profile
+    </ion-button>
+  </ion-card-content>
+</div>
+</ion-card>
+
+</ion-grid>
+
+
+<ion-grid [hidden] = "hasAgeRange">
+
+
+<div ion-text-left>
+<h4 [hidden] = "hideText"> INTRO TEXT </h4>
+  </div>
+  
+  <div align = 'center'>
+  <ion-button style="font-size: 20px;" [hidden]="hideButton" (click)="startArModule()" >Start This Peak</ion-button>
+  </div>
+
+  <!---- ___________________PROGRESS BAR_________________________-->
+  <div style="text-align: center" [hidden] = "hidePledges">
+      <h1>Progress</h1>
+    </div>
+
+    <div [hidden]="hidePledges">
+
+  <ion-grid>
+  <div class="container">
+      <ion-item-group text-center>
+      <circle-progress 
+      (click) = "getUserProgressBar()"
+      [hidden] = "hidePledges"
+      [percent]= "pledgeCount"
+      [radius]="70"
+      [outerStrokeWidth]="9"
+      [innerStrokeWidth]="5"
+      [outerStrokeColor]="'#1ba561'"
+      [innerStrokeColor]="'#8fcc90'"
+      [animation]="true"
+      [animationDuration]="500"
+      [imageSrc]= "'./assets/circle_badges/circle-cropped_EP.png'" 
+      [showImage]="true"
+      [imageWidth]="112"
+      [imageHeight]="112">
+      </circle-progress>
+      <h5 [hidden] = "hidePledges">Your Progress</h5>
+      </ion-item-group>
+
+      <ion-item-group text-center>
+      <circle-progress 
+      [hidden] = "hidePledges"
+      [hidden] = "hideTeamProgressBar"
+      [percent]= "teamProgressBar"
+      [radius]="70"
+      [outerStrokeWidth]="9"
+      [innerStrokeWidth]="5"
+      [outerStrokeColor]="'#1ba561'"
+      [innerStrokeColor]="'#8fcc90'"
+      [animation]="true"
+      [animationDuration]="500"
+      [imageSrc]= "'./assets/pictures/Circle-Team-Photo.png'" 
+      [showImage]="true"
+      [imageWidth]="112"
+      [imageHeight]="112">
+      </circle-progress>
+      <h5 [hidden] = "hidePledges" [hidden] = "hideTeamProgressBar">Team Progress</h5>
+    </ion-item-group>
+
+      <ion-item-group text-center>
+      <circle-progress 
+      [hidden] = "hidePledges"
+      [percent]= "cityProgressBar"
+      [radius]="70"
+      [outerStrokeWidth]="9"
+      [innerStrokeWidth]="5"
+      [outerStrokeColor]="'#1ba561'"
+      [innerStrokeColor]="'#8fcc90'"
+      [animation]="true"
+      [animationDuration]="500"
+      [imageSrc]= "'./assets/pictures/circle-cropped-FC-Logo.png'" 
+      [showImage]="true"
+      [imageWidth]="112"
+      [imageHeight]="112">
+      </circle-progress>
+      <h5 [hidden] = "hidePledges">City Progress</h5>
+    </ion-item-group>
+  </div>
+</ion-grid>
+
+      <br><br><br>
+
+      <!-------------------INCOMPLETE PLEDGES-------------------->
+
+      <div style="text-align: center" [hidden] = "incomplete">
+      <h2>Incomplete Pledges</h2>
+    </div>
+
+    <ion-list>
+        <ion-list-header [hidden]= "incomplete">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="0.6"> </ion-col>
+              <ion-col class="text-left" size="4.6"> PLEDGE NAME </ion-col>
+              <ion-col size = '2.9' class="points">
+                Points
+              </ion-col>
+              <ion-col size = '2.5' class="pounds">
+                  LBS C0<sub>2</sub>           
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-list-header>
+        
+        <ion-item routerLink = '/ar1' routerDirection = root [hidden]="incompletePledge1">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size = 1>
+                <ion-icon name = 'leaf' color = 'secondary' ></ion-icon></ion-col>
+                <ion-col size="4.7" text-wrap>  </ion-col>
+                <ion-col size = '3' text-wrap class="points">
+                  Points: 
+                </ion-col>
+                <ion-col size = '3.2' text-wrap class="pounds">
+                  Pounds:                 
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+      
+      <ion-item routerLink = '/ar2' routerDirection = root [hidden]="incompletePledge2">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size = 1>
+              <ion-icon name = 'home' color = 'secondary' ></ion-icon></ion-col>
+              <ion-col size="4.7" text-wrap>  </ion-col>
+              <ion-col size = '3' text-wrap class="points">
+                Points: 
+              </ion-col>
+              <ion-col size = '3.2' text-wrap class="pounds">
+                Pounds:                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+    
+      <ion-item routerLink = '/ar3' routerDirection = root [hidden]="incompletePledge3">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size = 1>
+              <ion-icon name = 'globe' color = 'secondary' ></ion-icon></ion-col>
+              <ion-col size="4.7" text-wrap>  </ion-col>
+              <ion-col size = '3' text-wrap class="points">
+                Points: 
+              </ion-col>
+              <ion-col size = '3.2' text-wrap class="pounds">
+                Pounds:              
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+
+      <ion-item routerLink = '/ar4' routerDirection = root [hidden]="incompletePledge4">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size = 1>
+              <ion-icon name = 'snow' color = 'secondary' ></ion-icon></ion-col>
+              <ion-col size="4.7" text-wrap>  </ion-col>
+              <ion-col size = '3' text-wrap class="points">
+                Points: 
+              </ion-col>
+              <ion-col size = '3.2' text-wrap class="pounds">
+                Pounds:                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+
+      <ion-item routerLink = '/ar5' routerDirection = root [hidden]="incompletePledge5">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size = 1>
+              <ion-icon name = 'calculator' color = 'secondary' ></ion-icon></ion-col>
+              <ion-col size="4.7" text-wrap>  </ion-col>
+              <ion-col size = '3' text-wrap class="points">
+                Points: 
+              </ion-col>
+              <ion-col size = '3.2' text-wrap class="pounds">
+                Pounds:               
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+  </ion-list>
+    
+          <br [hidden] = "incomplete"><br [hidden] = "incomplete"><br [hidden] = "incomplete">
+
+          <!---------------------------PENDING---------------------------->
+
+          <div style="text-align: center" [hidden] = "pending">
+            <h2>Pending Pledges</h2>
+          </div>
+    
+          <ion-list>
+              <ion-list-header [hidden]= "pending">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="0.6"> </ion-col>
+                    <ion-col class="text-left" size="4.6"> PLEDGE NAME </ion-col>
+                    <ion-col size = '2.9' class="points">
+                      Points
+                    </ion-col>
+                    <ion-col size = '2.5' class="pounds">
+                        LBS C0<sub>2</sub>           
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-list-header>
+              
+              <ion-item routerLink = '/ar1' routerDirection = root [hidden]="pendingPledge1">
+                <ion-label>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size = 1>
+                      <ion-icon name = 'leaf' color = 'secondary' ></ion-icon></ion-col>
+                      <ion-col size="4.7" text-wrap> </ion-col>
+                      <ion-col size = '3' text-wrap class="points">
+                        Points: 
+                      </ion-col>
+                      <ion-col size = '3.2' text-wrap class="pounds">
+                        Pounds:                
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-label>
+              </ion-item>
+            
+            <ion-item routerLink = '/ar2' routerDirection = root [hidden]="pendingPledge2">
+              <ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size = 1>
+                    <ion-icon name = 'home' color = 'secondary' ></ion-icon></ion-col>
+                    <ion-col size="4.7" text-wrap>  </ion-col>
+                    <ion-col size = '3' text-wrap class="points">
+                      Points:
+                    </ion-col>
+                    <ion-col size = '3.2' text-wrap class="pounds">
+                      Pounds:               
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-label>
+            </ion-item>
+          
+            <ion-item routerLink = '/ar3' routerDirection = root [hidden]="pendingPledge3">
+              <ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size = 1>
+                    <ion-icon name = 'globe' color = 'secondary' ></ion-icon></ion-col>
+                    <ion-col size="4.7" text-wrap>  </ion-col>
+                    <ion-col size = '3' text-wrap class="points">
+                      Points: 
+                    </ion-col>
+                    <ion-col size = '3.2' text-wrap class="pounds">
+                      Pounds:                
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-label>
+            </ion-item>
+    
+            <ion-item routerLink = '/ar4' routerDirection = root [hidden]="pendingPledge4">
+              <ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size = 1>
+                    <ion-icon name = 'snow' color = 'secondary' ></ion-icon></ion-col>
+                    <ion-col size="4.7" text-wrap> </ion-col>
+                    <ion-col size = '3' text-wrap class="points">
+                      Points: 
+                    </ion-col>
+                    <ion-col size = '3.2' text-wrap class="pounds">
+                      Pounds:                
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-label>
+            </ion-item>
+      
+            <ion-item routerLink = '/ar5' routerDirection = root [hidden]="pendingPledge5">
+              <ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size = 1>
+                    <ion-icon name = 'calculator' color = 'secondary' ></ion-icon></ion-col>
+                    <ion-col size="4.7" text-wrap> </ion-col>
+                    <ion-col size = '3' text-wrap class="points">
+                      Points: 
+                    </ion-col>
+                    <ion-col size = '3.2' text-wrap class="pounds">
+                      Pounds:              
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-label>
+            </ion-item>
+        </ion-list>
+          
+                <br [hidden] = "pending"><br [hidden] = "pending"><br [hidden] = "pending">
+
+          <!---------------------------COMPLETE PLEDGES------------------->
+
+    <div style="text-align: center" [hidden] = "completeWord">
+        <h2>Completed Pledges</h2>
+      </div>
+
+      <ion-list>
+          <ion-list-header [hidden] = "completeWord">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="0.6"> </ion-col>
+                <ion-col class="text-left" size="4.6"> PLEDGE NAME </ion-col>
+                <ion-col size = '2.9' class="points">
+                  Points
+                </ion-col>
+                <ion-col size = '2.5' class="pounds">
+                    LBS C0<sub>2</sub>           
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-list-header>
+          
+          <ion-item routerLink = '/ar1' routerDirection = root [hidden]="completePledge1">
+            <ion-label>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size = 1>
+                  <ion-icon name = 'leaf' color = 'secondary' ></ion-icon></ion-col>
+                  <ion-col size="4.7" text-wrap>  </ion-col>
+                  <ion-col size = '3' text-wrap class="points">
+                    Points: 
+                  </ion-col>
+                  <ion-col size = '3.2' text-wrap class="pounds">
+                    Pounds:                
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          </ion-item>
+        
+        <ion-item routerLink = '/ar2' routerDirection = root [hidden]="completePledge2">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size = 1>
+                <ion-icon name = 'home' color = 'secondary' ></ion-icon></ion-col>
+                <ion-col size="4.7" text-wrap>  </ion-col>
+                <ion-col size = '3' text-wrap class="points">
+                  Points: 
+                </ion-col>
+                <ion-col size = '3.2' text-wrap class="pounds">
+                  Pounds:                
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+      
+        <ion-item routerLink = '/ar3' routerDirection = root [hidden]="completePledge3">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size = 1>
+                <ion-icon name = 'globe' color = 'secondary' ></ion-icon></ion-col>
+                <ion-col size="4.7" text-wrap>  </ion-col>
+                <ion-col size = '3' text-wrap class="points">
+                  Points:
+                </ion-col>
+                <ion-col size = '3.2' text-wrap class="pounds">
+                  Pounds:                
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+
+        <ion-item routerLink = '/ar4' routerDirection = root [hidden]="completePledge4">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size = 1>
+                <ion-icon name = 'snow' color = 'secondary' ></ion-icon></ion-col>
+                <ion-col size="4.7" text-wrap>  </ion-col>
+                <ion-col size = '3' text-wrap class="points">
+                  Points: 
+                </ion-col>
+                <ion-col size = '3.2' text-wrap class="pounds">
+                  Pounds:                
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item routerLink = '/ar5' routerDirection = root [hidden]="completePledge5">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size = 1>
+                <ion-icon name = 'calculator' color = 'secondary' ></ion-icon></ion-col>
+                <ion-col size="4.7" text-wrap> </ion-col>
+                <ion-col size = '3' text-wrap class="points">
+                  Points: 
+                </ion-col>
+                <ion-col size = '3.2' text-wrap class="pounds">
+                  Pounds:               
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+    </ion-list>
+  
+   </div>
+
+  </ion-grid>
+</ion-content>     
+
