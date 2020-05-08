@@ -32,8 +32,11 @@
               class="placeholder-profile text-center"
               *ngIf="!userProfile?.firstName"
               class = "ion-text-wrap"
+              class = "text-center"
+              style = color:gray
             >
-              <span class = "ion-text-wrap"> Tap here to edit. </span>
+              <span 
+              class = "ion-text-wrap"> Tap here to enter your name. </span>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -76,6 +79,7 @@
               class="placeholder-profile text-center"
               *ngIf="!userProfile?.email"
               class = "ion-text-wrap"
+              style = color:gray
             >
               <span> Tap here to edit your email. </span>
             </ion-col>
@@ -158,6 +162,7 @@
                 size="7"
                 class="placeholder-profile text-center"
                 *ngIf="!userProfile?.birthDate"
+                style = color:gray
               >
               <span class = "ion-text-wrap"> Tap here to edit your age range. </span>
               </ion-col>
@@ -197,6 +202,15 @@
     </ion-item> -->
 
   </ion-list> 
+
+  <ion-card class = "team-card" [hidden] = "dbAge">
+    <ion-card-content class = "team-card-title">
+      Why Are We Asking For Your Age Range?
+    </ion-card-content>
+    <ion-card-content class = "team-card">
+      We are asking for your age range so, as you use this app, you are given age-appropriate and achievable challenges to help you lead a more sustainable lifestyle.
+    </ion-card-content>
+  </ion-card>
 
   <ion-card class = "profileComplete" [hidden] = "hideProfileCompleteNotice">
     <div align="center">
