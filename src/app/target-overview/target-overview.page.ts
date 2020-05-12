@@ -25,7 +25,7 @@ export class TargetOverviewPage implements OnInit {
 
   goToComputerPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/computers');
   }
 
   goToPlugLoadsPage()
@@ -33,24 +33,24 @@ export class TargetOverviewPage implements OnInit {
     this.navCtrl.navigateForward('/plug-loads');
   }
 
-  goToEandPPage()
+  goToAandRPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/appliances-and-recycling');
   }
 
   goToHeatingCoolingPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/heating-and-cooling');
   }
 
   goToLightingPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/lighting');
   }
   
   goToTransportationPage()
   {
-    this.navCtrl.navigateForward('/comingsoon');
+    this.navCtrl.navigateForward('/transportation');
   }
 
 }
