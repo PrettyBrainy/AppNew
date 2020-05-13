@@ -210,7 +210,7 @@ async updateDOBAlert(): Promise<void> {
     subHeader: 'Your age range',
     inputs: [
       { type: 'radio', name: 'youngAge', value: '11-15', label: '11-15'},
-      { type: 'radio', name:'teenAge', value: '16-18', label: '16-18 (in highschool)'},
+      { type: 'radio', name:'teenAge', value: '16-18', label: '16-18 (in high school)'},
       { type: 'radio', name:'youngAdultAge', value: '18-20', label: '18-20'}, 
       { type: 'radio', name:'adultAge', value:'21+', label: '21+'},
     ],
