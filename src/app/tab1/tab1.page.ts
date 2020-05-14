@@ -97,7 +97,7 @@ doesUserHaveTeam(){
       this.hideTeamProgressBar = false;
       this.team = user.data().team
       
-      this.teamProgressBarTotals(this.team);
+      this.teamProgressBarTotals();
       //this.updateTotalTeamPledgesComplete();
       this.getTeamData(this.team);
       this.hideJoinTeamText = true;
@@ -265,9 +265,9 @@ cityProgressBarTotals(){
 }
 
 //Populates team progress bar
-teamProgressBarTotals(team:string){
+teamProgressBarTotals(){
   //__________________________________Get team info for team progress bar
-  let getTeamInfo = firebase.firestore().collection('teams').doc(`${team}`).get().then((docSnapshot)=>{
+  let getTeamInfo = firebase.firestore().collection('teams').doc(`${this.team}`).get().then((docSnapshot)=>{
   this.teamPoints = Number(docSnapshot.data().teamPoints);
   this.teamTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete);
   this.teamUsers = Number(docSnapshot.data().teamUsers);
