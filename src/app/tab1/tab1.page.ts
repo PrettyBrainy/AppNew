@@ -33,11 +33,13 @@ export class Tab1Page implements OnInit{
   public hidePersonalProgress: boolean = true;
   public EdPoints: Array<Number>;
   public PLPoints: Array<Number>;
+  public LPoints: Array<Number>;
   public CompPoints: Array<Number>;
   public ARPoints: Array<Number>;
   public TPoints: Array<Number>;
   public HCPoints: Array<Number>;
   public PLPounds: Array<Number>;
+  public LPounds: Array<Number>;
   public CompPounds: Array<Number>;
   public ARPounds: Array<Number>;
   public TPounds: Array<Number>;
@@ -476,8 +478,8 @@ updateUserPoundsPointsAndPledgeTotals(){
                               let checkHCApproval = hcApprovalRef.get().then(doc =>{
                                 if(doc.exists){
                                 let hcArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
-                                let hcPointsPossible = [800, 590, 40, 20, 220, 660];
-                                let hcPoundsPossible = [800, 590, 40, 20, 220, 660];
+                                let hcPointsPossible = [30, 300, 1070, 360, 180, 42];
+                                let hcPoundsPossible = [30, 300, 1070, 360, 180, 42];
                                 let hcPointsArray = [];
                                 let hcPoundsArray = [];
                                 totalPledges += hcArray.length;
@@ -717,6 +719,37 @@ updatePLPoints(){
   })
 }
 
+updateLPoints(){
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('lighting');
+  const pointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('lighting');
+  
+  let checkLApprovals = approvalRef.get().then((docSnapshot) => {
+    if (docSnapshot.data()){
+    let lStatusArray = []
+    lStatusArray.push(String(docSnapshot.data().l1), 
+                         String(docSnapshot.data().l2), 
+                         String(docSnapshot.data().l3))
+    let lPointsArray = [240, 90, 160]
+    let userPointsArray = []
+    for(let n =0; n<lStatusArray.length; n++){
+      if(lStatusArray[n] == "approved"){
+        userPointsArray.push(Number(lPointsArray[n]));
+      } else {
+        userPointsArray.push(0);
+      }
+    }
+    this.LPoints = userPointsArray;
+    this.LPounds = userPointsArray;
+    let newUserPoints = {
+      l1: `${Number(userPointsArray[0])}`,
+      l2: `${Number(userPointsArray[1])}`,
+      l3: `${Number(userPointsArray[2])}`
+    }
+    let updateDBPoints = pointsRef.update(newUserPoints);
+    }
+  })
+}
+
 updateComputerPoints(){
   const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('computer');
   const pointsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('points').doc('computer');
@@ -800,8 +833,8 @@ updateTPoints(){
                       String(docSnapshot.data().t7),
                       String(docSnapshot.data().t8),
                       String(docSnapshot.data().t9))
-    let tPointsArray = [730, 830, 100]
-    let tPoundsArray = [730, 830, 0]
+    let tPointsArray = [730, 830, 300, 800, 590, 40, 20, 220, 660]
+    let tPoundsArray = [730, 830, 0, 11800, 590, 40, 20, 220, 660]
     let userPointsArray = []
     for(let n =0; n<tStatusArray.length; n++){
       if(tStatusArray[n] == "approved"){
@@ -842,7 +875,7 @@ updateHCPoints(){
                        String(docSnapshot.data().hc4), 
                        String(docSnapshot.data().hc5),
                        String(docSnapshot.data().hc6))
-    let hcPointsArray = [800, 590, 40, 20, 220, 660]
+    let hcPointsArray = [30, 300, 1070, 360, 180, 42]
     let userPointsArray = []
     for(let n =0; n<hcStatusArray.length; n++){
       if(hcStatusArray[n] == "approved"){
