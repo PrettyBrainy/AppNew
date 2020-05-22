@@ -364,9 +364,9 @@ updateUserPoundsPointsAndPledgeTotals(){
       let checkPlApproved = plApprovalRef.get().then(doc =>{
         let plPledgeComplete = 0;
         if(doc.exists){
-        let plArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5, doc.data().pl6];
-        let plPointsPossible = [70, 120, 50, 1650, 120, 160];
-        let plPoundsPossible = [70, 120, 50, 1650, 120, 160];
+        let plArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5];
+        let plPointsPossible = [70, 120, 1650, 120, 160];
+        let plPoundsPossible = [70, 120, 1650, 120, 160];
         let plPointsArray = [];
         let plPoundsArray = [];
         totalPledges += plArray.length;
@@ -693,9 +693,8 @@ updatePLPoints(){
                        String(docSnapshot.data().pl2), 
                        String(docSnapshot.data().pl3), 
                        String(docSnapshot.data().pl4), 
-                       String(docSnapshot.data().pl5),
-                       String(docSnapshot.data().pl6))
-    let plPointsArray = [70, 120, 50, 1650, 120, 160]
+                       String(docSnapshot.data().pl5))
+    let plPointsArray = [70, 120, 1650, 120, 160]
     let userPointsArray = []
     for(let n =0; n<plStatusArray.length; n++){
       if(plStatusArray[n] == "approved"){
@@ -711,8 +710,7 @@ updatePLPoints(){
       pl2: `${Number(userPointsArray[1])}`,
       pl3: `${Number(userPointsArray[2])}`,
       pl4: `${Number(userPointsArray[3])}`,
-      pl5: `${Number(userPointsArray[4])}`,
-      pl6: `${Number(userPointsArray[5])}`
+      pl5: `${Number(userPointsArray[4])}`
     }
     let updateDBPoints = pointsRef.update(newUserPoints);
     }
@@ -918,7 +916,7 @@ tryGetUserProgressBar(){
     
       let checkPlApprovals = plApprovalRef.get().then(doc =>{
         if(doc.exists){
-        let plApprovalArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5, doc.data().pl6];
+        let plApprovalArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5];
         total += plApprovalArray.length;
         for(let n = 0; n<plApprovalArray.length; n++){
           if (plApprovalArray[n] == "approved"){
