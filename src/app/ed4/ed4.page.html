@@ -15,11 +15,11 @@
   <!--________________________KID VIEW______________________________-->
 
 
+  <p [hidden] = "kidPledge">
 
-
-   <ion-card class = "pledgeCard" [hidden] = kidPledge>
+   <ion-card class = "pledgeCard">
       <ion-card-header>
-        <ion-card-title>Take the Pledge</ion-card-title>
+        <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
         <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
       </ion-card-header>
     
@@ -43,16 +43,17 @@
         Complete all items on the list and you will become an official <strong class="vocabulary">Cool Climate Ambassador</strong> for your community.
         </ion-card-content>
         </ion-card>
+        </p>
 
 
 
 <!--________________________TEEN VIEW______________________________-->
    
+<p [hidden] = "teenPledge">
 
-
-    <ion-card class = "pledgeCard" [hidden] = "teenPledge">
+    <ion-card class = "pledgeCard">
       <ion-card-header>
-        <ion-card-title>Take the Pledge</ion-card-title>
+        <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
         <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
       </ion-card-header>
     
@@ -78,13 +79,15 @@ Here are the guidelines for becoming a <strong class="vocabulary">Cool Climate A
       </ion-card-content>
     </ion-card>
 
+  </p>
+
 <!--________________________ADULT  VIEW______________________________-->
   
 
-
-    <ion-card class = "pledgeCard" [hidden] = "adultPledge">
+<p [hidden] = "adultPledge">
+    <ion-card class = "pledgeCard">
       <ion-card-header>
-        <ion-card-title>Take the Pledge</ion-card-title>
+        <ion-card-title class = "content-heading">Take the Pledge</ion-card-title>
         <ion-card-subtitle>Haven't You Heard, Spread the Word</ion-card-subtitle>
       </ion-card-header>
     
@@ -108,6 +111,7 @@ Here are the guidelines for becoming a <strong class="vocabulary">Cool Climate A
         Complete all items on the list and you will become an official <strong class="vocabulary">Cool Climate Ambassador</strong> for your community.
       </ion-card-content>
     </ion-card>
+  </p>
 
   <Br>
 
@@ -222,5 +226,3 @@ Here are the guidelines for becoming a <strong class="vocabulary">Cool Climate A
 </ion-grid>
 
 </ion-content>
-
-
