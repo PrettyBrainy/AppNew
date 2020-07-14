@@ -20,7 +20,6 @@ public hideText: boolean=false;
 public incompletePledge1: boolean=true;
 public incompletePledge2: boolean=true;
 public incompletePledge3: boolean=true;
-public incompletePledge4: boolean=true;
 public incompletePledge5: boolean=true;
 public incompletePledge6: boolean=true;
 public incomplete: boolean=false;
@@ -29,7 +28,6 @@ public hidePledges: boolean=true;
 public completePledge1: boolean=true;
 public completePledge2: boolean=true;
 public completePledge3: boolean=true;
-public completePledge4: boolean=true;
 public completePledge5: boolean=true;
 public completePledge6: boolean=true;
 public createPledgeList: firebase.firestore.DocumentReference;
@@ -52,9 +50,8 @@ public hideTeamProgressBar: boolean = true;
 public pendingPledge1: boolean = true;
 public pendingPledge2: boolean = true;
 public pendingPledge3: boolean = true;
-public pendingPledge4: boolean = true;
 public pendingPledge5: boolean = true;
-public pendingPledge6: boolean = true;
+public pendingPledge6: boolean =true;
 public pending: boolean=true;
 public hasAgeRange: boolean = true;
 public noAgeRange: boolean = true;
@@ -134,7 +131,7 @@ updateTeamPledgeCount(team: string){
 
   let getTeamInfo = teamRef.get().then((teamSnap) =>{
     let getUserInfo = userRef.collection('approval').doc('heatingAndCooling').get().then((userSnap) => {
-      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc4, userSnap.data().hc5, userSnap.data().hc6];
+      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc5, userSnap.data().hc6];
 
       console.log(status);
 
@@ -184,7 +181,7 @@ updateCityPledgeCount(){
 
   let getTeamInfo = cityRef.get().then((citySnap) =>{
     let getUserInfo = userRef.collection('approval').doc('heatingAndCooling').get().then((userSnap) => {
-      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc4, userSnap.data().hc5, userSnap.data().hc6];
+      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc5, userSnap.data().hc6];
 
       var count = 0;
       for(let n = 0; n<status.length; n++){
@@ -228,13 +225,11 @@ startHcModule(){
   this.incompletePledge1=false;
   this.incompletePledge2=false;
   this.incompletePledge3=false;
-  this.incompletePledge4=false;
   this.incompletePledge5=false;
   this.incompletePledge6=false;
   this.completePledge1=true;
   this.completePledge2=true;
   this.completePledge3=true;
-  this.completePledge4=true;
   this.completePledge5=true;
   this.completePledge6=true;
   
@@ -243,7 +238,6 @@ startHcModule(){
     hc1: " ",
     hc2: " ",
     hc3: " ",
-    hc4: " ",
     hc5: " ",
     hc6: " ",
   }
@@ -252,7 +246,6 @@ startHcModule(){
     hc1: " ",
     hc2: " ",
     hc3: " ",
-    hc4: " ",
     hc5: " ",
     hc6: " ",
     teamPledgesCounted: 0,
@@ -263,7 +256,6 @@ startHcModule(){
     hc1: 0,
     hc2: 0,
     hc3: 0,
-    hc4: 0,
     hc5: 0,
     hc6: 0,
   }
@@ -272,7 +264,6 @@ startHcModule(){
     hc1: 0,
     hc2: 0,
     hc3: 0,
-    hc4: 0,
     hc5: 0,
     hc6: 0,
     teamPoundsCounted: 0,
@@ -299,7 +290,7 @@ getUserProgressBar(){
   
   let checkApprovals = approvalRef.get().then(doc =>{
     if(doc.exists){
-    let approvalArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
+    let approvalArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc5, doc.data().hc6];
     let count = 0;
     let approvedArray = [];
     for(let n = 0; n<approvalArray.length; n++){
@@ -307,7 +298,7 @@ getUserProgressBar(){
         approvedArray.push(false);
         count +=1 ;
       } 
-      var countPercent = (count/6)*100;
+      var countPercent = (count/5)*100;
       this.pledgeCount = String(countPercent);
     }
   }
@@ -346,7 +337,7 @@ cityProgressBarTotals(){
       console.log(count);
       this.cityHcPledgeCount = Number(docSnapshot.data().hcPledgeComplete);
       this.cityUserNumber = count;
-      var totalCityPledges = 6*Number(this.cityUserNumber);
+      var totalCityPledges = 5*Number(this.cityUserNumber);
       this.cityProgressBar = Number((Number(this.cityHcPledgeCount)/totalCityPledges)*100);
 
     })
@@ -369,7 +360,7 @@ teamAndCityProgressBarTotals(){
         this.cityHcPledgeCount = Number(docSnapshot.data().hcPledgeComplete);
         this.cityUserNumber = Number(docSnapshot.data().totalUsers);
 
-        var totalCityPledges = 6*Number(this.cityUserNumber);
+        var totalCityPledges = 5*Number(this.cityUserNumber);
         this.cityProgressBar = Number((Number(this.cityHcPledgeCount)/totalCityPledges)*100);
       })
 
@@ -385,11 +376,11 @@ teamAndCityProgressBarTotals(){
         this.cityHcPledgeCount = Number(docSnapshot.data().hcPledgeComplete);
         this.cityUserNumber = Number(docSnapshot.data().totalUsers);
   
-        var totalTeamPledges = 6 * Number(this.teamUsers);
+        var totalTeamPledges = 5 * Number(this.teamUsers);
         this.teamProgressBar = Number((Number(this.teamHcPledgeCount)/totalTeamPledges)*100);
         console.log(this.teamProgressBar);
       
-        var totalCityPledges = 6*Number(this.cityUserNumber);
+        var totalCityPledges = 5*Number(this.cityUserNumber);
         this.cityProgressBar = Number((Number(this.cityHcPledgeCount)/totalCityPledges)*100);
       })
     }) 
@@ -466,28 +457,6 @@ let statusCheck3 = firebase.firestore().collection('userProfile').doc(`${this.ui
       console.log("has data - 3");
     } 
 
-let statusCheck4 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-  .collection('approval').doc('heatingAndCooling').get().then((docSnapshot)=>{
-    var status4 = String(docSnapshot.data().hc4);
-    console.log(status4);
-    
-    if(status4 == ' '){
-      this.incompletePledge4=false;
-      this.completePledge4=true;
-      this.pendingPledge4=true;
-      console.log("no data - 4");
-    }else if(status4 == 'pending'){
-      this.incompletePledge4=true;
-      this.completePledge4=true;
-      this.pendingPledge4=false;
-      console.log("pending - 4");
-    }else {
-      this.incompletePledge4=true;
-      this.completePledge4=false;
-      this.pendingPledge4=true;
-      console.log("has data - 4");
-    } 
-
 let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
   .collection('approval').doc('heatingAndCooling').get().then((docSnapshot)=>{
     var status5 = String(docSnapshot.data().hc5);
@@ -532,7 +501,7 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
       console.log("has data - 6");
     } 
 
-  let status = [status1, status2, status3, status4, status5, status6];
+  let status = [status1, status2, status3, status5, status6];
   let approved = 0;
   let pending = 0; 
   let incomplete = 0;
@@ -566,8 +535,5 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
       })
     })
   })
-})
 }
-
 }
-
