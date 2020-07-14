@@ -477,9 +477,9 @@ updateUserPoundsPointsAndPledgeTotals(){
 
                               let checkHCApproval = hcApprovalRef.get().then(doc =>{
                                 if(doc.exists){
-                                let hcArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
-                                let hcPointsPossible = [30, 300, 1070, 360, 180, 42];
-                                let hcPoundsPossible = [30, 300, 1070, 360, 180, 42];
+                                let hcArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc5, doc.data().hc6];
+                                let hcPointsPossible = [30, 300, 1070, 180, 42];
+                                let hcPoundsPossible = [30, 300, 1070, 180, 42];
                                 let hcPointsArray = [];
                                 let hcPoundsArray = [];
                                 totalPledges += hcArray.length;
@@ -871,11 +871,10 @@ updateHCPoints(){
     let hcStatusArray = []
     hcStatusArray.push(String(docSnapshot.data().hc1), 
                        String(docSnapshot.data().hc2), 
-                       String(docSnapshot.data().hc3), 
-                       String(docSnapshot.data().hc4), 
+                       String(docSnapshot.data().hc3),  
                        String(docSnapshot.data().hc5),
                        String(docSnapshot.data().hc6))
-    let hcPointsArray = [30, 300, 1070, 360, 180, 42]
+    let hcPointsArray = [30, 300, 1070, 180, 42]
     let userPointsArray = []
     for(let n =0; n<hcStatusArray.length; n++){
       if(hcStatusArray[n] == "approved"){
@@ -890,9 +889,8 @@ updateHCPoints(){
       hc1: `${Number(userPointsArray[0])}`,
       hc2: `${Number(userPointsArray[1])}`,
       hc3: `${Number(userPointsArray[2])}`,
-      hc4: `${Number(userPointsArray[3])}`,
-      hc5: `${Number(userPointsArray[4])}`,
-      hc6: `${Number(userPointsArray[5])}`
+      hc5: `${Number(userPointsArray[3])}`,
+      hc6: `${Number(userPointsArray[4])}`
     }
     let updateDBPoints = pointsRef.update(newUserPoints);
     }
@@ -999,7 +997,7 @@ tryGetUserProgressBar(){
                           
                               let checkHCApprovals = hcApprovalRef.get().then(doc =>{
                                 if(doc.exists){
-                                let hcApprovalArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc4, doc.data().hc5, doc.data().hc6];
+                                let hcApprovalArray = [doc.data().hc1, doc.data().hc2, doc.data().hc3, doc.data().hc5, doc.data().hc6];
                                 total += hcApprovalArray.length;
                                 for(let n = 0; n<hcApprovalArray.length; n++){
                                   if (hcApprovalArray[n] == "approved"){
