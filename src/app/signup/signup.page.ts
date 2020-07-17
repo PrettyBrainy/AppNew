@@ -46,10 +46,28 @@ export class SignupPage implements OnInit {
   
       this.authService.signupUser(email, password).then(
         () => {
-          this.loading.dismiss().then(() => {
+          this.loading.dismiss().then(async () => {
             this.router.navigateByUrl('/tabs/tab1');
-          });
+
+              const alert = await this.alertController.create({
+                header: 'Please fill out your profile',
+                message: 'Fill in your profile information so you can begin your journey.',
+                buttons: [
+                  {
+                   text: 'OK',
+                   handler: () => {
+                     this.navCtrl.navigateForward('/profile');
+                   }
+                  }],
+              });
+            
+              await alert.present();
+              let result = await alert.onDidDismiss();
+              console.log(result);
+            }
+          );
         },
+
         error => {
           this.loading.dismiss().then(async () => {
             const alert = await this.alertCtrl.create({
@@ -64,22 +82,4 @@ export class SignupPage implements OnInit {
       await this.loading.present();
     }
   }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Please fill out your profile',
-      message: 'Fill in your profile information so you can begin your journey.',
-      buttons: [
-        {
-         text: 'OK',
-         handler: () => {
-           this.navCtrl.navigateForward('/profile');
-         }
-        }],
-    });
-  
-    await alert.present();
-    let result = await alert.onDidDismiss();
-    console.log(result);
-  }
-
 }
