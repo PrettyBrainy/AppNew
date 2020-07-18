@@ -281,7 +281,7 @@ ion-title{
 //_____________________________________________Stop CSS for scaling titles
 
 .verifyPledgeForm{
-ion-label{
+  ion-label{
     font-size: 20px
   }
 
@@ -292,14 +292,13 @@ ion-label{
   background:#f4f5f7;
   font-family: 'ChollaSans-Thin' !important; 
 
-  ion-card-subtitle{
-    font-size: 18px;
+  ion-card-content{
+    font-size: 16px;
   }
   ion-card-header{
     color: #66b067;
     font-size: 22px;
   }
-  padding: 10px;
 }
 
 
