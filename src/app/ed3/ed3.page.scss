@@ -1,7 +1,13 @@
-ion-title{
+.ios ion-title{
   padding-left: 15px;
   padding-right: 0px;
   text-transform: uppercase;
+  }
+
+.md ion-title{
+    padding-left: 0px;
+    padding-right: 15px;
+    text-transform: uppercase;
   }
 
   ion-card-content{
