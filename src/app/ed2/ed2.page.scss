@@ -1,8 +1,14 @@
-ion-title{
+.ios ion-title{
   padding-left: 20px;
   padding-right: 0px;
   text-transform: uppercase;
   }
+
+.md ion-title{
+  padding-left: 0px;
+  padding-right: 20px;
+  text-transform: uppercase;
+}
 
   ion-card-content{
     font-family: 'ChollaSans-Thin' !important; 
