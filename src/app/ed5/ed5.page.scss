@@ -2,6 +2,17 @@ ion-content{
     --ion-background-color:#bee1eb;
  }
 
+ .ios ion-title{
+  padding-left: 22px;
+  padding-right: 0px;
+  text-transform: uppercase;
+}
+
+.md ion-title{
+  padding-left: 0px;
+  padding-right: 22px;
+  text-transform: uppercase;
+}
 
  ion-header{
      font-family: 'Archer-Bold';
