@@ -51,6 +51,7 @@ const routes: Routes = [
   { path: 'ed1docs', loadChildren: './educationdocuments/ed1docs/ed1docs.module#Ed1docsPageModule' },
   { path: 'ed2docs', loadChildren: './educationdocuments/ed2docs/ed2docs.module#Ed2docsPageModule' },
   { path: 'ed3docs', loadChildren: './educationdocuments/ed3docs/ed3docs.module#Ed3docsPageModule' },
+  { path: 'labgraphpics', loadChildren: './educationdocuments/labgraphpics/labgraphpics.module#LabgraphpicsPageModule' },
   { path: 'pl1', loadChildren: './plug-loads/pl1/pl1.module#Pl1PageModule' },
   { path: 'pl2', loadChildren: './plug-loads/pl2/pl2.module#Pl2PageModule' },
   { path: 'pl3', loadChildren: './plug-loads/pl3/pl3.module#Pl3PageModule' },
