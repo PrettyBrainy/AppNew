@@ -145,7 +145,7 @@ updateTeamPledgeCount(team: string){
       console.log(difference);
 
       if (difference > 0){
-        var teamCPledges = Number(teamSnap.data().cPledgeComplete);
+        var teamCPledges = Number(teamSnap.data().CPledgeComplete);
         var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
 
         var teamNewC = difference + teamCPledges;
