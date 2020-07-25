@@ -51,6 +51,14 @@ export class Tab1Page implements OnInit{
   public userPledgeCount: number;
   public lifetimeUserPoints: number;
   public hideJoinTeamText: boolean;
+  public HCPoundsCarbon: number = 0;
+  public HCPoundsCarbonArray: Array<Number>
+  public TPoundsCarbon: number = 0;
+  public CPoundsCarbon: number = 0;
+  public PLPoundsCarbon: number = 0;
+  public LPoundsCarbon: number = 0;
+  public ARPoundsCarbon: number = 0;
+
   constructor(private profileService: ProfileService) {}
 
 
@@ -63,10 +71,11 @@ ngOnInit() {
 
   this.hasUserStartedModules();         //Check if User has Started the Modules
   this.doesUserHaveTeam();              //Check if User Has a Team and get team info
-  this.cityProgressBarTotals();
+  this.cityProgressBarTotals();         //Populate City Progress Bar with Completed Pledges
 
 }
 
+//Get total users for the City Progress Bar
 retrieveTotalUsers(){
   let n = firebase.firestore().collection('userProfile').get().then( collection =>{
     let count = 0
@@ -92,6 +101,7 @@ hasUserStartedModules() {    //Check to see if user has started any modules.
   })
 }
 
+//Check to see if user has team and display correct team information/join team prompts
 doesUserHaveTeam(){
   const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
   let getTeam = userRef.get().then(user => {
@@ -103,6 +113,7 @@ doesUserHaveTeam(){
       //this.updateTotalTeamPledgesComplete();
       this.getTeamData(this.team);
       this.hideJoinTeamText = true;
+      
     
       //this.updateTotalTeamPledgesComplete();
       //this.getUserandTeamData();
@@ -116,6 +127,7 @@ doesUserHaveTeam(){
   })
 }
 
+//What is the team name, pounds, and 
 getTeamData(team:string){
       let teamPointsSearch = firebase.firestore().collection('teams').doc(`${team}`).get().then((docSnapshot)=>{
         this.teamAccessCode = String(docSnapshot.data().accessCode);
@@ -138,9 +150,54 @@ getUserData(){
   })
 }
 
-teamBool(){
-  var team = false;
-  return team;
+updatePLTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('plug-loads').get().then((userSnap) => {
+      var status = [userSnap.data().pl1, userSnap.data().pl2, userSnap.data().pl3, userSnap.data().pl4, userSnap.data().pl5];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamPlPledges = Number(teamSnap.data().plPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewPl = difference + teamPlPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          plPledgeComplete: `${teamNewPl}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('plug-loads').update(userNewTotals);
+
+      }
+
+    })
+
+  })
 }
 
 updateEdPledgeComplete(edPledgeComplete: number){
@@ -156,6 +213,23 @@ updateEdPledgeComplete(edPledgeComplete: number){
     var cityCounted = Number(edSnap.data().cityPledgesCounted);
     let edDiffTeam = edPledgeComplete-teamCounted;
     let edDiffCity = edPledgeComplete-cityCounted;
+
+  })
+}
+
+updateLightingPledgeComplete(lPledgeComplete: number){
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('lighting'); 
+  console.log("from inside the function: lighting pledge complete = ", lPledgeComplete);
+  let newLightingPledgeComplete = {
+    edPledgeComplete: `${lPledgeComplete}`
+  }
+  let updatelightingPledge = firebase.firestore().collection('userProfile').doc(`${this.uid}`).update(newLightingPledgeComplete);
+
+  let lightingCounted = approvalRef.get().then(lightingSnap=>{
+    var teamCounted = Number(lightingSnap.data().teamPledgesCounted);
+    var cityCounted = Number(lightingSnap.data().cityPledgesCounted);
+    let lightingDiffTeam = lPledgeComplete-teamCounted;
+    let lightingDiffCity = lPledgeComplete-cityCounted;
 
   })
 }
@@ -254,14 +328,13 @@ cityProgressBarTotals(){
         count +=1;
       })
 
-      console.log(count);
+      //console.log("Total Users: " + String(count));
       this.cityTotalPledgeCount = Number(docSnapshot.data().totalPledgesComplete);
       this.cityUserNumber = count;
       var possible = Number(docSnapshot.data().totalPossiblePledgesPerUser);
       var totalCityPledges = possible*Number(this.cityUserNumber);
       this.cityProgressBar = Number((Number(this.cityTotalPledgeCount)/totalCityPledges)*100);
       this.cityTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
-      console.log(this.cityUserNumber);
     })
   })
 }
@@ -279,6 +352,7 @@ teamProgressBarTotals(){
 
     var totalTeamPledges = Number(this.totalPledgesPossiblePerUser)*Number(this.teamUsers);
     this.teamProgressBar = Number((this.teamTotalPledgeCount)/totalTeamPledges)*100;
+    this.teamTotalPoundsCarbon = Number(docSnapshot.data().totalPoundsCarbon);
 
   })
   })
@@ -298,6 +372,921 @@ randomFunctionToGetUserInfoAndPoints(){
       let updateIndiPoints = userRef.update(newPointsIndi);
   })
 }
+
+updateLightingTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('lighting').get().then((userSnap) => {
+      var status = [userSnap.data().l1, userSnap.data().l2, userSnap.data().l3];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamlPledges = Number(teamSnap.data().lPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewl = difference + teamlPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          lPledgeComplete: `${teamNewl}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('lighting').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateARTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('appliancesAndRecycling').get().then((userSnap) => {
+      var status = [userSnap.data().ar1, userSnap.data().ar2, userSnap.data().ar3, userSnap.data().ar4, userSnap.data().ar5];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamArPledges = Number(teamSnap.data().arPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewAr = difference + teamArPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          arPledgeComplete: `${teamNewAr}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('appliancesAndRecycling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateComputersTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('computers').get().then((userSnap) => {
+      var status = [userSnap.data().c1, userSnap.data().c2, userSnap.data().c3];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamCPledges = Number(teamSnap.data().cPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewC = difference + teamCPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          CPledgeComplete: `${teamNewC}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('computers').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+  
+updateTransportationTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('transportation').get().then((userSnap) => {
+      var status = [userSnap.data().t1, userSnap.data().t2, userSnap.data().t3, userSnap.data().t4, userSnap.data().t5, userSnap.data().t6, userSnap.data().t7, userSnap.data().t8, userSnap.data().t9];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamTPledges = Number(teamSnap.data().tPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewT = difference + teamTPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          tPledgeComplete: `${teamNewT}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('transportation').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateHCTeamPledgeCount(team: string){
+
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('heatingAndCooling').get().then((userSnap) => {
+      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc5, userSnap.data().hc6];
+
+      console.log(status);
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      console.log(count);
+
+      var included = Number(userSnap.data().teamPledgesCounted);
+
+      var difference = count - included;
+
+      console.log(difference);
+
+      if (difference > 0){
+        var teamHcPledges = Number(teamSnap.data().hcPledgeComplete);
+        var teamTotalPledges = Number(teamSnap.data().totalPledgesComplete);
+
+        var teamNewHc = difference + teamHcPledges;
+        var teamNewTotal = difference + teamTotalPledges;
+
+        var teamNewTotals = {
+          hcPledgeComplete: `${teamNewHc}`,
+          totalPledgesComplete: `${teamNewTotal}`
+        }
+        var userNewTotals = {
+          teamPledgesCounted: `${count}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('approval').doc('heatingAndCooling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+  
+
+updatePLCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('plug-loads').get().then((userSnap) => {
+      var status = [userSnap.data().pl1, userSnap.data().pl2, userSnap.data().pl3, userSnap.data().pl4, userSnap.data().pl5];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityPlPledges = Number(citySnap.data().plPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewPl = difference + cityPlPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          plPledgeComplete: `${cityNewPl}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('plug-loads').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateLightingCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('lighting').get().then((userSnap) => {
+      var status = [userSnap.data().l1, userSnap.data().l2, userSnap.data().l3];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityLPledges = Number(citySnap.data().lPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewl = difference + cityLPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          lPledgeComplete: `${cityNewl}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('lighting').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateARCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('appliancesAndRecycling').get().then((userSnap) => {
+      var status = [userSnap.data().ar1, userSnap.data().ar2, userSnap.data().ar3, userSnap.data().ar4, userSnap.data().ar5];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityArPledges = Number(citySnap.data().arPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewAr = difference + cityArPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          arPledgeComplete: `${cityNewAr}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('appliancesAndRecycling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateComputersCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('computers').get().then((userSnap) => {
+      var status = [userSnap.data().c1, userSnap.data().c2, userSnap.data().c3];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityCPledges = Number(citySnap.data().CPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewC = difference + cityCPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          CPledgeComplete: `${cityNewC}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('computers').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateTransportationCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('transportation').get().then((userSnap) => {
+      var status = [userSnap.data().t1, userSnap.data().t2, userSnap.data().t3, userSnap.data().t4, userSnap.data().t5, userSnap.data().t6, userSnap.data().t7, userSnap.data().t8, userSnap.data().t9];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityTPledges = Number(citySnap.data().tPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewT = difference + cityTPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          tPledgeComplete: `${cityNewT}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('transportation').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateHCCityPledgeCount(){
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('approval').doc('heatingAndCooling').get().then((userSnap) => {
+      var status = [userSnap.data().hc1, userSnap.data().hc2, userSnap.data().hc3, userSnap.data().hc5, userSnap.data().hc6];
+
+      var count = 0;
+      for(let n = 0; n<status.length; n++){
+        if (status[n] == "approved"){
+          count +=1;
+        }
+      }
+
+      var included = Number(userSnap.data().cityPledgesCounted);
+
+      var difference = count - included;
+      if (difference > 0){
+        var cityHcPledges = Number(citySnap.data().hcPledgeComplete);
+        var cityTotalPledges = Number(citySnap.data().totalPledgesComplete);
+
+        var cityNewHc = difference + cityHcPledges;
+        var cityNewTotal = difference + cityTotalPledges;
+
+        var cityNewTotals = {
+          hcPledgeComplete: `${cityNewHc}`,
+          totalPledgesComplete: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPledgesCounted: `${count}`
+        }
+        let updateTeam = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('approval').doc('heatingAndCooling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateHCCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('heatingAndCooling').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('heatingAndCooling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateHCTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('heatingAndCooling').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('heatingAndCooling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updateLCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('lighting').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('lighting').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateLTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('lighting').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('lighting').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateCCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('computers').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('computers').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateCTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('computers').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('computers').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+updatePLCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('plug-loads').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('plug-loads').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updatePLTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('plug-loads').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('plug-loads').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateTCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('transportation').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('transportation').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateTTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('transportation').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('transportation').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateARCityPoundsCount(pounds: number){
+  console.log(pounds);
+  var cityRef = firebase.firestore().collection('cityOverall').doc('cityOverall');
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = cityRef.get().then((citySnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('appliancesAndRecycling').get().then((userSnap) => {
+
+
+      var included = Number(userSnap.data().cityPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var cityTotalPounds = Number(citySnap.data().totalPoundsCarbon);
+
+        var cityNewTotal = difference + cityTotalPounds;
+
+        var cityNewTotals = {
+          totalPoundsCarbon: `${cityNewTotal}`
+        }
+
+        var userNewTotals = {
+          cityPoundsCounted: `${pounds}`
+        }
+        let updateCity = cityRef.update(cityNewTotals);
+        let updateUser = userRef.collection('pounds').doc('appliancesAndRecycling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
+
+updateARTeamPoundsCount(pounds: number, team: string){
+  var teamRef = firebase.firestore().collection('teams').doc(`${team}`);
+  var userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+
+  let getTeamInfo = teamRef.get().then((teamSnap) =>{
+    let getUserInfo = userRef.collection('pounds').doc('appliancesAndRecycling').get().then((userSnap) => {
+
+      var included = Number(userSnap.data().teamPoundsCounted);
+
+      var difference = pounds - included;
+      if (difference > 0){
+        var teamTotalPounds = Number(teamSnap.data().totalPoundsCarbon);
+
+        var teamNewTotal = difference + teamTotalPounds;
+
+        var teamNewTotals = {
+          totalPoundsCarbon: `${teamNewTotal}`
+        }
+
+        var userNewTotals = {
+          teamPoundsCounted: `${pounds}`
+        }
+        let updateTeam = teamRef.update(teamNewTotals);
+        let updateUser = userRef.collection('pounds').doc('appliancesAndRecycling').update(userNewTotals);
+
+      }
+
+    })
+
+  })
+}
+
 
 
 updateUserPoundsPointsAndPledgeTotals(){
@@ -352,7 +1341,6 @@ updateUserPoundsPointsAndPledgeTotals(){
         edPoundsArray.push(0);
       }
     }
-    console.log("edPledgeComplete: ", edPledgeComplete);
   
         //update education information in database.
       if(edPledgeComplete > 0){
@@ -360,11 +1348,13 @@ updateUserPoundsPointsAndPledgeTotals(){
         this.updateUserEdPoints(edPointsArray);             //Update user edPoints
         this.updateCityEdPoundsFromUserData(edPoundsArray);
         this.updateCityEdPledgesFromUserData(edPledgeComplete);
+        this.updateTeamEdPledges();
       }   
     }
     
       let checkPlApproved = plApprovalRef.get().then(doc =>{
         let plPledgeComplete = 0;
+
         if(doc.exists){
         let plArray = [doc.data().pl1, doc.data().pl2, doc.data().pl3, doc.data().pl4, doc.data().pl5];
         let plPointsPossible = [70, 120, 1650, 120, 160];
@@ -372,6 +1362,7 @@ updateUserPoundsPointsAndPledgeTotals(){
         let plPointsArray = [];
         let plPoundsArray = [];
         totalPledges += plArray.length;
+        let plPoundsCarbon = 0;
         for(let n = 0; n<plArray.length; n++){
           if (plArray[n] == "approved"){
             pledgesComplete+=1;
@@ -380,14 +1371,28 @@ updateUserPoundsPointsAndPledgeTotals(){
             plPointsArray.push(plPointsPossible[n]);
             plPoundsArray.push(plPoundsPossible[n]);
             plPledgeComplete+=1;
+            plPoundsCarbon += plPoundsPossible[n];
+            this.PLPoundsCarbon += plPoundsPossible[n];
           } else{
             plPointsArray.push(0);
             plPoundsArray.push(0);
           }
         }
+        console.log("PL Plesges Complete: " , plPledgeComplete);
+        console.log("Pounds Array: ", plPoundsArray);
+        if(plPledgeComplete > 0){
+          this.updatePLTeamPledgeCount(this.team);
+          this.updatePLCityPledgeCount()
+          this.updatePLCityPoundsCount(Number(this.PLPoundsCarbon));
+          this.updatePLTeamPoundsCount(Number(this.PLPoundsCarbon), this.team);
+          
+          
+        }
       }
 
+//Begin Lighting 
           let checkLApproved = lApprovalRef.get().then(doc =>{
+            let lPledgeComplete = 0;
             if(doc.exists){
             let lArray = [doc.data().l1, doc.data().l2, doc.data().l3];
             let lPointsPossible = [240, 90, 160];
@@ -395,20 +1400,39 @@ updateUserPoundsPointsAndPledgeTotals(){
             let lPointsArray = [];
             let lPoundsArray = [];
             totalPledges += lArray.length;
+            
             for(let n = 0; n<lArray.length; n++){
               if (lArray[n] == "approved"){
                 pledgesComplete+=1;
                 points += lPointsPossible[n];
+                this.LPoundsCarbon += lPoundsPossible[n];
                 poundsCarbon += lPoundsPossible[n];
                 lPointsArray.push(lPointsPossible[n]);
                 lPoundsArray.push(lPoundsPossible[n]);
+                lPledgeComplete += 1;
               } else {
                 lPointsArray.push(0);
                 lPoundsArray.push(0);
               }
             }
-          }
+                    //update education information in database.
+      if(lPledgeComplete > 0){
+        this.updateLightingPledgeComplete(lPledgeComplete);      //Update edPledgeComplete in user profile
+        //this.updateUserLightingPoints(lPointsArray);             //Update user edPoints
+        //this.updateCityLightingPoundsFromUserData(lPoundsArray);
+        //this.updateCityLightingPledgesFromUserData(edPledgeComplete);
+        //this.updateTeamLightingPledges();
+        this.updateLightingCityPledgeCount();
+        this.updateLightingTeamPledgeCount(this.team);
+        this.updateLCityPoundsCount(Number(this.LPoundsCarbon));
+        this.updateLTeamPoundsCount(Number(this.LPoundsCarbon), this.team);
+      }   
+    }
 
+          
+
+
+//Begin Computers
               let checkCApproval = cApprovalRef.get().then(doc =>{
                 if(doc.exists){
                 let cArray = [doc.data().c1, doc.data().c2, doc.data().c3];
@@ -417,17 +1441,26 @@ updateUserPoundsPointsAndPledgeTotals(){
                 let cPointsArray = [];
                 let cPoundsArray = [];
                 totalPledges += cArray.length;
+                let cPledgeComplete = 0;
                 for(let n = 0; n<cArray.length; n++){
                   if (cArray[n] == "approved"){
                     pledgesComplete+=1;
                     points += cPointsPossible[n];
+                    this.CPoundsCarbon += cPoundsPossible[n];
                     poundsCarbon += cPoundsPossible[n];
                     cPointsArray.push(cPointsPossible[n]);
                     cPoundsArray.push(cPoundsPossible[n]);
+                    cPledgeComplete +=1;
                   } else {
                     cPointsArray.push(0);
                     cPoundsArray.push(0);
                   } 
+                }
+                if (cPledgeComplete > 0){
+                  this.updateComputersTeamPledgeCount(this.team);
+                  this.updateComputersCityPledgeCount()
+                  this.updateCCityPoundsCount(Number(this.CPoundsCarbon));
+                  this.updateCTeamPoundsCount(Number(this.CPoundsCarbon), this.team);
                 }
               }
                  
@@ -438,19 +1471,29 @@ updateUserPoundsPointsAndPledgeTotals(){
                     let arPoundsPossible = [370, 150, 120, 1030, 260];
                     let arPointsArray = [];
                     let arPoundsArray = [];
+                    let arPledgeComplete = 0;
                     totalPledges += arArray.length;
                     for(let n = 0; n<arArray.length; n++){
                       if (arArray[n] == "approved"){
                         pledgesComplete+=1;
                         points += arPointsPossible[n];
+                        this.ARPoundsCarbon += arPoundsPossible[n];
                         poundsCarbon += arPoundsPossible[n];
                         arPointsArray.push(arPointsPossible[n]);
                         arPoundsArray.push(arPoundsPossible[n]);
+                        arPledgeComplete +=1;
                       } else {
                         arPointsArray.push(0);
                         arPoundsArray.push(0);
                       } 
                       } 
+                      if (arPledgeComplete > 0){
+                        this.updateARTeamPledgeCount(this.team);
+                        this.updateARCityPledgeCount();
+                        this.updateARCityPoundsCount(Number(this.ARPoundsCarbon));
+                        this.updateARTeamPoundsCount(Number(this.ARPoundsCarbon), this.team);
+
+                      }
                     }
 
                       let checkTApproval = tApprovalRef.get().then(doc =>{
@@ -461,17 +1504,26 @@ updateUserPoundsPointsAndPledgeTotals(){
                         let tPointsArray = [];
                         let tPoundsArray = [];
                         totalPledges += tArray.length;
+                        let tPledgeComplete = 0;
                         for(let n = 0; n<tArray.length; n++){
                           if (tArray[n] == "approved"){
                             pledgesComplete+=1;
                             points += tPointsPossible[n];
+                            this.TPoundsCarbon += tPoundsPossible[n];
                             poundsCarbon += tPoundsPossible[n];
                             tPointsArray.push(tPointsPossible[n]);
                             tPoundsArray.push(tPoundsPossible[n]);
+                            tPledgeComplete +=1;
                           } else {
                             tPointsArray.push(0);
                             tPoundsArray.push(0);
                           } 
+                          }
+                          if(tPledgeComplete > 0){
+                            this.updateTransportationTeamPledgeCount(this.team);
+                            this.updateTransportationCityPledgeCount();
+                            this.updateTCityPoundsCount(Number(this.TPoundsCarbon));
+                            this.updateTTeamPoundsCount(Number(this.TPoundsCarbon), this.team);
                           }
                         }
 
@@ -483,18 +1535,27 @@ updateUserPoundsPointsAndPledgeTotals(){
                                 let hcPointsArray = [];
                                 let hcPoundsArray = [];
                                 totalPledges += hcArray.length;
+                                let hcPledgeComplete = 0;
                                 for(let n = 0; n<hcArray.length; n++){
                                   if (hcArray[n] == "approved"){
                                     pledgesComplete+=1;
                                     points += hcPointsPossible[n];
+                                    this.HCPoundsCarbon += hcPoundsPossible[n];
                                     poundsCarbon += hcPoundsPossible[n];
                                     hcPointsArray.push(hcPointsPossible[n]);
                                     hcPoundsArray.push(hcPoundsPossible[n]);
+                                    hcPledgeComplete += 1;
                                   } else {
                                     hcPointsArray.push(0);
                                     hcPoundsArray.push(0);
                                   }
                                   } 
+                                  if (hcPledgeComplete > 0){
+                                    this.updateHCTeamPledgeCount(this.team);
+                                    this.updateHCCityPledgeCount();
+                                    this.updateHCCityPoundsCount(Number(this.HCPoundsCarbon));
+                                    this.updateHCTeamPoundsCount(Number(this.HCPoundsCarbon), this.team);
+                                  }
                                 }
                                 this.lifetimeUserPoints = points;
                                 this.userTotalPoundsCarbon = poundsCarbon;                              
@@ -642,10 +1703,11 @@ updateTeamEdPledges(){
     const teamRef = firebase.firestore().collection('teams').doc(`${this.team}`);
 
     let getUserPledgeContributions = pledgesRef.get().then(pledgeSnap =>{
-      var userPledgeTeamCount = Number(pledgeSnap.data().teamPledgesCounted);
-      var userPledgeCityCount = Number(pledgeSnap.data().cityPledgesCounted);
+      
       
       let getApprovalStatus = approvalRef.get().then(approvalSnap =>{
+      var userPledgeTeamCount = Number(approvalSnap.data().teamPledgesCounted);
+      var userPledgeCityCount = Number(approvalSnap.data().cityPledgesCounted);
       var approvedArray = []
       approvedArray.push(String(approvalSnap.data().ed1),
                         String(approvalSnap.data().ed2),
@@ -673,7 +1735,7 @@ updateTeamEdPledges(){
             teamPledgesCounted: `${pledgeCount}`
           }
 
-          let updateCounted = pledgesRef.update(ed);
+          let updateCounted = approvalRef.update(ed);
         
         })
         }
@@ -696,7 +1758,7 @@ updatePLPoints(){
                        String(docSnapshot.data().pl3), 
                        String(docSnapshot.data().pl4), 
                        String(docSnapshot.data().pl5))
-    let plPointsArray = [70, 120, 1650, 120, 160]
+    let plPointsArray = [70, 120, 1650, 120, 160];
     let userPointsArray = []
     for(let n =0; n<plStatusArray.length; n++){
       if(plStatusArray[n] == "approved"){
@@ -718,6 +1780,172 @@ updatePLPoints(){
     }
   })
 }
+
+updateUserPLPounds(edPoundsArray: Array<number>){
+  const poundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('plug-loads');
+  let newUserPounds = {
+    pl1: `${Number(edPoundsArray[0])}`,
+    pl2: `${Number(edPoundsArray[1])}`,
+    pl3: `${Number(edPoundsArray[2])}`,
+    pl4: `${Number(edPoundsArray[3])}`,
+    pl5: `${Number(edPoundsArray[4])}`
+  }
+    let updateDBPounds = poundsRef.update(newUserPounds);
+    this.updateTeamPLPounds();
+}
+
+updateCityPLPoundsFromUserData(edPoundsArray: Array<number>){
+  let pounds = 0;
+  for(let n = 0; n<edPoundsArray.length; n++){
+    pounds += edPoundsArray[n];
+  }
+  const poundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('plug-loads');
+  
+  let viewCountedPounds = poundsRef.get().then( poundsSnap => {
+    let countedPounds = Number(poundsSnap.data().cityPoundsCounted);
+    let diffPounds = countedPounds - pounds
+    if(diffPounds>0){
+      let cityPoundsCheck = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then(citySnap=>{
+        let cityPounds = Number(citySnap.data().totalPoundsCarbon)
+        let newPounds = cityPounds + diffPounds;
+        let newPoundsUpdate = {
+          totalPoundsCarbon:`${newPounds}`
+        }
+        let newCountedPounds = {
+          cityPoundsCounted:`${pounds}`
+        }
+        let updateCity = firebase.firestore().collection('cityOverall').doc('cityOverall').update(newPoundsUpdate);
+        let updateUser = poundsRef.update(newCountedPounds);
+      })
+    }
+  })
+
+}
+
+updateCityPLPledgesFromUserData(pledges: number){
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads');
+  let viewCountedPledges = approvalRef.get().then( pledgeSnap => {
+    let countedPledges = Number(pledgeSnap.data().cityPledgesCounted);
+    let diffPledges = countedPledges - pledges
+    if(diffPledges>0){
+      let cityPledgeCheck = firebase.firestore().collection('cityOverall').doc('cityOverall').get().then(citySnap=>{
+        let cityPlPledges = Number(citySnap.data().PlPledgeComplete);
+        let cityPledges = Number(citySnap.data().totalPledgesComplete)
+        let newPlPledge = cityPlPledges + diffPledges;
+        let newPledgeUpdate = {
+          plPledgeComplete:`${newPlPledge}`
+        }
+        let newCountedPledges = {
+          cityPledgesCounted:`${pledges}`
+        }
+        let updateCity = firebase.firestore().collection('cityOverall').doc('cityOverall').update(newPledgeUpdate);
+        let updateUser = approvalRef.update(newCountedPledges);
+        console.log("from inside the function, PlPledge to City:", newPlPledge);
+        console.log("diffPledges: ", diffPledges);
+        console.log("pledges ", pledges);
+
+      })
+    }
+  })
+}
+
+
+
+updateTeamPLPounds(){
+  const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+  const poundsRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pounds').doc('plug-loads');
+  
+  let getUserInfo = userRef.get().then(userSnap =>{
+    this.team = String(userSnap.data().team);
+
+    const teamRef = firebase.firestore().collection('teams').doc(`${this.team}`);
+
+    let getUserPoundContributions = poundsRef.get().then(poundSnap =>{
+      var userPoundTeamCount = Number(poundSnap.data().teamPoundsCounted);
+      var userPoundCityCount = Number(poundSnap.data().cityPoundsCounted);
+      var poundsArray = []
+      poundsArray.push(Number(poundSnap.data().pl1),
+                      Number(poundSnap.data().pl2),
+                      Number(poundSnap.data().pl3),
+                      Number(poundSnap.data().pl4),
+                      Number(poundSnap.data().pl5))
+      var poundsSum = 0
+      for(let n = 0; n<poundsArray.length; n++){
+        poundsSum += poundsArray[n];
+      }
+      var newPounds = Number(userPoundTeamCount) - Number(poundsSum);
+
+      let getTeamInfo = teamRef.get().then(teamSnap =>{
+
+        let teamPounds = Number(teamSnap.data().totalPoundsCarbon);
+        let newPoundContribution = teamPounds + newPounds;
+        let pounds = {
+          totalPounds: `${newPoundContribution}`
+        }
+        let poundsCounted = {
+          teamPoundsCounted: `${poundsSum}`
+        }
+
+        let updateTeamPounds = teamRef.update(pounds);
+        let updatePoundsCounted = poundsRef.update(poundsCounted);
+
+      })
+    })
+  })
+}
+
+updateTeamPLPledges(){
+  const userRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`);
+  const pledgesRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('plug-loads');
+  const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads');
+  
+  let getUserInfo = userRef.get().then(userSnap =>{
+    this.team = String(userSnap.data().team);
+
+    const teamRef = firebase.firestore().collection('teams').doc(`${this.team}`);
+
+    let getUserPledgeContributions = pledgesRef.get().then(pledgeSnap =>{
+      
+      
+      let getApprovalStatus = approvalRef.get().then(approvalSnap =>{
+      var userPledgeTeamCount = Number(approvalSnap.data().teamPledgesCounted);
+      var userPledgeCityCount = Number(approvalSnap.data().cityPledgesCounted);
+      var approvedArray = []
+      approvedArray.push(String(approvalSnap.data().pl1),
+                        String(approvalSnap.data().pl2),
+                        String(approvalSnap.data().pl3),
+                        String(approvalSnap.data().pl4),
+                        String(approvalSnap.data().pl5))
+      var pledgeCount = 0
+      for(let n = 0; n<approvedArray.length; n++){
+        if(approvedArray[n] == 'approved'){
+          pledgeCount +=1;
+        }
+      }
+      var newPledges = Number(pledgeCount) - Number(userPledgeTeamCount);
+      if (newPledges > 0){
+        let getTeamInfo = teamRef.get().then(teamSnap =>{
+
+          let teamPledges = Number(teamSnap.data().plPledgeComplete);
+          let newPledgeContribution = teamPledges + newPledges;
+          let pledge = {
+            plPledgeComplete: `${newPledgeContribution}`
+          }
+          let updateTeamPounds = teamRef.update(pledge);
+
+          let pl = {
+            teamPledgesCounted: `${pledgeCount}`
+          }
+
+          let updateCounted = approvalRef.update(pl);
+        
+        })
+        }
+      })
+    })
+  })
+}
+
 
 updateLPoints(){
   const approvalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('lighting');
@@ -871,7 +2099,7 @@ updateHCPoints(){
     let hcStatusArray = []
     hcStatusArray.push(String(docSnapshot.data().hc1), 
                        String(docSnapshot.data().hc2), 
-                       String(docSnapshot.data().hc3),  
+                       String(docSnapshot.data().hc3), 
                        String(docSnapshot.data().hc5),
                        String(docSnapshot.data().hc6))
     let hcPointsArray = [30, 300, 1070, 180, 42]
@@ -897,33 +2125,14 @@ updateHCPoints(){
   })
 }
 
-async countApprovedEd(): Promise<any>{
-
-  let count = 0;
-  let edRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education');
-  var array = []
-  let edSnap = edRef.get().then( snap =>{
-    var obj = snap.data();
-    let array = Object.values(obj);
-    for (let n = 0; n<array.length; n++){
-      if (array[n] == "approved"){
-        count+=1;
-      }
-    } 
-    return count
-  })
-  return edSnap;
-}
-  
-
 
 arrayToString(array: Array<string>){    // This is here if we can figure out promises.
   let string = array.toString();
   console.log(string);
 
-}
+} 
 
-
+//GET INFO FOR USER PROGRESS 
 tryGetUserProgressBar(){
   const edApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('education'); 
   const plApprovalRef = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('approval').doc('plug-loads'); 
