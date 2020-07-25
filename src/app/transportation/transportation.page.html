@@ -71,6 +71,7 @@
 
       <ion-item-group text-center>
       <circle-progress 
+      (click) = "teamAndCityProgressBarTotals()"
       [hidden] = "hidePledges"
       [hidden] = "hideTeamProgressBar"
       [percent]= "teamProgressBar"
@@ -91,6 +92,7 @@
 
       <ion-item-group text-center>
       <circle-progress 
+      (click) = "teamAndCityProgressBarTotals()"
       [hidden] = "hidePledges"
       [percent]= "cityProgressBar"
       [radius]="70"
