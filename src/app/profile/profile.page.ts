@@ -361,9 +361,9 @@ createTeam(teamId: string, accessCode: string) {
         plPledgeComplete: 0,
         CPledgeComplete: 0,
         lPledgeComplete: 0,
-        tpPledgeComplete: 0,
-        tyPledgeComplete: 0,
-        epPledgeComplete: 0,
+        tPledgeComplete: 0,
+        arPledgeComplete: 0,
+        hcPledgeComplete: 0,
         totalPoundsCarbon: 0,
         totalPledgesComplete: 0
       }
