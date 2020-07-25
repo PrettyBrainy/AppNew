@@ -521,6 +521,9 @@ let statusCheck5 = firebase.firestore().collection('userProfile').doc(`${this.ui
   if (incomplete > 0){
     this.incomplete = false;
   }
+  if(incomplete == 0){
+    this.incomplete = true;
+  }
   if(pending > 0){
     this.pending = false;
   }
