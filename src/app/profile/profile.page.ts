@@ -359,7 +359,7 @@ createTeam(teamId: string, accessCode: string) {
         teamPoints: 0,
         edPledgeComplete: 0,
         plPledgeComplete: 0,
-        cPledgeComplete: 0,
+        CPledgeComplete: 0,
         lPledgeComplete: 0,
         tpPledgeComplete: 0,
         tyPledgeComplete: 0,
