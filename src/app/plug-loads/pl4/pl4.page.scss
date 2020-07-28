@@ -2,9 +2,15 @@ ion-toolbar{
     --background: #bee1eb;
   }
   
-  ion-title{
-    padding-left: 16px;
+  .ios ion-title{
+    padding-left: 26px;
     padding-right: 0px;
+    text-transform: uppercase;
+  }
+
+  .md ion-title{
+    padding-left: 0px;
+    padding-right: 26px;
     text-transform: uppercase;
   }
   
