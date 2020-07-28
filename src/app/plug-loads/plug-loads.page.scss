@@ -10,11 +10,18 @@ ion-content{
      font-family: 'Archer-Bold';
  }
  
- ion-title{
-    padding-left: 10px;
+ .ios ion-title{
+    padding-left: 26px;
     padding-right: 0px;
     text-transform: uppercase;
   }
+
+.md ion-title{
+    padding-left: 0px;
+    padding-right: 26px;
+    text-transform: uppercase;
+  }
+
 
   /* #### iPhone 4+ Portrait or Landscape #### */
 @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
