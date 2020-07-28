@@ -2,12 +2,18 @@ ion-toolbar{
     --background: #bee1eb;
   }
   
-  ion-title{
-    padding-left: 15px;
+  .ios ion-title{
+    padding-left: 25px;
     padding-right: 0px;
     text-transform: uppercase;
   }
   
+.md ion-title{
+    padding-left: 0px;
+    padding-right: 25px;
+    text-transform: uppercase;
+  }
+
   /* #### iPhone 4+ Portrait or Landscape #### */
   @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
   ion-title{
