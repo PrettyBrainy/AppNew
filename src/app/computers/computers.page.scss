@@ -10,9 +10,15 @@ ion-content{
      font-family: 'Archer-Bold';
  }
  
- ion-title{
-    padding-left: 10px;
+ .ios ion-title{
+    padding-left: 30px;
     padding-right: 0px;
+    text-transform: uppercase;
+  }
+
+  .md ion-title{
+    padding-left: 0px;
+    padding-right: 30px;
     text-transform: uppercase;
   }
 
