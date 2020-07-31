@@ -91,9 +91,15 @@ ion-list-header {
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
-ion-title{
+.ios ion-title{
   padding-left: 0px;
   padding-right: 12px;
+  text-transform: uppercase;
+}
+
+.md ion-title{
+  padding-left: 12px;
+  padding-right: 0px;
   text-transform: uppercase;
 }
 
