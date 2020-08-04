@@ -28,6 +28,8 @@ export class Ed4Page implements OnInit {
   public pledgeIsApproved: Boolean = true;
   public pledgeSubmittedCard: Boolean = true;
   public hideYourSubmissionHeading: Boolean = false;
+  public useCamera: boolean = true;
+  public dontUseCamera: boolean = false;
   
   constructor(
     public profileService: ProfileService,
@@ -63,6 +65,21 @@ export class Ed4Page implements OnInit {
     }
   )
   this.checkForPledgeContent()
+  this.useCameraFunction();
+  }
+
+useCameraFunction(){
+
+  let camera = firebase.firestore().collection('Conditionals').doc('camera').get().then((snap)=>{
+    this.useCamera = snap.data().use;
+    if(this.useCamera == true){
+      this.dontUseCamera = false;
+    }else{
+      this.dontUseCamera = true;
+    }
+
+  })
+  
   }
 
 
