@@ -29,6 +29,8 @@ export class Ed5Page implements OnInit {
   public pledgeIsApproved: boolean = true;
   public pledgeSubmittedCard: boolean = true;
   public hideYourSubmissionHeading: boolean = false;
+  public useCamera: boolean = true;
+  public dontUseCamera: boolean = false;
   
   constructor(
     public profileService: ProfileService,
@@ -63,6 +65,21 @@ export class Ed5Page implements OnInit {
   
     }
   )
+    this.useCameraFunction();
+  }
+
+useCameraFunction(){
+
+  let camera = firebase.firestore().collection('Conditionals').doc('camera').get().then((snap)=>{
+    this.useCamera = snap.data().use;
+    if(this.useCamera == true){
+      this.dontUseCamera = false;
+    }else{
+      this.dontUseCamera = true;
+    }
+
+  })
+  
   }
 
 
