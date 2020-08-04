@@ -366,7 +366,7 @@
         <ion-card-header> Verify your impact. </ion-card-header>
         <ion-card-content>
           What was one observation you made from the lab, and how does it relate to the atmospheric changes our planet is making?
-          <ion-row>
+          <ion-row ion-row [hidden] = "useCamera">
             <ion-col size="9">
               <ion-item>
                 <ion-label position="stacked">Completion Details:</ion-label>
@@ -374,12 +374,20 @@
               </ion-item>
             </ion-col>
     
-            <ion-col size="3">
+            <ion-col size="3" ion-row [hidden] = "useCamera">
               <ion-button (click)="takePicture()">
                 <ion-icon slot="icon-only" name="camera"></ion-icon>
               </ion-button>
             </ion-col>
           </ion-row>
+          <ion-row ion-row [hidden] = "dontUseCamera">
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Completion Details:</ion-label>
+                <ion-textarea [(ngModel)]="verification" type="text" placeholder="Type your response here!"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            </ion-row>
           <span *ngIf="pledgePicture">Picture taken!</span>
     
           <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
@@ -395,7 +403,7 @@
         <ion-card-header> Verify your impact. </ion-card-header>
         <ion-card-content>
           What was one observation you made from the lab, and how does it relate to the atmospheric changes our planet is making?
-          <ion-row>
+          <ion-row ion-row [hidden] = "useCamera">
             <ion-col size="9">
               <ion-item>
                 <ion-label position="stacked">Completion Details:</ion-label>
@@ -403,12 +411,20 @@
               </ion-item>
             </ion-col>
     
-            <ion-col size="3">
+            <ion-col size="3" ion-row [hidden] = "useCamera">
               <ion-button (click)="takePicture()">
                 <ion-icon slot="icon-only" name="camera"></ion-icon>
               </ion-button>
             </ion-col>
           </ion-row>
+          <ion-row ion-row [hidden] = "dontUseCamera">
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Completion Details:</ion-label>
+                <ion-textarea [(ngModel)]="verification" type="text" placeholder="Type your response here!"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            </ion-row>
           <span *ngIf="pledgePicture">Picture taken!</span>
     
           <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
