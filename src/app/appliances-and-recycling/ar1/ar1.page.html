@@ -45,16 +45,12 @@
                household puts into the environment. Make sure you are doing this safely. 
             </p> 
             <br>
-              <p> To make sure the method of disposal is safe, click the link below for the Environmental Protection Agency’s 
-                FAQ page on safe disposal of refrigerated household items.</p>
+            <p> To make sure the method of disposal is safe, visit the <a href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances" target="_blank"> 
+              Environmental Protection Agency’s FAQ page on safe disposal of refrigerated household appliances</a>. Also, go to 
+             <a href="https://search.earth911.com/?utm_source=earth911-header&utm_medium=top-navigation-menu&utm_campaign=top-nav-recycle-search-button" target="_blank">Earth911</a>
+           to find out where you can recycle your mini fridge.</p>
         </ion-card-content>
       </ion-card>
-      <br>
-
-      <ion-item href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances">
-        <ion-icon slot="start" color="danger" name="link"></ion-icon>
-        <ion-label>Safe Disposal of Refrigerated Appliances</ion-label>
-      </ion-item>
 
         <br>
       </p> 
@@ -92,16 +88,12 @@
                  household puts into the environment. Make sure you are doing this safely. 
               </p> 
               <br>
-                <p> To make sure the method of disposal is safe, click the link below for the Environmental Protection Agency’s 
-                  FAQ page on safe disposal of refrigerated household items.</p>
+              <p> To make sure the method of disposal is safe, visit the <a href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances" target="_blank"> 
+                Environmental Protection Agency’s FAQ page on safe disposal of refrigerated household appliances</a>. Also, go to 
+               <a href="https://search.earth911.com/?utm_source=earth911-header&utm_medium=top-navigation-menu&utm_campaign=top-nav-recycle-search-button" target="_blank">Earth911</a>
+             to find out where you can recycle your mini fridge.</p>
           </ion-card-content>
         </ion-card>
-        <br>
-
-        <ion-item href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances">
-          <ion-icon slot="start" color="danger" name="link"></ion-icon>
-          <ion-label>Safe Disposal of Refrigerated Appliances</ion-label>
-        </ion-item>
         
         <br>
      </p> 
@@ -139,16 +131,12 @@
                household puts into the environment. Make sure you are doing this safely. 
             </p> 
             <br>
-              <p> To make sure the method of disposal is safe, click the link below for the Environmental Protection Agency’s 
-                FAQ page on safe disposal of refrigerated household items.</p>
+            <p> To make sure the method of disposal is safe, visit the <a href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances" target="_blank"> 
+              Environmental Protection Agency’s FAQ page on safe disposal of refrigerated household appliances</a>. Also, go to 
+             <a href="https://search.earth911.com/?utm_source=earth911-header&utm_medium=top-navigation-menu&utm_campaign=top-nav-recycle-search-button" target="_blank">Earth911</a>
+           to find out where you can recycle your mini fridge.</p>
         </ion-card-content>
       </ion-card>
-      <br>
-
-      <ion-item href="https://www.epa.gov/section608/frequently-asked-questions-about-safe-disposal-refrigerated-household-appliances">
-        <ion-icon slot="start" color="danger" name="link"></ion-icon>
-        <ion-label>Safe Disposal of Refrigerated Appliances</ion-label>
-      </ion-item>
         
            <br>   
          </p>
@@ -191,82 +179,3 @@
     </ion-card-content>
   </ion-card>
    </p>
-
-
-   <p [hidden] = "teenPledge">
-  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
-    <ion-card-header> Verify your impact. </ion-card-header>
-    <ion-card-content>
-      Do you have a mini fridge? If so, what did you do to recycle/donate it? If not, what have you learned about fridges and their impact on our environment?
-      <ion-row>
-        <ion-col size="9">
-          <ion-item>
-            <ion-label position="stacked">Completion Details:</ion-label>
-            <ion-textarea [(ngModel)]="verification" type="text" 
-            placeholder="Type your response here!"></ion-textarea>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-button (click)="takePicture()">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-      <span *ngIf="pledgePicture">Picture taken!</span>
-
-      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Earn 370 Points
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-</p>
-
-
-<p [hidden] = "adultPledge">
-  <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
-    <ion-card-header> Verify your impact. </ion-card-header>
-    <ion-card-content>
-      Do you have a mini fridge? If so, what did you do to recycle/donate it? If not, what have you learned about fridges and their impact on our environment?
-      <ion-row>
-        <ion-col size="9">
-          <ion-item>
-            <ion-label position="stacked">Completion Details:</ion-label>
-            <ion-textarea [(ngModel)]="verification" type="text" 
-            placeholder="Type your response here!"></ion-textarea>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-button (click)="takePicture()">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-      <span *ngIf="pledgePicture">Picture taken!</span>
-
-      <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
-        Earn 370 Points
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-</p>
-
-  <ion-card [hidden]  ="pledgeSubmittedCard">
-    <ion-card-header>
-      <ion-card-title>
-        Thank you for taking the pledge! 
-      </ion-card-title>
-      <ion-card-content>
-        <p [hidden] = "pledgeIsPending">Your pledge submission is currently pending.</p>
-        <p [hidden] = "pledgeIsApproved">Your pledge submission has been approved!</p><br [hidden] = "hideYourSubmissionHeading"><br [hidden] = "hideYourSubmissionHeading">
-        <p [hidden] = "hideYourSubmissionHeading">Your submission: </p>
-        <p>
-          <em>{{this.pledgeContent}}</em>
-        </p>
-      </ion-card-content>
-    </ion-card-header>  
-  </ion-card>
-
-</ion-grid>
-</ion-content>
