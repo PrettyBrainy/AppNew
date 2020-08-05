@@ -26,13 +26,6 @@
                       balancing carbon emissions and the removal of carbon.
       </ion-card-content>
     </ion-card>
-
-    <br>
-    <ion-item href="https://www.fcgov.com/climateaction/background.php ">
-      <ion-icon slot="start" color="danger" name="link"></ion-icon>
-      <ion-label>Fort Collins Climate Action Goals</ion-label>
-    </ion-item>
-        <br>
       
   <ion-card class="pledgeCard">
     <ion-card-header>
@@ -45,7 +38,7 @@
       </ion-card-header>
       
       <p>
-          Open the City of Fort Collins Climate Action Plan we have attached below and read it!
+          Open the <a href="https://www.fcgov.com/climateaction/reports.php" target="_blank">City of Fort Collins Climate Action Plan</a> and read it!
           <br>
           We know it’s long, but Pretty Brainy has written an outline of the document to help you 
           locate key points. This outline includes a basic summary of the document and page 
@@ -53,12 +46,6 @@
       </p>
     </ion-card-content>
     </ion-card>
-
-    <br>
-    <ion-item href="https://www.fcgov.com/climateaction/reports.php">
-      <ion-icon slot="start" color="danger" name="link"></ion-icon>
-      <ion-label>Fort Collins Climate Action Plan</ion-label>
-    </ion-item>
 
     <br>
 
@@ -101,13 +88,6 @@
       </ion-card-content>
     </ion-card> 
 
-    <br>
-    <ion-item href="https://www.fcgov.com/climateaction/background.php ">
-      <ion-icon slot="start" color="danger" name="link"></ion-icon>
-      <ion-label>Fort Collins Climate Action Goals</ion-label>
-    </ion-item>
-    <br>
-
       
   <ion-card class="pledgeCard">
     <ion-card-header>
@@ -119,20 +99,14 @@
         <ion-card-subtitle>Read the plan!</ion-card-subtitle>
       </ion-card-header>
       <p>
-          Open the City of Fort Collins Climate Action Plan we have attached below and read it! <br> 
+        Open the <a href="https://www.fcgov.com/climateaction/reports.php" target="_blank">City of Fort Collins Climate Action Plan</a> and read it!
+         <br> 
           We know it’s long, but Pretty Brainy has written an outline of the document to help you locate key points. 
           This outline includes a basic summary of the document and page numbers where important 
           sections of the Climate Action Plan are located! 
         </p>
       </ion-card-content>
     </ion-card>
-
-    <br>
-        <ion-item href="https://www.fcgov.com/climateaction/reports.php">
-          <ion-icon slot="start" color="danger" name="link"></ion-icon>
-          <ion-label>Fort Collins Climate Action Plan</ion-label>
-        </ion-item>
-    
                <br>
     
               <ion-button expand = "full" routerLink = "/ed3docs" routerDirection = "root">
@@ -172,13 +146,6 @@
 
       </ion-card-content>
     </ion-card>
-
-    <br>
-    <ion-item href="https://www.fcgov.com/climateaction/background.php ">
-      <ion-icon slot="start" color="danger" name="link"></ion-icon>
-      <ion-label>Fort Collins Climate Action Goals</ion-label>
-    </ion-item>
-    <br>
       
   <ion-card class="pledgeCard">
     <ion-card-header>
@@ -190,7 +157,8 @@
         <ion-card-subtitle>Read the plan!</ion-card-subtitle>
       </ion-card-header>
       <p>
-          Open the City of Fort Collins Climate Action Plan we have attached below and read it! <br>
+        Open the <a href="https://www.fcgov.com/climateaction/reports.php" target="_blank">City of Fort Collins Climate Action Plan</a> and read it!
+         <br>
           We know it’s long, but Pretty Brainy has written an outline of the document to help you 
           locate key points. This outline includes a basic summary of the document and page numbers where 
           important sections of the Climate Action Plan are located! 
@@ -199,12 +167,6 @@
     </ion-card>
 
         <br>
-        <ion-item href="https://www.fcgov.com/climateaction/reports.php">
-          <ion-icon slot="start" color="danger" name="link"></ion-icon>
-          <ion-label>Fort Collins Climate Action Plan</ion-label>
-        </ion-item>
-    
-               <br>
     
               <ion-button expand = "full" routerLink = "/ed3docs" routerDirection = "root">
                 Fort Collins Climate Action Plan Summary  
@@ -241,7 +203,7 @@
       <ion-card-header> Verify your impact. </ion-card-header>
       <ion-card-content>
         What parts of the document stand out to you? What are your own thoughts about Fort Collins’ goal of becoming carbon neutral by 2050?
-        <ion-row [hidden] = "useCamera">
+        <ion-row>
           <ion-col size="9">
             <ion-item>
               <ion-label position="stacked">Completion Details:</ion-label>
@@ -250,23 +212,12 @@
             </ion-item>
           </ion-col>
   
-          <ion-col size="3" [hidden] = "useCamera">
+          <ion-col size="3">
             <ion-button (click)="takePicture()">
               <ion-icon slot="icon-only" name="camera"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
-        
-        <ion-row [hidden] = "dontUseCamera">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked">Completion Details:</ion-label>
-              <ion-textarea [(ngModel)]="verification" type="text" 
-              placeholder="Type your response here!"></ion-textarea>
-            </ion-item>
-          </ion-col>
-          </ion-row>
-        
         <span *ngIf="pledgePicture">Picture taken!</span>
   
         <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
@@ -282,7 +233,7 @@
       <ion-card-header> Verify your impact. </ion-card-header>
       <ion-card-content>
         What parts of the document stand out to you? What are your own thoughts about Fort Collins’ goal of becoming carbon neutral by 2050?
-        <ion-row [hidden] = "useCamera">
+        <ion-row>
           <ion-col size="9">
             <ion-item>
               <ion-label position="stacked">Completion Details:</ion-label>
@@ -291,22 +242,12 @@
             </ion-item>
           </ion-col>
   
-          <ion-col size="3" [hidden] = "useCamera">
+          <ion-col size="3">
             <ion-button (click)="takePicture()">
               <ion-icon slot="icon-only" name="camera"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
-        
-        <ion-row [hidden] = "dontUseCamera">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked">Completion Details:</ion-label>
-              <ion-textarea [(ngModel)]="verification" type="text" 
-              placeholder="Type your response here!"></ion-textarea>
-            </ion-item>
-          </ion-col>
-          </ion-row>
         <span *ngIf="pledgePicture">Picture taken!</span>
   
         <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
@@ -322,7 +263,7 @@
       <ion-card-header> Verify your impact. </ion-card-header>
       <ion-card-content>
         What parts of the document stand out to you? What are your own thoughts about Fort Collins’ goal of becoming carbon neutral by 2050?
-        <ion-row [hidden] = "useCamera">
+        <ion-row>
           <ion-col size="9">
             <ion-item>
               <ion-label position="stacked">Completion Details:</ion-label>
@@ -331,22 +272,12 @@
             </ion-item>
           </ion-col>
   
-          <ion-col size="3" [hidden] = "useCamera">
+          <ion-col size="3">
             <ion-button (click)="takePicture()">
               <ion-icon slot="icon-only" name="camera"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
-        
-        <ion-row [hidden] = "dontUseCamera">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked">Completion Details:</ion-label>
-              <ion-textarea [(ngModel)]="verification" type="text" 
-              placeholder="Type your response here!"></ion-textarea>
-            </ion-item>
-          </ion-col>
-          </ion-row>
         <span *ngIf="pledgePicture">Picture taken!</span>
   
         <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
