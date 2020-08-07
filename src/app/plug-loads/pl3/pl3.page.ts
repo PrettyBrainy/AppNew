@@ -28,6 +28,8 @@ export class Pl3Page implements OnInit {
   public pledgeIsApproved: boolean = true;
   public pledgeSubmittedCard: boolean = true;
   public hideYourSubmissionHeading: boolean = false;
+  public useCamera: boolean = true;
+  public dontUseCamera: boolean = false;
   
   
   constructor(
@@ -57,7 +59,22 @@ export class Pl3Page implements OnInit {
     }
   )
 
-  this.checkForPledgeContent()
+  this.checkForPledgeContent();
+  this.useCameraFunction();
+  }
+
+useCameraFunction(){
+
+  let camera = firebase.firestore().collection('Conditionals').doc('camera').get().then((snap)=>{
+    this.useCamera = snap.data().use;
+    if(this.useCamera == true){
+      this.dontUseCamera = false;
+    }else{
+      this.dontUseCamera = true;
+    }
+
+  })
+  
   }
 
 
