@@ -181,7 +181,7 @@
     <ion-card-header> Verify your impact. </ion-card-header>
     <ion-card-content>
       What other methods of travel or communication can you or will you use when you can't fly? In what ways can you make this alternative turn out to be a great success?
-      <ion-row>
+      <ion-row [hidden] = "useCamera">
         <ion-col size="9">
           <ion-item>
             <ion-label position="stacked">Completion Details:</ion-label>
@@ -190,12 +190,22 @@
           </ion-item>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="3" [hidden] = "useCamera">
           <ion-button (click)="takePicture()">
             <ion-icon slot="icon-only" name="camera"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
+        
+        <ion-row [hidden] = "dontUseCamera">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="Type your response here!"></ion-textarea>
+          </ion-item>
+        </ion-col>
+       </ion-row>
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
@@ -210,8 +220,10 @@
   <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
     <ion-card-header> Verify your impact. </ion-card-header>
     <ion-card-content>
+      
       What other methods of travel or communication can you or will you use when you can't fly? In what ways can you make this alternative turn out to be a great success?
-      <ion-row>
+      
+      <ion-row [hidden] = "useCamera">
         <ion-col size="9">
           <ion-item>
             <ion-label position="stacked">Completion Details:</ion-label>
@@ -220,12 +232,23 @@
           </ion-item>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="3" [hidden] = "useCamera">
           <ion-button (click)="takePicture()">
             <ion-icon slot="icon-only" name="camera"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
+        
+        <ion-row [hidden] = "dontUseCamera">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="Type your response here!"></ion-textarea>
+          </ion-item>
+        </ion-col>
+       </ion-row>
+
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
@@ -239,9 +262,12 @@
 <p [hidden] = "adultPledge">
   <ion-card class="verifyPledgeForm" [hidden] = "hideVerfCard">
     <ion-card-header> Verify your impact. </ion-card-header>
+    
     <ion-card-content>
+    
       What other methods of travel or communication can you or will you use when you can't fly? In what ways can you make this alternative turn out to be a great success?
-      <ion-row>
+      
+      <ion-row [hidden] = "useCamera">
         <ion-col size="9">
           <ion-item>
             <ion-label position="stacked">Completion Details:</ion-label>
@@ -250,12 +276,22 @@
           </ion-item>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="3" [hidden] = "useCamera">
           <ion-button (click)="takePicture()">
             <ion-icon slot="icon-only" name="camera"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
+        
+        <ion-row [hidden] = "dontUseCamera">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Completion Details:</ion-label>
+            <ion-textarea [(ngModel)]="verification" type="text" 
+            placeholder="Type your response here!"></ion-textarea>
+          </ion-item>
+        </ion-col>
+       </ion-row>
       <span *ngIf="pledgePicture">Picture taken!</span>
 
       <ion-button color="secondary" expand="block" (click)="verifyPledge(verification)" [disabled]="!verification">
