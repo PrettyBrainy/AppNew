@@ -1,0 +1,46 @@
+ion-img{
+
+    width: inherit;
+}
+
+ion-img.round{
+    border-radius: 20%;
+}
+
+ion-card{
+    background:#f4f5f7;
+    font-family: 'ChollaSans-Thin' !important; 
+    color: #000000;
+  }
+  
+  ion-card-title{
+    font-family: 'ChollaSans-Thin' !important; 
+    font-size: 30px;
+    color: #66b067;
+  }
+  
+  ion-card-subtitle{
+    color: #252528;
+    font-size: 18px;
+  }
+
+  H1{
+    font-size: xx-large;
+    color: #1ba561;
+    font-family: 'ChollaSans-Thin' !important; 
+  }
+
+  H2{
+    font-size: x-large;
+    color: #f99f38;
+    font-family: 'ChollaSans-Thin' !important; 
+
+  }
+
+  div.developer{
+      background-color: #1ba561;
+  }
+
+  div.contentCreator{
+      background-color:  #f99f38;
+  }
