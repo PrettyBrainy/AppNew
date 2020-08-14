@@ -87,7 +87,8 @@ const routes: Routes = [
   { path: 'hc3', loadChildren: './heating-and-cooling/hc3/hc3.module#Hc3PageModule' },
   { path: 'hc4', loadChildren: './heating-and-cooling/hc4/hc4.module#Hc4PageModule' },
   { path: 'hc5', loadChildren: './heating-and-cooling/hc5/hc5.module#Hc5PageModule' },
-  { path: 'hc6', loadChildren: './heating-and-cooling/hc6/hc6.module#Hc6PageModule' }
+  { path: 'hc6', loadChildren: './heating-and-cooling/hc6/hc6.module#Hc6PageModule' },
+  { path: 'dev-page', loadChildren: './dev-page/dev-page.module#DevPagePageModule' }
  
 ];
 @NgModule({
