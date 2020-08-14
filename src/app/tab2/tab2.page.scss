@@ -26,10 +26,13 @@
        background: #ffdd77;
    }
 
-   .covid-card ion-card-content{
-        font-size: 24px;
+   .covid-card{ ion-card-content{
+        font-size: 18px;
         color: #000000;
-   }
+   } 
+        p{
+            font-size: 18px;
+        }}
 
 
   .recycle-card img{
@@ -46,6 +49,11 @@
   font-size: 30px;
  }
 
- .recycle-card ion-card-subtitle{
+ .recycle-card {
+     ion-card-subtitle{
      font-size: 15px;
  }
+    ion-card-content{
+        font-size: 22px;
+    }
+}
