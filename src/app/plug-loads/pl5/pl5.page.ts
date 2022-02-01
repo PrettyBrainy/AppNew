@@ -137,7 +137,7 @@ checkForPledgeContent(){
     this.uid = user.uid;
   }
 let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('plug-loads').get().then((docSnapshot)=>{
-  this.pledgeContent = docSnapshot.data().ed2;
+  this.pledgeContent = docSnapshot.data().pl5;
   console.log(this.pledgeContent);
 
   //NEW CONTENT BELOW HERE
