@@ -131,20 +131,36 @@ this.pledgeSubmittedCard = false;
 }
 
 
-
 checkForPledgeContent(){
   var user = firebase.auth().currentUser;
   if (user != null) {
     this.uid = user.uid;
   }
-let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('lighting').get().then((docSnapshot)=>{
-  this.pledgeContent = docSnapshot.data().l1;
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
+  this.pledgeContent = docSnapshot.data().ed2;
   console.log(this.pledgeContent);
 
-  if (this.pledgeContent !=''){
+  //NEW CONTENT BELOW HERE
+  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
+    let approvalStatus={
+      l1: "approved"
+    }
     this.hideVerfCard = true;
+    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+    .collection('approval').doc('appliancesAndRecycling').update(approvalStatus);
+    this.pledgeSubmittedCard = false;
+  }
+  if (this.pledgeContent !=''){
+    let approvalStatus = {
+      l1: "pending"
+    }
+    this.hideVerfCard = true;
+    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
+    .collection('approval').doc('lighting').update(approvalStatus);
+    this.pledgeSubmittedCard = false;
   }
 })
+// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
 
