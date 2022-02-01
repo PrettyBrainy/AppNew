@@ -137,8 +137,8 @@ checkForPledgeContent(){
   if (user != null) {
     this.uid = user.uid;
   }
-let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
-  this.pledgeContent = docSnapshot.data().ed2;
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('appliances-and-recycling').get().then((docSnapshot)=>{
+  this.pledgeContent = docSnapshot.data().ar1;
   console.log(this.pledgeContent);
 
   //NEW CONTENT BELOW HERE
