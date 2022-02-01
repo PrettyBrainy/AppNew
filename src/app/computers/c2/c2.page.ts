@@ -137,8 +137,8 @@ checkForPledgeContent(){
   if (user != null) {
     this.uid = user.uid;
   }
-let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('education').get().then((docSnapshot)=>{
-  this.pledgeContent = docSnapshot.data().ed2;
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('computers').get().then((docSnapshot)=>{
+  this.pledgeContent = docSnapshot.data().c2;
   console.log(this.pledgeContent);
 
   //NEW CONTENT BELOW HERE
@@ -148,7 +148,7 @@ let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`
     }
     this.hideVerfCard = true;
     const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('appliancesAndRecycling').update(approvalStatus);
+    .collection('approval').doc('computers').update(approvalStatus);
     this.pledgeSubmittedCard = false;
   }
   if (this.pledgeContent !=''){
