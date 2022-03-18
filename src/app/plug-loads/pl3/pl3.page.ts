@@ -139,30 +139,13 @@ checkForPledgeContent(){
     this.uid = user.uid;
   }
 let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('plug-loads').get().then((docSnapshot)=>{
-  this.pledgeContent = docSnapshot.data().ed2;
+  this.pledgeContent = docSnapshot.data().pl3;
   console.log(this.pledgeContent);
 
-  //NEW CONTENT BELOW HERE
-  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
-    let approvalStatus={
-      pl3: "approved"
-    }
-    this.hideVerfCard = true;
-    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('plugLoads').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
-  }
   if (this.pledgeContent !=''){
-    let approvalStatus = {
-      pl3: "pending"
-    }
     this.hideVerfCard = true;
-    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('plugLoads').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
   }
 })
-// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
 
