@@ -137,31 +137,14 @@ checkForPledgeContent(){
   if (user != null) {
     this.uid = user.uid;
   }
-let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('appliances-and-recycling').get().then((docSnapshot)=>{
+let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`).collection('pledges').doc('appliancesAndRecycling').get().then((docSnapshot)=>{
   this.pledgeContent = docSnapshot.data().ar1;
   console.log(this.pledgeContent);
 
-  //NEW CONTENT BELOW HERE
-  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
-    let approvalStatus={
-      ar1: "approved"
-    }
-    this.hideVerfCard = true;
-    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('appliancesAndRecycling').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
-  }
   if (this.pledgeContent !=''){
-    let approvalStatus = {
-      ar1: "pending"
-    }
     this.hideVerfCard = true;
-    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('appliancesAndRecycling').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
   }
 })
-// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
 
