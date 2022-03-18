@@ -129,6 +129,7 @@ const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`
 this.pledgeSubmittedCard = false;
 
 }
+  
 
 
 checkForPledgeContent(){
@@ -140,30 +141,12 @@ let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`
   this.pledgeContent = docSnapshot.data().l1;
   console.log(this.pledgeContent);
 
-  //NEW CONTENT BELOW HERE
-  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
-    let approvalStatus={
-      l1: "approved"
-    }
-    this.hideVerfCard = true;
-    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('lighting').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
-  }
   if (this.pledgeContent !=''){
-    let approvalStatus = {
-      l1: "pending"
-    }
     this.hideVerfCard = true;
-    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('lighting').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
   }
 })
-// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
-
 
 
 checkForPledgeStatus(){
