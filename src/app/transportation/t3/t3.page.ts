@@ -131,7 +131,6 @@ this.pledgeSubmittedCard = false;
 }
 
 
-
 checkForPledgeContent(){
   var user = firebase.auth().currentUser;
   if (user != null) {
@@ -141,27 +140,10 @@ let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`
   this.pledgeContent = docSnapshot.data().t3;
   console.log(this.pledgeContent);
 
-  //NEW CONTENT BELOW HERE
-  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
-    let approvalStatus={
-      t3: "approved"
-    }
-    this.hideVerfCard = true;
-    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('transportation').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
-  }
   if (this.pledgeContent !=''){
-    let approvalStatus = {
-      t3: "pending"
-    }
     this.hideVerfCard = true;
-    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('transportation').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
   }
 })
-// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
 
