@@ -141,27 +141,10 @@ let verfCheck = firebase.firestore().collection('userProfile').doc(`${this.uid}`
   this.pledgeContent = docSnapshot.data().c3;
   console.log(this.pledgeContent);
 
-  //NEW CONTENT BELOW HERE
-  if (this.pledgeContent.includes(' ') || this.pledgeContent.includes('.') || this.pledgeContent.includes(',')) {
-    let approvalStatus={
-      c3: "approved"
-    }
-    this.hideVerfCard = true;
-    const approved = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('computers').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
-  }
   if (this.pledgeContent !=''){
-    let approvalStatus = {
-      c3: "pending"
-    }
     this.hideVerfCard = true;
-    const pending = firebase.firestore().collection('userProfile').doc(`${this.uid}`)
-    .collection('approval').doc('computers').update(approvalStatus);
-    this.pledgeSubmittedCard = false;
   }
 })
-// NEW CONTENT ABOVE HERE
 this.checkForPledgeStatus();
 }
 
